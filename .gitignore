@@ -1,0 +1,23 @@
+# common gitignore
+/vendor/
+/node_modules/*
+/.sass-cache/*
+composer.phar
+/node_modules/
+
+# app files
+app/settings.php
+
+# var files
+var/files/datasets/*
+!var/files/datasets/.keep
+var/files/dni/*
+!var/files/dni/.keep
+var/files/documents/*
+!var/files/documents/.keep
+var/files/project/*
+!var/files/project/.keep
+var/logs/*
+!var/logs/.keep
+var/cache/*
+!var/cache/.keep

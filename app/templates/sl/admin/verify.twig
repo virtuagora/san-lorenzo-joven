@@ -1,0 +1,109 @@
+{% set votable = ( is_state('vote') and vote_available() ) ? 'true' : 'false'  %}
+{% extends 'sl/admin/master.twig' %}
+
+{% block section %}
+	<h1 class="title is-1">Verificar cuentas de usuarios
+	</h1>
+	<h2 class="subtitle is-4">
+		Al verificar usuarios se les habilita la posibilidad de votar.
+	</h2>
+	<hr>
+  <div class="message is-dark">
+    <div class="message-body">
+      <nav class="level">
+        <div class="level-item">
+          <h1 class="title is-3">Usuarios</h1>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Registrados</p>
+            <p class="title">{{usersTotal}}</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Pendientes</p>
+            <p class="title">{{usersPending|length}}</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Verificados</p>
+            <p class="title">{{usersVerified|length}}</p>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </div>
+  <h1 class="title is-4">Usuarios que faltan verificar</h1>
+	<table class="table is-fullwidth is-narrow is-bordered">
+		<thead>
+			<tr>
+				<th>Nombre y Apellido</th>
+				<th>Datos</th>
+				<th class="has-text-centered">Archivo</th>
+				<th class="has-text-centered">Acción</th>
+			</tr>
+		</thead>
+    <tbody>
+  		{% if usersPending is empty %}
+				<tr>
+					<td colspan="4">
+						<p class="has-text-centered">
+							- No hay usuarios pendientes para verificar -</p>
+					</td>
+				</tr>
+			{% else %}
+        {% for user in usersPending %}
+					<tr>
+						<td>
+							<p class="is-size-5">
+							<b>{{ user.surnames|upper }}</b>, {{ user.names }}
+							</p>
+							<p><b>DNI</b> - {{user.dni}}</p>
+						</td>
+						<td>
+							<p><b>Fecha Nacimiento:</b>&nbsp;{{user.birthday|date('Y-m-d')}}</p>
+						  <p><b>Escuela:</b>&nbsp;{{user.neighbourhoodName}}</p>
+						  <p><b>Email:</b>&nbsp;{{user.email}}</p>
+							<p class="is-size-7"><b>Nota:</b>&nbsp;{{user.notes ?: '<i>- Nada que agregar -</i>'}}</p>
+						</td>
+						<td class="has-text-centered">
+							<a href="{{path_for('getAdminUserDniFile',{'usr': user.id}) }}" class="has-text-link" target="_blank">
+								<i class="fas fa-eye"></i>&nbsp;Ver</a>
+						</td>
+						<td class="has-text-centered">
+            <form action="{{path_for('runAdminVerifyUser',{'usr': user.id})}}" method="POST">
+							<button type="submit" class="button is-success is-small">
+								<i class="fas fa-check"></i>&nbsp;Verificar</button>
+            </form>
+						</td>
+					</tr>
+				{% endfor %}
+			{% endif %}
+    </tbody>
+	</table>
+  <h1 class="title is-4">Usuarios Verificados</h1>
+  <table class="table is-fullwidth is-bordered is-narrow">
+    <tbody>
+    {% if usersVerified is empty %}
+				<tr>
+					<td>
+						<p class="has-text-centered">
+							- No hay usuarios verificados -</p>
+					</td>
+				</tr>
+			{% else %}
+      {% for user in usersVerified %}
+        <tr>
+          <td>
+            <p class="is-size-7">
+            <b>{{ user.surnames|upper }}</b>, {{ user.names }}, {{user.dni}}, {{user.neighbourhoodName}}&nbsp;&nbsp;&nbsp;<a href="{{path_for('getAdminUserDniFile',{'usr': user.id}) }}" target="_blank"><i class="fas fa-file"></i></a>
+            </p>
+          </td>
+        </tr>
+      {% endfor %}
+    {% endif %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'sl/panel/master.twig' %}
+
+{% block section %}
+    <h1 class="title is-1">Verificar cuenta</h1>
+    <h2 class="subtitle is-4">Requerimiento para poder votar</h2>
+    <div class="message is-primary">
+      <div class="message-body">
+        Para poder votar (y para que tu propuesta/proyecto sea factible de llevar a cabo) es importante que se el equipo de Presupuesto Participativo Joven verifique tu documento. Para eso, debes enviar una imagen o archivo donde se vea la parte delantera (y en lo posible) trasera del DNI.
+      </div>
+    </div>
+    {% if user.verified_dni == false and user.verified_dni is not null %}
+    <div class="notification is-link">
+    <p class="is-size-3"><b>Gracias por subir tus datos</b></p>
+    <p class="is-size-5"><i class="fas fa-info-circle fa-lg"></i>&nbsp;<b>¡El equipo está verificando tu documento!</b></p>
+    <p>Te pedimos que vuelvas mas tardes para confirmar que el equipo confirmó tus datos</p>
+    </div>
+    {% endif %}
+    {% if user.verified_dni == true %}
+    <div class="notification is-success">
+    <p class="is-size-3"><i class="fas fa-check-circle fa-lg"></i>&nbsp;<b>¡Tu cuenta ha sido verificada!</b></p>
+    <p>¡Ahora vas a poder votar de forma <u>online</u> en el presupuesto participativo!</p>
+    </div>
+    {% elseif user.verified_dni is null %}
+    <user-panel-form-file-dni url="{{path_for('runUploadDniUser')}}">
+    </user-panel-form-file-dni>
+    {% endif %}
+{% endblock %}
