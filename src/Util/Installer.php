@@ -349,14 +349,14 @@ class Installer
             ],
             [
                 'key' => 'proposals-launch',
-                'value' => '2019-08-27 12:00:00',
+                'value' => '2020-06-29 07:00:00',
                 'type' => 'date',
                 'group' => 'varios',
                 'autoload' => true,
             ],
             [
                 'key' => 'proposals-deadline',
-                'value' => '2019-09-05 23:59:59',
+                'value' => '2020-07-24 23:59:59',
                 'type' => 'date',
                 'group' => 'varios',
                 'autoload' => true,
@@ -370,14 +370,14 @@ class Installer
             ],  
             [
                 'key' => 'vote-launch',
-                'value' => '2019-08-27 12:00:00',
+                'value' => '2019-08-17 07:00:00',
                 'type' => 'date',
                 'group' => 'varios',
                 'autoload' => true,
             ],
             [
                 'key' => 'vote-deadline',
-                'value' => '2019-09-05 23:59:59',
+                'value' => '2019-08-30 23:59:59',
                 'type' => 'date',
                 'group' => 'varios',
                 'autoload' => true,
@@ -391,7 +391,7 @@ class Installer
             ],
             [
                 'key' => 'budget-limit',
-                'value' => '100000',
+                'value' => '400000',
                 'type' => 'integer',
                 'group' => 'varios',
                 'autoload' => true,
@@ -405,7 +405,7 @@ class Installer
             ],
             [
                 'key' => 'rain-message',
-                'value' => 'En caso de llvia, nos podés encontrar en el parador turístico de San Lorenzo, 3 de Febrero entre San Carlos y Sg. Cabral',
+                'value' => 'Nos podés encontrar en el parador turístico de San Lorenzo, 3 de Febrero entre San Carlos y Sg. Cabral',
                 'type' => 'string',
                 'group' => 'varios',
                 'autoload' => true,
