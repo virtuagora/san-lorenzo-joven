@@ -11,15 +11,15 @@
   <meta property="og:title" content="{{project.name}} - ¡Bancalo en INGENIA!">
   <meta property="og:description" content="{{project.abstract|length > 300 ? project.abstract|slice(0, 300) ~ '...' : project.abstract}}">
   {% if project.has_image %}
-    <meta property="og:image" content="https://pp.sanlorenzo.gob.ar/{{path_for('getProPic',{'pro': project.id})}}">
+    <meta property="og:image" content="https://ppjoven.sanlorenzo.gob.ar/{{path_for('getProPic',{'pro': project.id})}}">
     <meta property="og:image:width" content="1000">
     <meta property="og:image:height" content="777">
   {% else %}
-    <meta property="og:image" content="https://pp.sanlorenzo.gob.ar/assets/img/img-bancar-sharer-01.png">
+    <meta property="og:image" content="https://ppjoven.sanlorenzo.gob.ar/assets/img/img-bancar-sharer-01.png">
     <meta property="og:image:width" content="1100">
     <meta property="og:image:height" content="565">
   {% endif %}
-  <meta property="og:url" content="https://pp.sanlorenzo.gob.ar/proyecto/{{project.id}}">
+  <meta property="og:url" content="https://ppjoven.sanlorenzo.gob.ar/proyecto/{{project.id}}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{project.name}} - ¡Bancalo en INGENIA!">
   <meta name="twitter:site" content="@virtuagora">
@@ -32,7 +32,7 @@
       FB.ui({
         method: 'share',
         mobile_iframe: true,
-        href: 'https://pp.sanlorenzo.gob.ar/proyecto/{{project.id}}',
+        href: 'https://ppjoven.sanlorenzo.gob.ar/proyecto/{{project.id}}',
         hashtag: '#ingenia',
         quote: '¡El proyecto "{{project.name}}" está participando de INGENIA y necesita tú apoyo! ¡Ingresá en la página y bancalo con tú voto!',
         display: 'popup',
