@@ -65,28 +65,28 @@
           <i class="fas fa-book-reader fa-fw fa-lg"></i>&nbsp;Catálogo
         </a>
         {% endif %}
-        <div class="navbar-item has-dropdown is-hoverable">
+        {# <div class="navbar-item has-dropdown is-hoverable">
           <div class="navbar-link">
             <i class="fas fa-info-circle fa-fw fa-lg"></i>&nbsp;Mas info
           </div>
           <div class="navbar-dropdown is-right">
-            {# <a class="navbar-item" href="{{path_for('showAgenda')}}">
+            <a class="navbar-item" href="{{path_for('showAgenda')}}">
                 <i class="far fa-calendar-alt fa-fw fa-lg"></i>&nbsp;Agenda y Fechas
-            </a> #}
-            {# <a class="navbar-item" href="{{path_for('showDatos')}}">
+            </a>
+            <a class="navbar-item" href="{{path_for('showDatos')}}">
               <i class="fas fa-chart-line fa-fw fa-lg"></i>&nbsp;Datos #PPSanLorenzo
-            </a> #}
+            </a>
             <a class="navbar-item" href="{{path_for('showSellos')}}">
               <i class="fas fa-database fa-fw fa-lg"></i>&nbsp;Integridad de los resultados
             </a>
-            {# <a class="navbar-item" href="{{path_for('showResultsPPJoven')}}">
+            <a class="navbar-item" href="{{path_for('showResultsPPJoven')}}">
               <i class="fas fa-medal fa-fw fa-lg"></i>&nbsp;Escrutinio PP Joven 2019
-            </a> #}
+            </a>
             <a class="navbar-item" href="{{path_for('showFAQ')}}">
               <i class="fas fa-question-circle fa-fw fa-lg"></i>&nbsp;Preguntas frecuentes
             </a>
           </div>
-        </div>
+        </div> #}
         {% if subject.id %}
           {# MOBILE MENU #}
           {% if 'admin' in subject.roles  %}
