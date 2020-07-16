@@ -138,8 +138,18 @@
             placeholder="Seleccione si es comunitario o institucional"
           >
             <option :value="null" disabled>- Selecciona el tipo de propuesta -</option>
-            <option value="comunitario">Comunitario</option>
-            <option value="institucional">Institucional</option>
+            <option value="Comunicación y Tecnología">Comunicación y Tecnología</option>
+            <option value="Arte y diseño">Arte y diseño</option>
+            <option value="Salud y fitness">Salud y fitness</option>
+            <option value="Redes sociales">Redes sociales</option>
+            <option value="Participación social ">Participación social </option>
+            <option value="Formación y Educación">Formación y Educación</option>
+            <option value="Diversidad y género">Diversidad y género</option>
+            <option value="Consumos problemáticos">Consumos problemáticos</option>
+            <option value="Violencia y discriminación">Violencia y discriminación</option>
+            <option value="Turismo">Turismo</option>
+            <option value="Tercera edad">Tercera edad</option>
+            <option value="Discapacidad">Discapacidad</option>
           </select>
         </div>
         <span v-show="errors.has('project.type')" class="help is-danger">

@@ -23,7 +23,7 @@ class ProjectResource extends ContainerClient
 				],
 				'type' => [
 					'type' => 'string',
-					'enum' => ['inclusion', 'deporte', 'educacion', 'otro'],
+					'enum' => ['Comunicación y Tecnología','Arte y diseño','Salud y fitness','Redes sociales','Participación social ','Formación y Educación','Diversidad y género','Consumos problemáticos','Violencia y discriminación','Turismo','Tercera edad','Discapacidad'],
 				],
 				'slug' => [
 					'type' => 'string',

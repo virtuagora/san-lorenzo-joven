@@ -40,10 +40,18 @@
                   expanded
                 >
                   <option :value="null">Todos los tipos</option>
-                  <option value="inclusion">Inclusión</option>
-                  <option value="deporte">Deporte</option>
-                  <option value="educacion">Educación</option>
-                  <option value="otros">Otros</option>
+                  <option value="Comunicación y Tecnología">Comunicación y Tecnología</option>
+                  <option value="Arte y diseño">Arte y diseño</option>
+                  <option value="Salud y fitness">Salud y fitness</option>
+                  <option value="Redes sociales">Redes sociales</option>
+                  <option value="Participación social ">Participación social </option>
+                  <option value="Formación y Educación">Formación y Educación</option>
+                  <option value="Diversidad y género">Diversidad y género</option>
+                  <option value="Consumos problemáticos">Consumos problemáticos</option>
+                  <option value="Violencia y discriminación">Violencia y discriminación</option>
+                  <option value="Turismo">Turismo</option>
+                  <option value="Tercera edad">Tercera edad</option>
+                  <option value="Discapacidad">Discapacidad</option>
                 </b-select>
               </b-field>
             </div>
