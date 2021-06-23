@@ -117,6 +117,9 @@ class LocalIdentityProvider
         $user->dni = $data['dni'];
         $user->surnames = $data['surnames'];
         $user->birthday = Carbon::parse($data['birthday']);
+        if(isset($data['bio'])){
+            $user->bio = $data['bio'];
+        }
         $user->subject()->associate($subj);
         $user->save();
         $pending->delete();

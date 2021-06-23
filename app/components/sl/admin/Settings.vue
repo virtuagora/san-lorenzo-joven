@@ -1,5 +1,13 @@
 <template>
   <section>
+     <h1 class="title is-4">
+      <i class="fas fa-arrow-right fa-fw"></i> Edición actual</h1>
+    <h2 class="subtitle is-6">
+      Defina en el año de la edición actual. Todos los proyectos que se creen van a llevar este año.
+      <i class="fas fa-exclamation-triangle fa-fw"></i> Nota: Al modificar este dato, tu sesión se cerrará, tendras que volver a loguearte.
+    </h2>
+    <current-edition :value="theSettings['current-edition'].value"></current-edition>
+    <hr>
     <h1 class="title is-4">
       <i class="fas fa-arrow-right fa-fw"></i> Estado de la plataforma</h1>
     <h2 class="subtitle is-6">
@@ -31,6 +39,14 @@
       <i class="fas fa-exclamation-triangle fa-fw"></i> Nota: Al modificar este dato, tu sesión se cerrará, tendras que volver a loguearte.
     </h2>
     <proposals-available :value="theSettings['proposals-available'].value"></proposals-available>
+    <hr>
+    <h1 class="title is-4">
+      <i class="fas fa-arrow-right fa-fw"></i> Refrescar cache</h1>
+    <h2 class="subtitle is-6">
+      ¿Errores de actualizacion? Haga clic para refrescar la cache (Puede utilizar el formato YYYYMMDD como protocolo)
+      <i class="fas fa-exclamation-triangle fa-fw"></i> Nota: Al modificar este dato, tu sesión se cerrará, tendras que volver a loguearte.
+    </h2>
+    <refresh-cache :value="theSettings['refresh-cache'].value"></refresh-cache>
     <hr>
     <h1 class="title is-4">
       <i class="fas fa-arrow-right fa-fw"></i> Comienzo de la votación</h1>
@@ -91,6 +107,7 @@
 </template>
 
 <script>
+import CurrentEdition from "./settings/CurrentEdition";
 import ChangeState from "./settings/ChangeState";
 import ProposalsDeadline from "./settings/ProposalsDeadline";
 import ProposalsLaunch from "./settings/ProposalsLaunch";
@@ -101,11 +118,13 @@ import VoteAvailable from "./settings/VoteAvailable";
 import ShowResults from "./settings/ShowResults";
 import BudgetLimit from "./settings/BudgetLimit";
 import Calendar from "./settings/Calendar";
+import RefreshCache from "./settings/RefreshCache";
 import Rain from "./settings/Rain";
 
 export default {
   props: ["settings"],
   components: {
+    CurrentEdition,
     ChangeState,
     ProposalsDeadline,
     ProposalsLaunch,
@@ -116,6 +135,7 @@ export default {
     ShowResults,
     BudgetLimit,
     Calendar,
+    RefreshCache,
     Rain
   },
   data() {

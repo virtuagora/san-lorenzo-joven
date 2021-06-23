@@ -12,7 +12,8 @@ class DistrictsLoader
     public function up()
     {
         $this->db->table('districts')->insert([
-            ['id' => 1, 'name' => 'Escuela'],
+            ['id' => 1, 'name' => 'Vivo en SL'],
+            ['id' => 2, 'name' => 'No vivo en SL'],
         ]);
         $this->db->table('neighbourhoods')->insert([
             ['id' => 1, 'district_id' => 1, 'name' => 'N°439 Dr. Melitón Francisco Hierro'],
@@ -26,7 +27,9 @@ class DistrictsLoader
             ['id' => 9, 'district_id' => 1, 'name' => 'EETP N°672 Remedios Escalada de San Martín'],
             ['id' => 10, 'district_id' => 1, 'name' => 'EETP N°477 Combate de San Lorenzo'],
             ['id' => 11, 'district_id' => 1, 'name' => 'EEMPA N°1128 Juana Azurduy'],
-            ['id' => 12, 'district_id' => 1, 'name' => 'Vivo en SL y voy a una escuela de otra localidad'],
+            ['id' => 12, 'district_id' => 1, 'name' => 'Voy a una escuela en otra localidad'],
+            ['id' => 13, 'district_id' => 1, 'name' => 'No voy a la escuela'],
+            ['id' => 14, 'district_id' => 2, 'name' => 'Voy a una escuela de SL']
         ]);
     }
 }

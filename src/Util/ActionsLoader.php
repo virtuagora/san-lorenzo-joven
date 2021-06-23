@@ -17,7 +17,7 @@ class ActionsLoader
     public function up()
     {
         $this->db->table('actions')->insert([
-            ['id' => 'createProject', 'group' => 'project', 'allowed_roles' => '["verified","admin"]', 'allowed_relations' => '[]', 'allowed_proxies' => '[]'],
+            ['id' => 'createProject', 'group' => 'project', 'allowed_roles' => '["verified","admin","user"]', 'allowed_relations' => '[]', 'allowed_proxies' => '[]'],
             ['id' => 'updateProject', 'group' => 'project', 'allowed_roles' => '["admin"]', 'allowed_relations' => '["author"]', 'allowed_proxies' => '[]'],
             ['id' => 'manageProject', 'group' => 'project', 'allowed_roles' => '["admin"]', 'allowed_relations' => '[]', 'allowed_proxies' => '[]'],
             ['id' => 'updatePassword', 'group' => 'user', 'allowed_roles' => '["admin"]', 'allowed_relations' => '["self"]', 'allowed_proxies' => '[]'],

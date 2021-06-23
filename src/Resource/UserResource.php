@@ -50,6 +50,16 @@ class UserResource extends Resource
                     'minLength' => 10,
                     'maxLength' => 100,
                 ],
+                'bio' => [
+                    'oneOf' => [
+                        [
+                            'type' => 'string',
+                            'maxLength' => 1500,
+                        ], [
+                            'type' => 'null',
+                        ],
+                    ],
+                ],
             ],
             'required' => ['names', 'surnames', 'password', 'birthday', 'neighbourhood_id', 'dni', 'token'],
             'additionalProperties' => false,

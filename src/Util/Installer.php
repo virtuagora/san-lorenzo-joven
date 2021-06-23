@@ -99,6 +99,8 @@ class Installer
             $table->dateTime('birthday')->nullable();
             $table->string('gender')->nullable();
             $table->string('telephone')->nullable();
+            // $table->string('other_location')->nullable();
+            // $table->string('other_school')->nullable();
             $table->text('bio')->nullable();
             $table->string('pending_email')->nullable();
             $table->string('token')->nullable();
@@ -153,6 +155,7 @@ class Installer
             $table->string('code')->nullable();
             $table->string('name');
             $table->string('type');
+            $table->integer('edition')->default(2000);
             $table->string('slug')->nullable();
             $table->integer('district_id')->unsigned();
             $table->foreign('district_id')->references('id')->on('districts');
@@ -161,7 +164,7 @@ class Installer
             $table->text('benefited_population')->nullable();
             $table->text('community_contributions')->nullable();
             $table->text('budget')->nullable();
-            $table->decimal('total_budget')->default(0);
+            $table->decimal('total_budget',12,2)->default(0);
             $table->string('author_names');
             $table->string('author_surnames');
             $table->string('author_phone')->nullable();
@@ -170,6 +173,7 @@ class Installer
             $table->string('organization_name')->nullable();
             $table->string('organization_legal_entity')->nullable();
             $table->string('organization_address')->nullable();
+            $table->string('organization_nro_personeria')->nullable();
             $table->text('feasibility')->nullable();
             $table->text('journal')->nullable();
             $table->text('notes')->nullable();
@@ -178,6 +182,8 @@ class Installer
             $table->boolean('public')->default(false);
             $table->boolean('feasible')->nullable();
             $table->boolean('selected')->default(false);
+            $table->string('monitoringStatus')->nullable();
+            $table->text('monitoringComment')->nullable();
             $table->integer('likes')->default(0);
             $table->string('trace')->nullable();
             $table->integer('author_id')->unsigned()->nullable();
@@ -334,6 +340,20 @@ class Installer
 
         $this->db->table('options')->insert([
             [
+                'key' => 'refresh-cache',
+                'value' => '20210601',
+                'type' => 'string',
+                'group' => 'varios',
+                'autoload' => true,
+            ],
+            [
+                'key' => 'current-edition',
+                'value' => '2021',
+                'type' => 'integer',
+                'group' => 'varios',
+                'autoload' => true,
+            ],
+            [
                 'key' => 'current-state',
                 'value' => 'pre-upload-proposals',
                 'type' => 'string',
@@ -391,7 +411,7 @@ class Installer
             ],
             [
                 'key' => 'budget-limit',
-                'value' => '400000',
+                'value' => '800000',
                 'type' => 'integer',
                 'group' => 'varios',
                 'autoload' => true,

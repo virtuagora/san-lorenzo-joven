@@ -15,6 +15,7 @@ class Project extends Model
         'code',
         'name',
         'type',
+        'edition',
         'slug',
         'objective',
         'description',
@@ -30,6 +31,8 @@ class Project extends Model
         'organization_legal_entity',
         'organization_name',
         'organization_address',
+        'monitoringStatus',
+        'monitoringComment',
         'picture_name',
         'youtube_id',
         'feasibility',
@@ -43,6 +46,7 @@ class Project extends Model
         'code',
         'name',
         'type',
+        'edition',
         'slug',
         'objective',
         'description',
@@ -58,6 +62,8 @@ class Project extends Model
         'organization_legal_entity',
         'organization_name',
         'organization_address',
+        'monitoringStatus',
+        'monitoringComment',
         'district_id',
     ];
     protected $with = [];
