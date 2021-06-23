@@ -408,7 +408,7 @@
       <p>Detallá como se compone el presupuesto de tu propuesta.</p>
     </div>
      <b-message type="is-warning">
-        <b><i class="fas fa-exclamation-triangle"></i>&nbsp;IMPORTANTE: El limite a presupuestar en proyectos es de $ 400.000</b>
+        <b><i class="fas fa-exclamation-triangle"></i>&nbsp;IMPORTANTE: El limite a presupuestar en proyectos es de $ {{this.budget}}</b>
       </b-message>
       <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.budget')}">
           <i class="fas fa-caret-right"></i>&nbsp; Items del presupuesto
