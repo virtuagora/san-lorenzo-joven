@@ -79,7 +79,7 @@
     <div class="hero-body">
       <img src="/assets/img/icons/mark-project.svg" class="bookmark" alt="">
       <div class="container">
-        <div class="columns">
+        <div class="columns is-vcentered">
           <div class="column">
             <div class="field is-grouped is-grouped-multiline">
              {% if (is_state('pre-vote') or is_state('vote') or is_state('pre-results') or is_state('results')) and project.feasible is defined %}
@@ -120,8 +120,6 @@
               Presenta:
               {{project.author_names}}
               {{project.author_surnames}}</h1>
-            <h1 class="subtitle shadow-text has-text-white is-5">
-              Escuela: {{project.author.subject.neighbourhood.name}}</h1>
               
             {% if (vote_available() and subject.id is null) 
               or(vote_available()and subject.id and citizen()is not null and citizen().voted == false) %}
