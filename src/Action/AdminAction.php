@@ -104,14 +104,14 @@ class AdminAction
             ->join('neighbourhoods', 'subjects.neighbourhood_id', '=', 'neighbourhoods.id')
             ->join('districts', 'neighbourhoods.district_id', '=', 'districts.id')
             ->where('users.verified_dni', false)
-            ->selectRaw('users.id, users.email, users.names, users.surnames, users.birthday, users.dni_file, users.verified_dni, users.notes, users.gender, users.dni, neighbourhoods.id AS neighbourhoodId, neighbourhoods.name AS neighbourhoodName')
+            ->selectRaw('users.id, users.email, users.names, users.bio, users.surnames, users.birthday, users.dni_file, users.verified_dni, users.notes, users.gender, users.dni, neighbourhoods.id AS neighbourhoodId, neighbourhoods.name AS neighbourhoodName, districts.id as districtID, districts.name AS disctrictName')
             ->get();
         $usersVerified = $this->db->table('users')
             ->join('subjects', 'users.subject_id', '=', 'subjects.id')
             ->join('neighbourhoods', 'subjects.neighbourhood_id', '=', 'neighbourhoods.id')
             ->join('districts', 'neighbourhoods.district_id', '=', 'districts.id')
             ->where('users.verified_dni', true)
-            ->selectRaw('users.id, users.email, users.names, users.surnames, users.birthday, users.dni_file, users.verified_dni, users.notes, users.gender, users.dni, neighbourhoods.id AS neighbourhoodId, neighbourhoods.name AS neighbourhoodName')
+            ->selectRaw('users.id, users.email, users.names, users.bio, users.surnames, users.birthday, users.dni_file, users.verified_dni, users.notes, users.gender, users.dni, neighbourhoods.id AS neighbourhoodId, neighbourhoods.name AS neighbourhoodName, districts.id as districtID, districts.name AS disctrictName')
             ->get();
         $usersTotal = $this->db->query('App:User')
             ->count();
