@@ -61,12 +61,13 @@
 							<b>{{ user.surnames|upper }}</b>, {{ user.names }}
 							</p>
 							<p><b>DNI</b> - {{user.dni}}</p>
+							<p class="is-size-7"><b>Fecha Nacimiento:</b>&nbsp;{{user.birthday|date('Y-m-d')}}</p>
 						</td>
 						<td>
-							<p><b>Fecha Nacimiento:</b>&nbsp;{{user.birthday|date('Y-m-d')}}</p>
-						  <p><b>Escuela:</b>&nbsp;{{user.neighbourhoodName}}</p>
-						  <p><b>Email:</b>&nbsp;{{user.email}}</p>
-							<p class="is-size-7"><b>Nota:</b>&nbsp;{{user.notes ?: '<i>- Nada que agregar -</i>'}}</p>
+						  <p class="is-size-7"><b>Situacion:</b>&nbsp;{{user.districtName}} - {{user.neighbourhoodName}}</p>
+						  <p class="is-size-7"><b>Email:</b>&nbsp;{{user.email}}</p>
+						  <p class="is-size-7"><b>Detalles en registro:</b>&nbsp;{{user.bio ?: '<i>- No presento -</i>'}}</p>
+							<p class="is-size-7"><b>Nota extra por el usuario:</b>&nbsp;{{user.notes ?: '<i>- Nada que agregar -</i>'}}</p>
 						</td>
 						<td class="has-text-centered">
 							<a href="{{path_for('getAdminUserDniFile',{'usr': user.id}) }}" class="has-text-link" target="_blank">

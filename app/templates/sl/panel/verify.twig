@@ -3,16 +3,11 @@
 {% block section %}
     <h1 class="title is-1">Verificar cuenta</h1>
     <h2 class="subtitle is-4">Requerimiento para poder votar</h2>
-    <div class="message is-primary">
-      <div class="message-body">
-        Para poder votar (y para que tu propuesta/proyecto sea factible de llevar a cabo) es importante que se el equipo de Presupuesto Participativo Joven verifique tu documento. Para eso, debes enviar una imagen o archivo donde se vea la parte delantera (y en lo posible) trasera del DNI.
-      </div>
-    </div>
     {% if user.verified_dni == false and user.verified_dni is not null %}
     <div class="notification is-link">
     <p class="is-size-3"><b>Gracias por subir tus datos</b></p>
     <p class="is-size-5"><i class="fas fa-info-circle fa-lg"></i>&nbsp;<b>¡El equipo está verificando tu documento!</b></p>
-    <p>Te pedimos que vuelvas mas tardes para confirmar que el equipo confirmó tus datos</p>
+    <p>Te pedimos que vuelvas mas tarde para confirmar que el equipo confirmó tus datos</p>
     </div>
     {% endif %}
     {% if user.verified_dni == true %}
@@ -24,4 +19,38 @@
     <user-panel-form-file-dni url="{{path_for('runUploadDniUser')}}">
     </user-panel-form-file-dni>
     {% endif %}
+   <hr>
+    <h1 class="title is-3 has-text-primary has-text-centered">¡Podes verificar tu identidad de muchas maneras!</h1>
+    <h1 class="subtitle is-4 has-text-primary has-text-centered">Elegir la forma que mas te guste</h1>
+    <div class="columns is-centered">
+      <div class="column has-text-centered">
+        <div class="box">
+          <h1 class="title is-1 has-text-link"><i class="far fa-address-card fa-2x"></i></h1>
+          <h1 class="title is-5 has-text-primary">Con una foto de tu DNI</h1>
+          <div class="content">
+          <p>
+          ¡Sacale una foto con tu celular, tapando el N° de Tramite, y subilo aquí!
+          <p class="has-text-primary"><b><i class="fas fa-exclamation-triangle"></i> IMPORTANTE: Te pedimos que tapes el Numero de trámite de tu documento!</b></p>
+          </p>
+          </div>
+        </div>
+      </div>
+      <div class="column has-text-centered">
+        <div class="box">
+          <h1 class="title is-1 has-text-link"><i class="far fa-file-word fa-2x"></i>&nbsp;<i class="fas fa-file-contract fa-2x"></i></h1>
+          <h1 class="title is-5 has-text-primary">Con una constancia de alumno, o con tu libreta de notas</h1>
+          <div class="content">
+            <p>Podes pedirle a tu escuela una constancia, o podes presentar la libreta de notas, o cualquier cosa que se relacione con tu escuela</p>
+            <p>Es importante que en la foto o documento que mandes se pueda ver tu <u>nombre y apellido</u>, y <u>la escuela a la que vas</u>.</p>
+          </div>
+        </div>
+      </div>
+      <div class="column has-text-centered">
+        <div class="box">
+          <h1 class="title is-1 has-text-link"><i class="far fa-image fa-2x"></i>&nbsp;<i class="fas fa-desktop fa-2x"></i></h1>
+          <h1 class="title is-5 has-text-primary">Con una captura de pantalla de cualquier sistema que use tu escuela</h1>
+          <p>Es importante que en la foto o documento que mandes se pueda ver tu <u>nombre y apellido</u>, y <u>la escuela a la que vas</u>.</p>
+        </div>
+      </div>
+    </div>
 {% endblock %}
