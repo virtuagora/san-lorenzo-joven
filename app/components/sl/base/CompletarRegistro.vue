@@ -95,14 +95,12 @@
       <div class="message is-primary">
         <div class="message-body">
           <div class="field has-text-left">
-            <div class="is-clearfix">
-              <label class="label is-pulled-left">¿A que escuela asistís?</label>
+              <label class="label">¿Vivis en SL? ¿A que escuela vas?</label>
               <!-- <label class="label is-pulled-right">
                 <a href="#">No lo sé
                   <i class="far fa-question-circle fa-lg fa-fw"></i>
                 </a>
               </label>-->
-            </div>
             <div class="control">
               <div class="select is-medium is-fullwidth">
                 <select name="district" v-model="user.neighbourhood_id" v-validate="'required'">
@@ -111,7 +109,7 @@
                     v-for="neighbourhood in neighbourhoods"
                     :key="neighbourhood.id"
                     :value="neighbourhood.id"
-                  >{{neighbourhood.name}}</option>
+                  >{{neighbourhood.district.name}} - {{neighbourhood.name}}</option>
                 </select>
               </div>
               <span class="help is-danger" v-show="errors.has('district')">
@@ -120,6 +118,26 @@
               <!-- <span class="help is-italic">¿No recuerda cual es su barrio? Consultelo haciendo clic en "No lo sé", se abrirá una ventana con un mapa para poder informarse</span> -->
             </div>
           </div>
+          <div class="field has-text-left">
+            <div class="control">
+
+        <div class="content">
+          <p><i class="fas fa-exclamation-triangle"></i>&nbsp;<b>NOTA</b>: Si elegiste alguna de las siguientes opciones:</p>
+          <ul>
+            <li><b>Vivo en SL - Voy a una escuela en otra localidad</b></li>
+            <li><b>Vivo en SL - No voy a la escuela</b></li>
+            <li><b>No vivo en SL - Voy a una escuela en SL</b></li>
+          </ul>
+          <p>Escribinos mas detalles, como por ejemplo, que localidad queda la otra escuela, como se llama la escuela, o cual es tu situacion actual si no estas yendo a la escuela (Ej: si estas trabajando, si vas a otra institución, o cualquier dato relevante)</p>
+        </div>
+            </div>
+      </div>
+      <div class="field has-text-left">
+        <div class="label">Escuela, localidad, y/o tu situación actual</div>
+        <div class="control">
+          <textarea class="textarea" v-model="user.bio" rows="2" placeholder="(Opcional) Mas detalles"></textarea>
+        </div>
+      </div>
         </div>
       </div>
       <div class="field">
@@ -132,10 +150,10 @@
             ref="password"
             v-validate="'required|min:6'"
             class="input has-text-centered is-medium"
-            placeholder="Ingrese tu contraseña"
+            placeholder="Ingresa tu contraseña"
           >
           <span class="help is-danger" v-show="errors.has('password')">
-            <i class="fas fa-times-circle fa-fw"></i> Error. La contraseña no puede ser vacia, (Mínimo 6 caracteres)
+            <i class="fas fa-times-circle fa-fw"></i> La contraseña es requerido y debe contener al menos 6 caracteres
           </span>
         </div>
       </div>
@@ -151,7 +169,7 @@
             placeholder="Vuelva a ingresar la contraseña"
           >
           <span class="help is-danger" v-show="errors.has('re-password')">
-            <i class="fas fa-times-circle fa-fw"></i> Error. La contraseña no coincide
+            <i class="fas fa-times-circle fa-fw"></i> Error. La contraseña no coinciden
           </span>
         </div>
       </div>
@@ -213,7 +231,8 @@ export default {
         dni: "",
         neighbourhood_id: null,
         token: this.token,
-        birthday: null
+        birthday: null,
+        bio: null
       },
       inputBirthday: null,
       repeatPassword: "",
