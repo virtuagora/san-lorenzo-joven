@@ -215,7 +215,7 @@
           {% if project.selected and show_results() %}
             <div class="notification is-warning is-clearfix">
               <h1 class="subtitle is-4">
-                <img src="/assets/img/icons/medal-dark.svg" alt="" class="image is-pulled-left" style="width: 45px;margin-right: 10px;">
+                <img src="/assets/img/icons/medal -dark.svg" alt="" class="image is-pulled-left" style="width: 45px;margin-right: 10px;">
                 El proyecto ha sido seleccionado por el voto de los ciudadanos para el Presupuesto del año {{project.edition}}</h1>
             </div>
           {% endif %}
@@ -269,4 +269,13 @@
     </div>
   {% endif %}
   {% include 'sl/pages/index/collaboration.twig' %}
+{% endblock %}
+
+
+{% block scriptshead %}
+<script src="{{asset('js/whatsapp-bg.jpg')}}"></script>
+
+{% endblock %}
+{% block javascripts %}
+  {% include 'sl/project/pdf.twig' %}
 {% endblock %}
