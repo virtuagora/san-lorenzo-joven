@@ -22,14 +22,14 @@
           </div>
           <a :href="'/proyectos/'+project.id" target="_blank" style="text-decoration:none;">
             <div class="field is-grouped is-grouped-multiline">
-              <div class="control">
+              <!-- <div class="control">
                 <div class="tags has-addons">
                   <span class="tag is-dark">
                     <i class="fas fa-map-marker-alt"></i>
                   </span>
                   <span class="tag is-white">{{getDistrict(project.district_id)}}</span>
                 </div>
-              </div>
+              </div> -->
               <div class="control" v-if="project.selected && forceWinners">
                 <div class="tags has-addons">
                   <span class="tag is-dark">

@@ -35,7 +35,7 @@
       </nav>
     </div>
   </div>
-  <h1 class="title is-4">Usuarios que faltan verificar</h1>
+  <h1 class="title is-4">Usuarios pendientes que enviaron archivo probatorio</h1>
 	<table class="table is-fullwidth is-narrow is-bordered">
 		<thead>
 			<tr>
@@ -84,6 +84,55 @@
 			{% endif %}
     </tbody>
 	</table>
+	<h1 class="title is-4">Usuarios que faltan verificar y no enviaron prueba</h1>
+	<table class="table is-fullwidth is-narrow is-bordered">
+		<thead>
+			<tr>
+				<th>Nombre y Apellido</th>
+				<th>Datos</th>
+				{# <th class="has-text-centered">Archivo</th> #}
+				<th class="has-text-centered">Acción</th>
+			</tr>
+		</thead>
+    <tbody>
+  		{% if usersNotVerifiedNotPending is empty %}
+				<tr>
+					<td colspan="4">
+						<p class="has-text-centered">
+							- No hay usuarios pendientes para verificar -</p>
+					</td>
+				</tr>
+			{% else %}
+        {% for user in usersNotVerifiedNotPending %}
+					<tr>
+						<td>
+							<p class="is-size-5">
+							<b>{{ user.surnames|upper }}</b>, {{ user.names }}
+							</p>
+							<p><b>DNI</b> - {{user.dni}}</p>
+							<p class="is-size-7"><b>Fecha Nacimiento:</b>&nbsp;{{user.birthday|date('Y-m-d')}}</p>
+						</td>
+						<td>
+						  <p class="is-size-7"><b>Situacion:</b>&nbsp;{{user.districtName}} - {{user.neighbourhoodName}}</p>
+						  <p class="is-size-7"><b>Email:</b>&nbsp;{{user.email}}</p>
+						  <p class="is-size-7"><b>Detalles en registro:</b>&nbsp;{{user.bio ?: '<i>- No presento -</i>'}}</p>
+							<p class="is-size-7"><b>Nota extra por el usuario:</b>&nbsp;{{user.notes ?: '<i>- Nada que agregar -</i>'}}</p>
+						</td>
+						{# <td class="has-text-centered">
+							<a href="{{path_for('getAdminUserDniFile',{'usr': user.id}) }}" class="has-text-link" target="_blank">
+								<i class="fas fa-eye"></i>&nbsp;Ver</a>
+						</td> #}
+						<td class="has-text-centered">
+            <form action="{{path_for('runAdminVerifyUser',{'usr': user.id})}}" method="POST">
+							<button type="submit" class="button is-success is-small">
+								<i class="fas fa-check"></i>&nbsp;Verificar</button>
+            </form>
+						</td>
+					</tr>
+				{% endfor %}
+			{% endif %}
+    </tbody>
+	</table>
   <h1 class="title is-4">Usuarios Verificados</h1>
   <table class="table is-fullwidth is-bordered is-narrow">
     <tbody>
@@ -99,7 +148,12 @@
         <tr>
           <td>
             <p class="is-size-7">
-            <b>{{ user.surnames|upper }}</b>, {{ user.names }}, {{user.dni}}, {{user.neighbourhoodName}}&nbsp;&nbsp;&nbsp;<a href="{{path_for('getAdminUserDniFile',{'usr': user.id}) }}" target="_blank"><i class="fas fa-file"></i></a>
+            <b>{{ user.surnames|upper }}</b>, {{ user.names }}, {{user.dni}}, {{user.neighbourhoodName}}&nbsp;&nbsp;&nbsp;
+						{% if user.dni_file is not null %}
+						<a href="{{path_for('getAdminUserDniFile',{'usr': user.id}) }}" target="_blank"><i class="fas fa-file"></i></a>
+						{% else %}
+						 <i>(No presento archivo)</i>
+						{% endif %}
             </p>
           </td>
         </tr>

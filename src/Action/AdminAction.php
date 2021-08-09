@@ -106,6 +106,13 @@ class AdminAction
             ->where('users.verified_dni', false)
             ->selectRaw('users.id, users.email, users.names, users.bio, users.surnames, users.birthday, users.dni_file, users.verified_dni, users.notes, users.gender, users.dni, neighbourhoods.id AS neighbourhoodId, neighbourhoods.name AS neighbourhoodName, districts.id as districtID, districts.name AS disctrictName')
             ->get();
+        $usersNotVerifiedNotPending = $this->db->table('users')
+            ->join('subjects', 'users.subject_id', '=', 'subjects.id')
+            ->join('neighbourhoods', 'subjects.neighbourhood_id', '=', 'neighbourhoods.id')
+            ->join('districts', 'neighbourhoods.district_id', '=', 'districts.id')
+            ->where('users.verified_dni', null)
+            ->selectRaw('users.id, users.email, users.names, users.bio, users.surnames, users.birthday, users.dni_file, users.verified_dni, users.notes, users.gender, users.dni, neighbourhoods.id AS neighbourhoodId, neighbourhoods.name AS neighbourhoodName, districts.id as districtID, districts.name AS disctrictName')
+            ->get();
         $usersVerified = $this->db->table('users')
             ->join('subjects', 'users.subject_id', '=', 'subjects.id')
             ->join('neighbourhoods', 'subjects.neighbourhood_id', '=', 'neighbourhoods.id')
@@ -117,6 +124,7 @@ class AdminAction
             ->count();
         return $this->view->render($response, 'sl/admin/verify.twig', [
             'usersPending' => $usersPending,
+            'usersNotVerifiedNotPending' => $usersNotVerifiedNotPending,
             'usersVerified' => $usersVerified,
             'usersTotal' => $usersTotal,
         ]);

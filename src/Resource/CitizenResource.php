@@ -84,6 +84,8 @@ class CitizenResource extends Resource
                 'role_id' => 'verified',
                 'subject_id' => $subject->id,
             ]);
+            $user->verified_dni = true;
+            $user->save();
         }
         // $roles = array_merge(['user'], ['verified']);
 
@@ -109,6 +111,7 @@ class CitizenResource extends Resource
         $citizen->year = Carbon::parse($user->birthday)->year;
         $citizen->dni = $user->dni;
         $citizen->genre = $user->gender;
+        $citizen->data = strtoupper($user->surnames) . ", " . strtoupper($user->names);
         $citizen->save();
 
         $subject = $this->db->query('App:Subject')
