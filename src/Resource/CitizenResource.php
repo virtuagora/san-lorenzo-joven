@@ -28,7 +28,7 @@ class CitizenResource extends Resource
                 ],
                 'genre' => [
                     'type' => 'string',
-                    'enum' => ['M', 'F'],
+                    'enum' => ['M', 'F','?'],
                 ],
                 'year' => [
                     'type' => 'integer',
@@ -107,11 +107,14 @@ class CitizenResource extends Resource
         $citizen = $this->db->new('App:Citizen');
         $citizen->table = $user->subject->neighbourhood->id;
         $citizen->orden = null;
-        $citizen->data = null;
+        $citizen->data = strtoupper($user->surnames) . " " . strtoupper($user->names) . ",DNI,SINDIRECCION";
         $citizen->year = Carbon::parse($user->birthday)->year;
         $citizen->dni = $user->dni;
-        $citizen->genre = $user->gender;
-        $citizen->data = strtoupper($user->surnames) . ", " . strtoupper($user->names);
+        if(isset($user->gender)){
+            $citizen->genre = $user->gender;
+        } else {
+            $citizen->genre = '?';
+        }
         $citizen->save();
 
         $subject = $this->db->query('App:Subject')

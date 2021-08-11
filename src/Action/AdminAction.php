@@ -481,7 +481,7 @@ class AdminAction
             'votantesDistricts' => $votantesDistricts,
             'votantesRegistradosVotaron' => $votantesRegistradosVotaron,
             'arrayDates' => $arrayDates,
-            'arrayGenre' => array('M', 'F'),
+            'arrayGenre' => array('M', 'F','?'),
         ]);
     }
     public function showRegistrosPendientes($request, $response, $params)
