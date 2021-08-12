@@ -122,8 +122,10 @@ $container['auditWebAction'] = function ($c) {
 
 $container['adminAction'] = function ($c) {
     $citizenResource = new App\Resource\CitizenResource($c);
+    $userResource = new App\Resource\UserResource($c);
     return new App\Action\AdminAction(
         $citizenResource,
+        $userResource,
         $c['options'],
         $c['representation'],
         $c['helper'],

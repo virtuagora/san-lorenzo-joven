@@ -1,0 +1,8 @@
+{% extends 'emails/master.twig' %}
+
+{% block body %}
+	{% include 'emails/utils/paragraph.twig' with {'text':'¡Hola! ¡Queremos informarte que se te ha habilitado para votar en el Presupuesto Participativo Joven de San Lorenzo!'}%}
+  {% include 'emails/utils/paragraph.twig' with {'text':'¡No pierdas la oportunidad de elegir proyectos para los jovenes de tú ciudad!'}%}
+	{% include 'emails/utils/button.twig' with {'url': url ,'label': 'Visitá el catalogo y votá'}%}
+	{% include 'emails/utils/paragraph.twig' with {'text': '¡Tu participación es muy valiosa para la comunidad juvenil de San Lorenzo!'}%}
+{% endblock %}

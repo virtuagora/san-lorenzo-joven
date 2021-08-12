@@ -75,7 +75,7 @@
 						</td>
 						<td class="has-text-centered">
             <form action="{{path_for('runAdminVerifyUser',{'usr': user.id})}}" method="POST">
-							<button type="submit" class="button is-success is-small">
+							<button type="submit" id="verifybutton-{{user.id}}" onclick="sendVerifyUser({{user.id}})" class="verifybutton button is-success is-small">
 								<i class="fas fa-check"></i>&nbsp;Verificar</button>
             </form>
 						</td>
@@ -124,8 +124,8 @@
 						</td> #}
 						<td class="has-text-centered">
             <form action="{{path_for('runAdminVerifyUser',{'usr': user.id})}}" method="POST">
-							<button type="submit" class="button is-success is-small">
-								<i class="fas fa-check"></i>&nbsp;Verificar</button>
+							<button type="submit" id="verifybutton-{{user.id}}" onclick="sendVerifyUser({{user.id}})" class="verifybutton button is-success is-small">
+							<i class="fas fa-check"></i>&nbsp;Verificar</button>
             </form>
 						</td>
 					</tr>
@@ -161,4 +161,17 @@
     {% endif %}
     </tbody>
   </table>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+function sendVerifyUser(id) {
+  document.getElementById("verifybutton-" + id).classList.add("is-loading")
+	let x = document.getElementsByClassName("verifybutton");
+	let i;
+	for (i = 0; i < x.length; i++) {
+		x[i].disabled = true;
+	} 
+}
+</script>
 {% endblock %}

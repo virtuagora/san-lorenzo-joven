@@ -21,9 +21,10 @@ class AdminAction
     protected $view;
 
     public function __construct(
-        $citizenResource, $options, $representation, $helper, $authorization, $db, $filesystem, $pagination, $view
+        $citizenResource, $userResource, $options, $representation, $helper, $authorization, $db, $filesystem, $pagination, $view
     ) {
         $this->citizenResource = $citizenResource;
+        $this->userResource = $userResource;
         $this->options = $options;
         $this->representation = $representation;
         $this->helper = $helper;
@@ -139,6 +140,10 @@ class AdminAction
         $user->verified_dni = true;
         $user->save();
         $citizen = $this->citizenResource->createOneFromDni($user);
+        // Send Email now
+        $this->userResource->sendVerifiedUserByAdmin($subject, [
+            'id' => $user->id
+        ]);
         return $response->withRedirect($request->getHeaderLine('HTTP_REFERER'));
         // return $this->view->render($response, 'sl/admin/verify.twig', []);
     }

@@ -226,6 +226,24 @@ class UserResource extends Resource
         $this->mailer->sendMail($mailSub, $user->email, $mailMsg, 'text/html');
     }
 
+    public function sendVerifiedUserByAdmin($subject, $data) // el subject sirve para invitaciones
+
+    {
+        $user = $this->db->query('App:User')
+                    ->where('id',$data['id'])->firstOrFail();
+        $user->touch();
+        // $mailMsg = 'Accede con ' . $pending->token;
+
+        $mailSub = '¡Ya podes comenzar a votar en PP Joven!';
+        $link = $this->helper->pathFor('showCatalogo', true, [], []);
+        $mailMsg = $this->view->fetch('emails/verifiedUserByAdmin.twig', [
+            'url' => $link,
+        ]);
+
+        $this->logger->info('Verified By Admin: ' . $link);
+        $this->mailer->sendMail($mailSub, $user->email, $mailMsg, 'text/html');
+    }
+
     // public function updateProfile($subject, $user, $data)
     // {
     //     $schema = [
