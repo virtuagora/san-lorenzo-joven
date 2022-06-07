@@ -385,6 +385,45 @@ class UserAction
         ]);
     }
 
+    public function runRemoveAdmin($request, $response, $params)
+    {
+        $subject = $request->getAttribute('subject');
+        if (!$this->authorization->checkPermission($subject, 'admin')) {
+            throw new UnauthorizedException();
+        }
+        $this->userResource->removeRoles($subject, $request->getParsedBody());
+        return $this->representation->returnMessage($request, $response, [
+            'message' => 'El rol de admin ha sido quitado del usuario',
+            'status' => 200,
+        ]);
+    }
+
+    public function runNewServiceUser($request, $response, $params)
+    {
+        $subject = $request->getAttribute('subject');
+        if (!$this->authorization->checkPermission($subject, 'admin')) {
+            throw new UnauthorizedException();
+        }
+        $this->userResource->updateRoles($subject, $request->getParsedBody());
+        return $this->representation->returnMessage($request, $response, [
+            'message' => '¡Nuevo servidor de votos agregado!',
+            'status' => 200,
+        ]);
+    }
+
+    public function runRemoveServiceUser($request, $response, $params)
+    {
+        $subject = $request->getAttribute('subject');
+        if (!$this->authorization->checkPermission($subject, 'admin')) {
+            throw new UnauthorizedException();
+        }
+        $this->userResource->removeRoles($subject, $request->getParsedBody());
+        return $this->representation->returnMessage($request, $response, [
+            'message' => 'El rol de servidor de votos ha sido quitado del usuario',
+            'status' => 200,
+        ]);
+    }
+
     public function runResendPending($request, $response, $params)
     {
         $subject = $request->getAttribute('subject');

@@ -310,8 +310,8 @@ export default {
     getColor: function(type, image) {
       if (!image) {
         return type == "comunitario"
-          ? "comunitario-background"
-          : "institucion-background";
+          ? "project-background"
+          : "project-background";
       }
       return "has-image-background with-image " + type;
     },
@@ -381,7 +381,7 @@ export default {
           })
           .catch(error => {
             console.error(error.message);
-            this.$snackbar.open({
+            this.$buefy.snackbar.open({
               message: "Error al obtener la lista de proyectos",
               type: "is-danger",
               actionText: "Cerrar"
@@ -403,7 +403,7 @@ export default {
           })
           .catch(error => {
             console.error(error.message);
-            this.$snackbar.open({
+            this.$buefy.snackbar.open({
               message: "Error al obtener la lista de proyectos",
               type: "is-danger",
               actionText: "Cerrar"

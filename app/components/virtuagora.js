@@ -30,6 +30,7 @@ import ProjectCarousel from './sl/carousel/ProjectCarousel'
 import Exhibit from './sl/carousel/Exhibit'
 import Catalogo from './sl/carousel/Catalogo'
 import AdminAssignAdmin from './sl/admin/AssignAdmin'
+import AdminAssignServiceUser from './sl/admin/AssignServiceUser'
 import AdminListProjects from './sl/admin/ListProjects'
 import AdminCreateProject from './sl/admin/CreateProject'
 import AdminEditProject from './sl/admin/EditProject'
@@ -88,6 +89,7 @@ window.vm = new Vue({ // eslint-disable-line no-new
     CompletarResetPassword,
     ProjectCarousel,
     AdminAssignAdmin,
+    AdminAssignServiceUser,
     AdminListProjects,
     AdminCreateProject,
     AdminEditProject,

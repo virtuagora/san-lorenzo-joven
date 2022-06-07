@@ -156,8 +156,8 @@ export default {
     getColor: function(type, image) {
       if (!image) {
         return type == "comunitario"
-          ? "comunitario-background"
-          : "institucion-background";
+          ? "project-background"
+          : "project-background";
       }
       return "has-image-background with-image " + type;
     },

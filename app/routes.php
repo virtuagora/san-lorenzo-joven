@@ -83,6 +83,9 @@ $app->group('/api', function () {
         $this->get('/pending-voters', 'userAction:getPendingVoters')->setName('getPendingVoters');
         $this->post('/pending-voters/send', 'userAction:runSendPendingVoter')->setName('runSendPendingVoter');
         $this->post('/administradores/nuevo', 'userAction:runNewAdmin')->setName('runNewAdmin');
+        $this->delete('/administradores/quitar', 'userAction:runRemoveAdmin')->setName('runRemoveAdmin');
+        $this->post('/service-user/nuevo', 'userAction:runNewServiceUser')->setName('runNewServiceUser');
+        $this->delete('/service-user/quitar', 'userAction:runRemoveServiceUser')->setName('runRemoveServiceUser');
         $this->get('/candidatos', 'userAction:getCandidatos')->setName('getCandidatos');
         $this->post('/option/{opt}', 'adminAction:postOption');
         $this->get('/ballots/offline', 'ballotAction:retrieveOfflineBallots')->setName('getOfflineBallots');
@@ -97,8 +100,8 @@ $app->group('/panel', function () {
     // GET /panel
     $this->get('', 'userPanelAction:showOverview')->setName('showUserPanelOverview');
     $this->get('/cambiar-password', 'userPanelAction:showChangePassword')->setName('showUserPanelChangePassword');
-    $this->get('/verificar', 'userPanelAction:showVerify')->setName('showUserPanelVerify');
-    $this->post('/verificar', 'userPanelAction:runUploadDniUser')->setName('runUploadDniUser');
+    // $this->get('/verificar', 'userPanelAction:showVerify')->setName('showUserPanelVerify');
+    // $this->post('/verificar', 'userPanelAction:runUploadDniUser')->setName('runUploadDniUser');
     $this->group('/proyectos', function () {
         $this->get('', 'userPanelAction:showProjects')->setName('showUserPanelProjects');
         $this->get('/crear', 'userPanelAction:showCreateProject')->setName('showUserPanelCreateProject');
@@ -143,6 +146,7 @@ $app->group('/admin', function () {
     $this->post('/escrutinio/run', 'ballotAction:runScrutiny')->setName('runScrutiny');
     $this->get('/estadisticas', 'adminAction:showStats')->setName('showAdminStats');
     $this->get('/roles', 'adminAction:showRoles')->setName('showRoles');
+    $this->get('/service-users', 'adminAction:showServiceUsers')->setName('showServiceUsers');
     $this->get('/opciones', 'adminAction:showOptions')->setName('showOptions');
 });
 // pantalla con botón login con facebook

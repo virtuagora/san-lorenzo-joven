@@ -113,7 +113,7 @@ export default {
         .validateAll()
         .then(result => {
           if (!result) {
-            this.$snackbar.open({
+            this.$buefy.snackbar.open({
               message: "Error en el formulario. Verifíquelo",
               type: "is-danger",
               actionText: "Cerrar"
@@ -124,7 +124,7 @@ export default {
           this.$refs.formProFile.submit();
         })
         .catch(error => {
-          this.$snackbar.open({
+          this.$buefy.snackbar.open({
             message: "Error inesperado",
             type: "is-danger",
             actionText: "Cerrar"

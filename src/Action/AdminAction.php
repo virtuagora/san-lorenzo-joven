@@ -558,6 +558,22 @@ class AdminAction
             'administradores' => $administrators->toArray(),
         ]);
     }
+
+    public function showServiceUsers($request, $response, $params)
+    {
+        $subject = $request->getAttribute('subject');
+        if (!$this->authorization->checkPermission($subject, 'admin')) {
+            throw new UnauthorizedException();
+        }
+        $serviceUsers = $this->db->query('App:User')
+            ->whereHas('subject.roles', function ($qry) {
+                $qry->whereIn('role_id', ['verified']);
+            })->get();
+        $serviceUsers->makeVisible(['email']);
+        return $this->view->render($response, 'sl/admin/service-users.twig', [
+            'service_users' => $serviceUsers->toArray(),
+        ]);
+    }
     public function showOptions($request, $response, $params)
     {
         $subject = $request->getAttribute('subject');

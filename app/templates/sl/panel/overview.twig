@@ -10,11 +10,11 @@
 {% if 'user' in subject.roles %}
   {% if is_state('upload-proposals') and proposals_available() %}
     <hr>
-    {% if user.verified_dni is null %}
-    <div class="notification is-warning">
+    {# {% if user.verified_dni is null %}
+    <div class="notification is-warning my-5">
       <i class="fas fa-exclamation-triangle"></i>&nbsp;<b>¡Importante!</b>&nbsp;Para que tu proyecto pueda pasar la etapa de factibilidad, es importante que verifiques tu cuenta subiendo tu DNI. Al validar tu cuenta, tambien se te habilita la posibilidad de votar de forma <u>online</u>. Hace <a href="{{path_for('showUserPanelVerify')}}}">clic aqui</a> para subir tu DNI.
     </div>
-    {% endif %}
+    {% endif %} #}
     <a href="{{path_for('showUserPanelCreateProject')}}">
       <div class="notification is-link">
       <figure class="image is-48x48 has-text-right is-pulled-right">
@@ -26,27 +26,27 @@
     </a>
   {% endif %}
 
-  {% if user.verified_dni == false and user.verified_dni is not null %}
-    <div class="notification is-link">
-    <p class="is-size-5"><i class="fas fa-info-circle fa-lg"></i>&nbsp;<b>¡El equipo está verificando tu identidad!</b></p>
-    <p>Te pedimos que vuelvas mas tarde para confirmar que el equipo confirmó tus datos</p>
+  {# {% if user.verified_dni == false and user.verified_dni is not null %}
+  <div class="notification is-link my-5">
+  <p class="is-size-5"><i class="fas fa-info-circle fa-lg"></i>&nbsp;<b>¡El equipo está verificando tu identidad!</b></p>
+  <p>Te pedimos que vuelvas mas tarde para confirmar que el equipo confirmó tus datos</p>
+  </div>
+  {% endif %}
+  {% if user.verified_dni == true %}
+  <div class="notification is-success my-5">
+  <p class="is-size-3"><i class="fas fa-check-circle fa-lg"></i>&nbsp;<b>¡Tu cuenta ha sido verificada!</b></p>
+  <p>¡Ahora vas a poder votar de forma <u>online</u> en el presupuesto participativo!</p>
+  </div>
+  {% elseif user.verified_dni is null %}
+  <div class="notification is-warning my-5">
+    <div class="content">
+    <p class="is-size-4"><i class="fas fa-exclamation-triangle fa-lg"></i>&nbsp;<b>¡Importante!</b></p>
+    <p>Para que tu proyecto pueda pasar la etapa de factibilidad, es importante que verifiques tu cuenta subiendo tu DNI.</p>
+    <p>Al validar tu cuenta, tambien se te habilita <b>la posibilidad de votar de forma <u>online</u></b>.</p>
+    <p>Hace <a href="{{path_for('showUserPanelVerify')}}">clic aqui</a> para verificar tu identidad.</p>
     </div>
-    {% endif %}
-    {% if user.verified_dni == true %}
-    <div class="notification is-success">
-    <p class="is-size-3"><i class="fas fa-check-circle fa-lg"></i>&nbsp;<b>¡Tu cuenta ha sido verificada!</b></p>
-    <p>¡Ahora vas a poder votar de forma <u>online</u> en el presupuesto participativo!</p>
-    </div>
-    {% elseif user.verified_dni is null %}
-    <div class="notification is-warning">
-      <div class="content">
-      <p class="is-size-4"><i class="fas fa-exclamation-triangle fa-lg"></i>&nbsp;<b>¡Importante!</b></p>
-      <p>Para que tu proyecto pueda pasar la etapa de factibilidad, es importante que verifiques tu cuenta subiendo tu DNI.</p>
-      <p>Al validar tu cuenta, tambien se te habilita <b>la posibilidad de votar de forma <u>online</u></b>.</p>
-      <p>Hace <a href="{{path_for('showUserPanelVerify')}}">clic aqui</a> para verificar tu identidad.</p>
-      </div>
-    </div>
-    {% endif %}
+  </div>
+  {% endif %} #}
 {% endif %}
 
 {% endblock %}

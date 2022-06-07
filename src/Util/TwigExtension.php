@@ -152,18 +152,24 @@ class TwigExtension extends Twig_Extension
 
     public function getCitizen()
     {
-        if (!is_null($this->store['subject'])) {
-            $subject = new DummySubject(
-                $this->store['subject']['type'],
-                $this->store['subject']['id'],
-                $this->store['subject']['name'],
-                $this->store['subject']['roles'],
-                $this->store['subject']['extra']
-            );
-            // $subject = $this->$request->getAttribute('subject');
-            $citizen = $this->helper->getCitizenFromSubject($subject);
-            return $citizen;
+        // if $this->store['subject']['roles'] includes 'verified' return true
+        $roles = $this->store['subject']['roles'];
+        if (in_array('verified', $roles)) {
+            return true;
         }
+
+        // if (!is_null($this->store['subject'])) {
+        //     $subject = new DummySubject(
+        //         $this->store['subject']['type'],
+        //         $this->store['subject']['id'],
+        //         $this->store['subject']['name'],
+        //         $this->store['subject']['roles'],
+        //         $this->store['subject']['extra']
+        //     );
+        //     // $subject = $this->$request->getAttribute('subject');
+        //     $citizen = $this->helper->getCitizenFromSubject($subject);
+        //     return $citizen;
+        // }
         return null;
     }
 

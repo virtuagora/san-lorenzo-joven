@@ -23,6 +23,7 @@
             <th>Avatar</th>
             <th>Nombre y apellido</th>
             <th>Email</th>
+            <th class="has-text-centered">Quitar?</th>
           </tr>
         </thead>
         <tbody>
@@ -33,8 +34,9 @@
               <td>
                 {{admin.subject.display_name}}</td>
               <td>{{admin.email}}</td>
+              <td class="has-text-centered"><button @click="removeAdmin(admin.email)" class="button is-danger is-small"><i class="fas fa-trash fa-fw"></i></button></td>
             </tr>
-            <tr v-if="currents.length == 0">
+            <tr v-if="currents == null || (currents && currents.length == 0)">
               <td colspan="3" class="has-text-centered">No hay administradores</td>
             </tr>
         </tbody>
@@ -47,9 +49,8 @@
 <script>
 import { debounce } from "lodash";
 import Avatar from "../utils/Avatar";
-
 export default {
-  props: ["getCandidatesUrl", "runAdmin", "currents"],
+  props: ["getCandidatesUrl", "runAdmin", "runRemoveAdmin", "currents"],
   components: {
     Avatar
   },
@@ -76,7 +77,7 @@ export default {
             role: 'admin'
         })
         .then(response => {
-          this.$snackbar.open({
+          this.$buefy.snackbar.open({
             message: "¡Nuevo administrador agregado!",
             type: "is-success",
             actionText: "OK"
@@ -85,7 +86,34 @@ export default {
         })
         .catch(error => {
           console.error(error.message);
-          this.$snackbar.open({
+          this.$buefy.snackbar.open({
+            message: "Error inesperado",
+            type: "is-danger",
+            actionText: "Cerrar"
+          });
+          this.isLoading = false;
+        });
+    },
+    removeAdmin: function(adminEmail){
+      this.isLoading = true;
+      this.$http
+        .delete(this.runRemoveAdmin,{
+          data: {
+            user_email: adminEmail,
+            role: 'admin'
+          }
+        })
+        .then(response => {
+          this.$buefy.snackbar.open({
+            message: `El rol de admin ha sido quitado del usuario ${adminEmail}`,
+            type: "is-success",
+            actionText: "OK"
+          });
+          window.location.reload();
+        })
+        .catch(error => {
+          console.error(error.message);
+          this.$buefy.snackbar.open({
             message: "Error inesperado",
             type: "is-danger",
             actionText: "Cerrar"
@@ -103,7 +131,7 @@ export default {
     //     })
     //     .catch(error => {
     //       console.error(error.message);
-    //       this.$snackbar.open({
+    //       this.$buefy.snackbar.open({
     //         message: "Error inesperado",
     //         type: "is-danger",
     //         actionText: "Cerrar"
@@ -144,4 +172,3 @@ export default {
   vertical-align: middle;
 }
 </style>
-

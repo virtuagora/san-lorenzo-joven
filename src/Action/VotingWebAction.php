@@ -19,17 +19,17 @@ class VotingWebAction extends ContainerClient
             );
         }
         $user = $this->helper->getUserFromSubject($subject);
-        $citizen = $this->helper->getCitizenFromSubject($subject);
-        if ($citizen->voted){
-            throw new AppException(
-                'Ya ha participado del Presupuesto Participativo Joven de San Lorenzo'
-            );
-        }
-        if (!$this->resources['ballot']->isVotingTime()) {
-            throw new AppException(
-                'No es el periodo de votación'
-            );
-        }
+        // $citizen = $this->helper->getCitizenFromSubject($subject);
+        // if ($citizen->voted){
+        //     throw new AppException(
+        //         'Ya ha participado del Presupuesto Participativo Joven de San Lorenzo'
+        //     );
+        // }
+        // if (!$this->resources['ballot']->isVotingTime()) {
+        //     throw new AppException(
+        //         'No es el periodo de votación'
+        //     );
+        // }
         return $this->view->render($response, 'sl/vote/private-vote.twig', []);
     }
 
@@ -60,12 +60,12 @@ class VotingWebAction extends ContainerClient
             );
         }
         $user = $this->helper->getUserFromSubject($subject);
-        $citizen = $this->helper->getCitizenFromSubject($subject);
-        if ($citizen->voted){
-            throw new AppException(
-                'No puede enviar tu voto, ya has participado del Presupuesto Participativo Joven de San Lorenzo'
-            );
-        }
+        // $citizen = $this->helper->getCitizenFromSubject($subject);
+        // if ($citizen->voted){
+        //     throw new AppException(
+        //         'No puede enviar tu voto, ya has participado del Presupuesto Participativo Joven de San Lorenzo'
+        //     );
+        // }
         $proyectos = array_filter(explode('&&', $request->getParam('proyectos')));
         // $insts = array_filter(explode('&&', $request->getParam('institucionales')));
         $ballot = $this->db->newInstance('App:OnlineBallot');
@@ -73,7 +73,7 @@ class VotingWebAction extends ContainerClient
         if ($result !== true) {
             throw new AppException($this->getErrorMessage($result));
         }
-        $this->resources['ballot']->registerVoter($citizen, 'user');
+        // $this->resources['ballot']->registerVoter($citizen, 'user');
         return $this->view->render($response, 'sl/vote/success.twig', []);
     }
 

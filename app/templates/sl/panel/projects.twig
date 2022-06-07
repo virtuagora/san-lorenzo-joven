@@ -2,11 +2,11 @@
 
 {% block section %}
 <h1 class="title is-1">Mis propuestas</h1>
-  {% if user.verified_dni is null %}
+  {# {% if user.verified_dni is null %}
   <div class="notification is-warning">
     <i class="fas fa-exclamation-triangle"></i>&nbsp;<b>¡Importante!</b>&nbsp;Para que tu proyecto pueda pasar la etapa de factibilidad, es importante que verifiques tu cuenta subiendo tu DNI. Al validar tu cuenta, tambien se te habilita la posibilidad de votar de forma <u>online</u>. Hace <a href="{{path_for('showUserPanelVerify')}}}">clic aqui</a> para subir tu DNI.
   </div>
-  {% endif %}
+  {% endif %} #}
   <user-panel-list-projects 
   :projects="{{proyectos|json_encode}}"
   url="{{path_for('retrieveProject',{'author': subject.extra.user_id})}}"

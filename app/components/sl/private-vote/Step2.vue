@@ -1,7 +1,6 @@
 <template>
   <section>
-    <img src="/assets/img/ppj-horizontal.svg
-" class="image logo-small-pp-voting is-pulled-right" alt="">
+    <img src="/assets/img/ppj-color.svg" class="image is-pulled-right" width="40" alt="">
     <h1 class="title is-3">3. Confirmación</h1>
     <h1 class="subtitle is-5">Revisá y confirmá los proyectos que elegiste para votar.</h1>
     <hr>

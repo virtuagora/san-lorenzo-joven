@@ -7,7 +7,7 @@
           <h1 class="subtitle is-5">Tu propuesta puede quedar seleccionada para participar en la votación del Presupuesto Participativo del {{options()['current-edition']}}</h1>
           {% if proposals_available() %}
 					<div class="buttons is-centered">
-              <a href="/login" class="button is-primary is-medium is-outlined is-rounded"><i class="fas fa-plus-square fa-fw fa-lg"></i>&nbsp;Subí tu propuesta</a>
+              <a href="/login" class="button is-primary is-medium is-outlined"><i class="fas fa-plus-square fa-fw fa-lg"></i>&nbsp;Subí tu propuesta</a>
           </div>
 					{% else %}
 					<h1 class="subtitle is-6"><b>¡El formulario ha cerrado!</b><br>
@@ -41,7 +41,7 @@
 				</project-carousel>
 				{% if proposals_available() %}
 				<br>
-				<a class="button is-primary is-rounded" href="{{path_for('showUserPanelCreateProject')}}">
+				<a class="button is-primary" href="{{path_for('showUserPanelCreateProject')}}">
 					<i class="fas fa-plus-square fa-fw fa-lg"></i>&nbsp;Subí tu propuesta</a>
 				{% endif %}
 		</div>

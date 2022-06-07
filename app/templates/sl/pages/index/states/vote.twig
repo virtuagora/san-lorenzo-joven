@@ -7,8 +7,10 @@
       <div class="columns is-centered">
         <div class="column is-8 has-text-centered">
           <h1 class="title is-3 has-text-primary">¡Las urnas están abiertas!</h1>
-          <h1 class="subtitle is-5">¡Es hora de votar por tus proyectos favoritos! Conocelos a todos y elegí los que mas te gusten. ¡Participá por un San Lorenzo mejor!</h1>
-          {% if subject.id %}
+          <h1 class="subtitle is-5">¡Es hora de votar por tus proyectos favoritos! Conocelos a todos y elegí los que mas te gusten.<br>¡Participá por un San Lorenzo mejor!</h1>
+          <a href="{{path_for('showCatalogo')}}" class="button is-primary is-medium  is-outlined">
+                  <i class="fas fa-book-reader fa-fw fa-lg"></i>&nbsp;Conocé el catálogo</a>
+          {# {% if subject.id %}
             {% if citizen() is not null and citizen().voted == false %}
               <div class="buttons is-centered is-hidden-touch">
                 <a href="{{path_for('showCatalogo')}}" class="button is-primary is-rounded is-outlined">
@@ -46,21 +48,21 @@
                 <a href="{{path_for('showLogin')}}" class="button is-rounded is-primary">
                   <i class="fas fa-sign-in-alt"></i>&nbsp;¡Entrá y votá HOY!</a>
               </div>
-          {% endif %}
-          <p>¡Tenes tiempo de votar hasta el
+          {% endif %} #}
+          {# <p>¡Tenes tiempo de votar hasta el
             {{options()['vote-deadline']|date("d/m/Y")}}!
           </p>
-          <br>
-		<div class="columns is-centered">
+          <br> #}
+		{# <div class="columns is-centered">
 			<div class="column is-9">
-<div class="notification is-warning is-marginless has-text-centered">
+        <div class="notification is-warning is-marginless has-text-centered">
 				<span class="is-size-4">
 					<i class="fas fa-exclamation-triangle"></i>
 					<b>IMPORTANTE:</b>
 				</span><br>Solo pueden votar jovenes de 16 a 19 años con domicilio en San Lorenzo, y los que tienen domicilio en otra localidad, pero asisten a una escuela de la ciudad de San Lorenzo
 			</div>
-		</div>
-</div>
+		</div> #}
+  </div>
 
         </div>
         {# <div class="column">

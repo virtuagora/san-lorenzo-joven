@@ -47,7 +47,7 @@
                 <a href="{{path_for('showAdminProjectsNotFeasible')}}">No Factibles</a>
               </li>
             </ul>
-            <p class="menu-label">
+            {# <p class="menu-label">
               Padrón
             </p>
             <ul class="menu-list">
@@ -62,7 +62,7 @@
                 <a href="{{path_for('showAddCitizen')}}">Nuevo registro</a>
               </li>
               {% endif %}
-            </ul>
+            </ul> #}
             {% if is_state('vote') or is_state('pre-results') or is_state('results') %}
               <p class="menu-label">
                 Blockchain
@@ -95,7 +95,10 @@
                 <a href="{{path_for('showOptions')}}">Configuraciones</a>
               </li>
               <li>
-                <a href="{{path_for('showRoles')}}">Asignar roles</a>
+                <a href="{{path_for('showRoles')}}">Asignar Admin</a>
+              </li>
+              <li>
+                <a href="{{path_for('showServiceUsers')}}">Asignar Servidor Votos</a>
               </li>
               {% if is_state('vote') or is_state('pre-results') or is_state('results') %}
               <li>

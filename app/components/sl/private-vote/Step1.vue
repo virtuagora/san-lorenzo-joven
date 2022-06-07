@@ -1,12 +1,11 @@
 <template>
   <section>
-    <img src="/assets/img/ppj-horizontal.svg" class="image logo-small-pp-voting is-pulled-right" alt="">
+    <img src="/assets/img/ppj-color.svg" class="image is-pulled-right" width="40" alt="">
     <h1 class="title is-3">1. Proyectos participantes</h1>
     <h1 class="subtitle is-5">Podés elegir hasta 3 proyectos.</h1>
     <hr>
-    <div class="notification is-project has-text-centered">
+    <div class="notification is-project has-text-centered px-4">
       <h1 class="title is-3 has-text-white">
-    <img src="/assets/img/icons/w-project.svg" alt="" class="image is-inline" style="width: 35px;margin-bottom: -8px;">
         Proyectos participantes
       </h1>
     </div>
@@ -14,7 +13,7 @@
       <div class="column">
         <div class="field">
           <div class="control">
-            <div class="select is-medium is-fullwidth">
+            <div class="select is-medium is-fullwidth"
               <select v-model.number="selectedDistrict" placeholder="Seleccione el tipo de doc">
                 <option :value="null">- Todos los distritos -</option>
                 <option :value="1">Distrito NORTE</option>
@@ -116,7 +115,7 @@ export default {
         return;
       }
       if (this.checked.length === 3) {
-        this.$snackbar.open({
+        this.$buefy.snackbar.open({
           message: "¡Recuerde! No puede votar mas de 3 proyectos",
           type: "is-warning",
           actionText: "OK"

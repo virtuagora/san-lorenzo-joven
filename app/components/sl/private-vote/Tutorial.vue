@@ -1,7 +1,7 @@
 <template>
   <section class="">
-    <img src="/assets/img/ppj-horizontal.svg
-" class="image logo-small-pp-voting is-pulled-right" alt="">
+    <img src="/assets/img/ppj-color.svg" class="image is-pulled-right" width="40" alt="">
+
     <h1 class="title is-3">Tutorial</h1>
     <hr>
     <article class="media">

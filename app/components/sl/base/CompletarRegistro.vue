@@ -193,7 +193,7 @@
           <i class="fas fa-check fa-lg fa-fw"></i>
           ¡Tu cuenta ha sido creada correctamente y ya podés comenzar a participar del Presupuesto Participativo Joven de San Lorenzo!
         </div>
-        <a :href="logInUrl" class="button is-primary is-rounded is-medium is-fullwidth">
+        <a :href="logInUrl" class="button is-primary is-medium is-fullwidth">
           <i class="fas fa-sign-in-alt fa-lg fa-fw"></i>&nbsp;Iniciar sesión
         </a>
       </div>
@@ -251,7 +251,7 @@ export default {
         .validateAll()
         .then(result => {
           if (!result) {
-            this.$snackbar.open({
+            this.$buefy.snackbar.open({
               message: "Error. Verifique los campos.",
               type: "is-danger",
               actionText: "Cerrar"
@@ -281,7 +281,7 @@ export default {
               this.response.replied = true;
               this.response.message = error.response.data.message;
               this.response.ok = false;
-              this.$snackbar.open({
+              this.$buefy.snackbar.open({
                 message: "Error inesperado",
                 type: "is-danger",
                 actionText: "Cerrar"
@@ -290,7 +290,7 @@ export default {
             });
         })
         .catch(error => {
-          this.$snackbar.open({
+          this.$buefy.snackbar.open({
             message: "Error inesperado",
             type: "is-danger",
             actionText: "Cerrar"

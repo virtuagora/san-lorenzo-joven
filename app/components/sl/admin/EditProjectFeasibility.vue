@@ -109,7 +109,7 @@
                   data-vv-name="numberCode"
                   data-vv-as="'Numero de código de proyecto'"
                   type="text"
-                  v-validate="'required|min_value:1|numeric|max_value:500'"
+                  v-validate="'required'"
                   class="input is-large"
                   placeholder="Requerido *"
                   :readonly="!editable"
@@ -122,9 +122,9 @@
          </div>
        </div>
        <div class="column is-narrow">
-         <div class="notification is-dark has-text-centered">
+         <div class="notification is-dark has-text-centered px-5">
             <h1 class="subtitle is-5">Código</h1>
-            <h1 class="title is-1">{{completeCode}}</h1>
+            <h1 class="title is-1">{{numberCode || '???'}}</h1>
          </div>
        </div>
      </div>
@@ -170,7 +170,7 @@ export default {
     this.project.feasible = this.existingProject.feasible;
     this.project.feasibility = this.existingProject.feasibility;
     if(this.existingProject.code){
-      this.numberCode = this.existingProject.code.split('/')[1]
+      this.numberCode = this.existingProject.code
     }
   },
   methods: {
@@ -185,7 +185,7 @@ export default {
             this.$http
               .post(this.formUrl, this.payload)
               .then(response => {
-                this.$snackbar.open({
+                this.$buefy.snackbar.open({
                   message: "¡Factibilidad guardada!",
                   type: "is-success",
                   actionText: "¡Genial!"
@@ -197,7 +197,7 @@ export default {
               .catch(error => {
                 console.error(error);
                 this.isLoading = false;
-                this.$snackbar.open({
+                this.$buefy.snackbar.open({
                   message: error.response.data.message || "Error inesperado",
                   type: "is-danger",
                   actionText: "Cerrar",
@@ -207,7 +207,7 @@ export default {
           } else {
             // Not Valid
             this.isLoading = false;
-            this.$snackbar.open({
+            this.$buefy.snackbar.open({
               message: "Faltan datos o algunos son incorrectos. Verifíquelos.",
               type: "is-danger",
               actionText: "Cerrar",
@@ -218,7 +218,7 @@ export default {
         .catch(error => {
           console.error(error.message);
           this.isLoading = false;
-          this.$snackbar.open({
+          this.$buefy.snackbar.open({
             message: "Error inesperado",
             type: "is-danger",
             actionText: "Cerrar",
@@ -234,7 +234,7 @@ export default {
         feasible: this.project.feasible,
       };
       if(this.project.feasible === true){
-        payload.code = this.completeCode;
+        payload.code = this.numberCode;
       } else {
         payload.code = null
         if(this.project.feasible === null){
@@ -243,12 +243,12 @@ export default {
       }
       return payload;
     },
-    completeCode: function(){
-      return this.existingProject.district.name['0'] 
-      + this.existingProject.type[0].toUpperCase()
-      + '/'
-      + (parseInt(this.numberCode) || '')
-    }
+    // completeCode: function(){
+    //   return this.existingProject.district.name['0'] 
+    //   + this.existingProject.type[0].toUpperCase()
+    //   + '/'
+    //   + (parseInt(this.numberCode) || '')
+    // }
   },
 };
 </script>
