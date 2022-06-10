@@ -123,10 +123,10 @@
      </div>
     <div class="field">
       <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.type')}">
-        <i class="fas fa-caret-right"></i>&nbsp;Elegí el tipo de propuesta
+        <i class="fas fa-caret-right"></i>&nbsp;Elegí la temática de la propuesta
       </h1>
       <h1 class="subtitle is-6">
-        <span class="has-text-link">* Requerido.</span> ¿Es una propuesta comunitaria o una propuesta institucional?
+        <span class="has-text-link">* Requerido.</span> * Requerido.</span> ¿De que temática es la propuesta?
       </h1>
       <div class="control">
         <div class="select is-large is-fullwidth">
@@ -135,21 +135,15 @@
             data-vv-as="'Categoría'"
             v-validate="'required'"
             v-model="project.type"
-            placeholder="Seleccione si es comunitario o institucional"
+            placeholder="Seleccione la temática de la propuesta"
           >
-            <option :value="null" disabled>- Selecciona el tipo de propuesta -</option>
-            <option value="Comunicación y Tecnología">Comunicación y Tecnología</option>
-            <option value="Arte y diseño">Arte y diseño</option>
-            <option value="Salud y fitness">Salud y fitness</option>
-            <option value="Redes sociales">Redes sociales</option>
-            <option value="Participación social ">Participación social </option>
+            <option :value="null" disabled>- Selecciona la temática de la propuesta -</option>
             <option value="Formación y Educación">Formación y Educación</option>
-            <option value="Diversidad y género">Diversidad y género</option>
-            <option value="Consumos problemáticos">Consumos problemáticos</option>
-            <option value="Violencia y discriminación">Violencia y discriminación</option>
-            <option value="Turismo">Turismo</option>
-            <option value="Tercera edad">Tercera edad</option>
-            <option value="Discapacidad">Discapacidad</option>
+            <option value="Arte y Diseño">Arte y Diseño</option>
+            <option value="Tecnología y Comunicación">Tecnología y Comunicación</option>
+            <option value="Salud, Fitness y Deportes">Salud, Fitness y Deportes</option>
+            <option value="Medioambiente">Medioambiente</option>
+            <option value="Otro">Otro</option>
           </select>
         </div>
         <span v-show="errors.has('project.type')" class="help is-danger">
