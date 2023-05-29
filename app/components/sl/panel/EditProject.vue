@@ -29,10 +29,13 @@ export default {
         name: null,
         type: null,
         district_id: null,
+        participants: null,
         objective: null,
         description: null,
+        about: null,
         benefited_population: null,
         community_contributions: null,
+        resources: null,
         budget: [],
         author_names: null,
         author_surnames: null,
@@ -52,11 +55,14 @@ export default {
   beforeMount: function(){
     this.project.name = this.existingProject.name
     this.project.type = this.existingProject.type
-    this.project.district_id = 1
+    this.project.district_id = this.existingProject.district_id
+    this.project.participants = this.existingProject.participants
     this.project.objective = this.existingProject.objective
     this.project.description = this.existingProject.description
+    this.project.about = this.existingProject.about
     this.project.benefited_population = this.existingProject.benefited_population
     this.project.community_contributions = this.existingProject.community_contributions
+    this.project.resources = this.existingProject.resources
     this.project.budget = this.existingProject.budget
     this.project.author_names = this.existingProject.author_names
     this.project.author_surnames = this.existingProject.author_surnames
@@ -127,10 +133,13 @@ export default {
       let payload = {
         name: this.project.name,
         type: this.project.type,
+        participants: this.project.participants,
         objective: this.project.objective,
         description: this.project.description,
+        about: this.project.about,
         benefited_population: this.project.benefited_population,
         community_contributions: this.project.community_contributions,
+        resources: this.project.resources,
         budget: this.project.budget,
         author_names: this.project.author_names,
         author_surnames: this.project.author_surnames,

@@ -20,7 +20,7 @@
                   <img src="{{asset('img/ppj-color.svg')}}" class="image mx-auto" width="40" alt="">
                 </a>
               </div>
-              <h1 class="title is-5 has-text-primary">¡Gracias por ser parte del Presupuesto Participativo!</h1>
+              <h1 class="title is-5 has-text-primary">¡Gracias por ser parte del Presupuesto Participativo Joven de San Lorenzo!</h1>
               <p>Para terminar tu registro, te pedimos por favor que completes los siguientes campos.</p>
               <hr>
               {% if error %}
@@ -28,7 +28,7 @@
                   {{ error }}
                 </div>
               {% endif %}
-              <completar-registro form-url="{{ path_for('runNewUser') }}" :neighbourhoods="{{neighbourhoods|json_encode}}" log-in-url="{{path_for('showLogin')}}" token="{{activation_key}}">
+              <completar-registro form-url="{{ path_for('runNewUser') }}" :neighbourhoods="{{neighbourhoods|json_encode}}" :schools="{{schools|json_encode}}" log-in-url="{{path_for('showLogin')}}" token="{{activation_key}}">
                 {% include 'loading.twig' %}
               </completar-registro>
             </div>

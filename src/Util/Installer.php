@@ -32,12 +32,19 @@ class Installer
             $table->increments('id');
             $table->string('name');
         });
+        $this->db->schema()->create('schools', function ($table) {
+            $table->engine = 'InnoDB';
+            $table->increments('id');
+            $table->string('name');
+        });
         $this->db->schema()->create('neighbourhoods', function ($table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name');
             $table->integer('district_id')->unsigned();
-            $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade');
+            $table->foreign('district_id')->references('id')->on('neighbourhoods')->onDelete('cascade');
+            $table->integer('school_id')->unsigned();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
         });
         $this->db->schema()->create('citizens', function ($table) {
             $table->engine = 'InnoDB';
@@ -48,7 +55,8 @@ class Installer
             $table->integer('year');
             $table->string('data')->nullable();
             $table->string('genre')->nullable();
-            $table->datetime('voted_at')->nullable();
+            // $table->dropColumn('voted_at');
+            $table->boolean('voted')->default(false);
             $table->index('dni');
         });
         $this->db->schema()->create('subjects', function ($table) {
@@ -64,6 +72,8 @@ class Installer
             $table->foreign('citizen_id')->references('id')->on('citizens')->onDelete('cascade');
             $table->integer('neighbourhood_id')->unsigned()->nullable();
             $table->foreign('neighbourhood_id')->references('id')->on('neighbourhoods')->onDelete('cascade');
+            $table->integer('school_id')->unsigned()->nullable();
+            $table->foreign('school_id')->references('id')->on('schools')->onDelete('cascade');
         });
         $this->db->schema()->create('roles', function ($table) {
             $table->engine = 'InnoDB';
@@ -88,7 +98,6 @@ class Installer
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('email')->nullable();
-            // $table->string('facebook')->nullable();
             $table->string('password')->nullable();
             $table->string('names');
             $table->string('surnames');
@@ -125,30 +134,6 @@ class Installer
             $table->unique(['provider', 'identifier']);
             $table->index('token');
         });
-        // $this->db->schema()->create('groups', function ($table) {
-        //     $table->engine = 'InnoDB';
-        //     $table->increments('id');
-        //     $table->string('name');
-        //     $table->text('description');
-        //     $table->integer('quota')->unsigned()->nullable();
-        //     $table->string('trace')->nullable();
-        //     $table->integer('parent_id')->unsigned()->nullable();
-        //     $table->foreign('parent_id')->references('id')->on('groups')->onDelete('set null');
-        //     $table->integer('subject_id')->unsigned();
-        //     $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
-        //     $table->timestamps();
-        //     $table->softDeletes();
-        // });
-        // $this->db->schema()->create('user_group', function ($table) {
-        //     $table->engine = 'InnoDB';
-        //     $table->increments('id');
-        //     $table->string('relation');
-        //     $table->string('title')->nullable();
-        //     $table->integer('user_id')->unsigned();
-        //     $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-        //     $table->integer('group_id')->unsigned();
-        //     $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
-        // });
         $this->db->schema()->create('projects', function ($table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
@@ -159,12 +144,15 @@ class Installer
             $table->string('slug')->nullable();
             $table->integer('district_id')->unsigned();
             $table->foreign('district_id')->references('id')->on('districts');
+            $table->text('participants')->nullable();
             $table->text('description')->nullable();
+            $table->text('about')->nullable();
             $table->text('objective')->nullable();
             $table->text('benefited_population')->nullable();
             $table->text('community_contributions')->nullable();
+            $table->text('resources')->nullable();
             $table->text('budget')->nullable();
-            $table->decimal('total_budget',12,2)->default(0);
+            $table->decimal('total_budget',15,2)->default(0);
             $table->string('author_names');
             $table->string('author_surnames');
             $table->string('author_phone')->nullable();
@@ -202,38 +190,6 @@ class Installer
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->timestamps();
         });
-        // $this->db->schema()->create('votes', function ($table) {
-        //     $table->engine = 'InnoDB';
-        //     $table->increments('id');
-        //     $table->string('hash');
-        //     $table->integer('project_id')->unsigned();
-        //     $table->foreign('project_id')->references('id')->on('projects');
-        // });
-        // $this->db->schema()->create('comments', function ($table) {
-        //     $table->engine = 'InnoDB';
-        //     $table->increments('id');
-        //     $table->text('content');
-        //     $table->integer('votes')->default(0);
-        //     $table->text('meta')->nullable();
-        //     $table->integer('project_id')->nullable()->unsigned();
-        //     $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
-        //     $table->integer('author_id')->unsigned();
-        //     $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
-        //     $table->integer('parent_id')->unsigned()->nullable();
-        //     $table->foreign('parent_id')->references('id')->on('comments')->onDelete('cascade');
-        //     $table->timestamps();
-        //     $table->softDeletes();
-        // });
-        // $this->db->schema()->create('comment_votes', function ($table) {
-        //     $table->engine = 'InnoDB';
-        //     $table->increments('id');
-        //     $table->integer('value');
-        //     $table->integer('user_id')->unsigned();
-        //     $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-        //     $table->integer('comment_id')->unsigned();
-        //     $table->foreign('comment_id')->references('id')->on('comments')->onDelete('cascade');
-        //     $table->timestamps();
-        // });
         $this->db->schema()->create('actions', function ($table) {
             $table->engine = 'InnoDB';
             $table->string('id', 50)->primary();
@@ -243,18 +199,6 @@ class Installer
             $table->string('allowed_proxies');
             $table->timestamps();
         });
-        // $this->db->schema()->create('pages', function ($table) {
-        //     $table->engine = 'InnoDB';
-        //     $table->increments('id');
-        //     $table->string('name');
-        //     $table->string('link')->nullable();
-        //     $table->text('meta')->nullable();
-        //     //$table->json('meta')->nullable();
-        //     $table->string('slug');
-        //     $table->integer('order')->default(0);
-        //     $table->integer('parent_id')->unsigned()->nullable();
-        //     $table->foreign('parent_id')->references('id')->on('pages')->onDelete('set null');
-        // });
         $this->db->schema()->create('offline_ballots', function ($table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
@@ -270,14 +214,7 @@ class Installer
             $table->foreign('project_id')->references('id')->on('projects');
             $table->foreign('ballot_id')->references('id')->on('offline_ballots')->onDelete('cascade');
         });
-        $this->db->schema()->create('online_ballots', function ($table) {
-            $table->engine = 'InnoDB';
-            $table->increments('id');
-            $table->timestamp('created_at');
-            $table->boolean('sent')->default(false);
-            $table->boolean('invalid')->default(false);
-            $table->string('type');  // email, user, link, tablet
-        });
+        
         $this->db->schema()->create('online_votes', function ($table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
@@ -285,35 +222,29 @@ class Installer
             $table->integer('project_id')->unsigned();
             $table->foreign('project_id')->references('id')->on('projects');
         });
+
+        $this->db->schema()->create('statistical_ballots', function ($table) {
+            $table->engine = 'InnoDB';
+            $table->increments('id');
+            $table->string('type'); // user, link, tablet, paper
+            $table->string('gender')->nullable;
+            $table->integer('age')->nullable();
+            $table->timestamps();
+        });
+        $this->db->schema()->create('audit_trails', function ($table) {
+            $table->engine = 'InnoDB';
+            $table->increments('id');
+            $table->string('file_name');
+            $table->string('state');
+            $table->string('description');
+            $table->text('extra')->nullable();
+            $table->timestamps();
+        });
     }
 
     public function down()
     {
         $this->db->schema()->dropAllTables();
-        // $this->db->schema()->dropIfExists('online_votes');
-        // $this->db->schema()->dropIfExists('online_ballots');
-        // $this->db->schema()->dropIfExists('offline_votes');
-        // $this->db->schema()->dropIfExists('offline_ballots');
-        // $this->db->schema()->dropIfExists('actions');
-        // // $this->db->schema()->dropIfExists('comment_votes');
-        // // $this->db->schema()->dropIfExists('comments');
-        // $this->db->schema()->dropIfExists('votes');
-        // $this->db->schema()->dropIfExists('files');
-        // $this->db->schema()->dropIfExists('projects');
-        // // $this->db->schema()->dropIfExists('user_group');
-        // // $this->db->schema()->dropIfExists('groups');
-        // $this->db->schema()->dropIfExists('pending_users');
-        // $this->db->schema()->dropIfExists('users');
-        // $this->db->schema()->dropIfExists('subject_role');
-        // $this->db->schema()->dropIfExists('roles');
-        // $this->db->schema()->dropIfExists('subjects');
-        // $this->db->schema()->dropIfExists('citizens');
-        // $this->db->schema()->dropIfExists('neighbourhoods');
-        // $this->db->schema()->dropIfExists('districts');
-        // $this->db->schema()->dropIfExists('categories');
-        // $this->db->schema()->dropIfExists('options');
-        // $this->db->schema()->dropIfExists('ballots_offile');
-        // $this->db->schema()->dropIfExists('offline_votes');
     }
 
     public function populate()
@@ -341,14 +272,14 @@ class Installer
         $this->db->table('options')->insert([
             [
                 'key' => 'refresh-cache',
-                'value' => '20210601',
+                'value' => '20230512',
                 'type' => 'string',
                 'group' => 'varios',
                 'autoload' => true,
             ],
             [
                 'key' => 'current-edition',
-                'value' => '2021',
+                'value' => '2023',
                 'type' => 'integer',
                 'group' => 'varios',
                 'autoload' => true,
@@ -369,14 +300,14 @@ class Installer
             ],
             [
                 'key' => 'proposals-launch',
-                'value' => '2020-06-29 07:00:00',
+                'value' => '2023-05-31 07:00:00',
                 'type' => 'date',
                 'group' => 'varios',
                 'autoload' => true,
             ],
             [
                 'key' => 'proposals-deadline',
-                'value' => '2020-07-24 23:59:59',
+                'value' => '2023-06-10 23:59:59',
                 'type' => 'date',
                 'group' => 'varios',
                 'autoload' => true,
@@ -390,14 +321,14 @@ class Installer
             ],  
             [
                 'key' => 'vote-launch',
-                'value' => '2019-08-17 07:00:00',
+                'value' => '2023-07-03 07:00:00',
                 'type' => 'date',
                 'group' => 'varios',
                 'autoload' => true,
             ],
             [
                 'key' => 'vote-deadline',
-                'value' => '2019-08-30 23:59:59',
+                'value' => '2023-08-18 23:59:59',
                 'type' => 'date',
                 'group' => 'varios',
                 'autoload' => true,
@@ -411,7 +342,7 @@ class Installer
             ],
             [
                 'key' => 'budget-limit',
-                'value' => '800000',
+                'value' => '2240000',
                 'type' => 'integer',
                 'group' => 'varios',
                 'autoload' => true,

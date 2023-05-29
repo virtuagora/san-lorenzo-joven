@@ -81,14 +81,14 @@
         <div class="columns is-vcentered">
           <div class="column">
             <div class="field is-grouped is-grouped-multiline">
-                {# <div class="control">
+                <div class="control">
                   <div class="tags has-addons">
-                    <span class="tag is-dark is-large">Distrito</span>
+                    <span class="tag is-dark is-large">ZONA</span>
                     <span class="tag is-white is-large">
                       {{project.district.name|capitalize}}
                     </span>
                   </div>
-                </div> #}
+                </div>
               {% if (is_state('pre-vote') or is_state('vote') or is_state('pre-results') or is_state('results')) and project.feasible is defined %}
                 <div class="control">
                   <div class="tags has-addons">
@@ -219,11 +219,16 @@
                 El proyecto ha sido seleccionado por el voto de los ciudadanos para el Presupuesto del año {{project.edition}}</h1>
             </div>
           {% endif %}
-          <h1 class="title is-3 is-size-5-touch">El objetivo del proyecto</h1>
-          <p class="">{{project.objective|nl2br}}</p>
-          <br>
           <h1 class="title is-3 is-size-5-touch">La problemática que aborda</h1>
           <p class="">{{project.description|nl2br}}</p>
+          <br>
+          <h1 class="title is-3 is-size-5-touch">El objetivo del proyecto</h1>
+          <h1 class="subtitle is-5 is-size-6-touch">Qué se busca lograr con ese proyecto</h1>
+          <p class="">{{project.objective|nl2br}}</p>
+          <br>
+          <h1 class="title is-3 is-size-5-touch">Descripción del proyecto</h1>
+          <h1 class="subtitle is-5 is-size-6-touch">Qué se quiere hacer, lugar de ejecución, duración, etc</h1>
+          <p class="">{{project.objective|nl2br}}</p>
           <br>
           {% if project.benefited_population is not null %}
             <h1 class="title is-3 is-size-5-touch">Poblacion beneficiada</h1>
@@ -231,7 +236,7 @@
             <br>
           {% endif %}
           {% if project.community_contributions is not null %}
-            <h1 class="title is-3 is-size-5-touch">Aportes comunitarios</h1>
+            <h1 class="title is-3 is-size-5-touch">¿Requiere de aportes de otras instituciones u organizaciones? ¿Cuáles?</h1>
             <p class="">{{project.community_contributions|nl2br}}</p>
           {% endif %}
           {% if (is_state('pre-vote') or is_state('vote') or is_state('pre-results') or is_state('results')) and project.feasible is defined %}

@@ -99,12 +99,15 @@ class LocalIdentityProvider
         // }
         $neig = $this->db->query('App:Neighbourhood')
             ->findOrFail($data['neighbourhood_id']);
+        $scho = $this->db->query('App:School')
+            ->findOrFail($data['school_id']);
         $subj = $this->db->new('App:Subject');
         $subj->display_name = $data['names'] . ' ' . $data['surnames'];
         $subj->img_type = 0;
         $subj->img_hash = md5($pending->identifier);
         $subj->type = 'User';
         $subj->neighbourhood()->associate($neig);
+        $subj->school()->associate($scho);
         if (isset($citz)) {
             $subj->citizen()->associate($citz);
             $roles[] = 'verified';

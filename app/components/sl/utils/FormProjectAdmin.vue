@@ -126,10 +126,10 @@
         <i class="fas fa-caret-right"></i>&nbsp;Elegí la temática de la propuesta
       </h1>
       <h1 class="subtitle is-6">
-        <span class="has-text-link">* Requerido.</span> * Requerido.</span> ¿De que temática es la propuesta?
+        <span class="has-text-link">* Requerido.</span> ¿De que temática es la propuesta?
       </h1>
       <div class="control">
-        <div class="select is-large is-fullwidth">
+        <!-- <div class="select is-large is-fullwidth">
           <select
             data-vv-name="project.type"
             data-vv-as="'Categoría'"
@@ -145,14 +145,23 @@
             <option value="Medioambiente">Medioambiente</option>
             <option value="Otro">Otro</option>
           </select>
-        </div>
+        </div> -->
+        <input
+          v-model="project.type"
+          data-vv-name="project.type"
+          data-vv-as="'Tematica del proyecto'"
+          type="text"
+          v-validate="'required|min:2|max:250'"
+          class="input is-large"
+          placeholder="Requerido *"
+        >
         <span v-show="errors.has('project.type')" class="help is-danger">
           <i class="fas fa-times-circle fa-fw"></i>
           &nbsp;{{errors.first('project.type')}}
         </span>
       </div>
     </div>
-    <section class="box" v-if="project.type == 'institucional'">
+    <!-- <section class="box" v-if="project.type == 'institucional'">
       <div class="message is-primary">
         <div class="message-body">
 
@@ -235,10 +244,10 @@
           </span>
         </div>
       </div>
-    </section>
+    </section> -->
     <div class="field">
       <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.district_id')}">
-        <i class="fas fa-caret-right"></i>&nbsp;Elegí el distrito
+        <i class="fas fa-caret-right"></i>&nbsp;Elegí la zona donde se desarrollará tu proyecto
       </h1>
       <h1 class="subtitle is-6">
         <span class="has-text-link">* Requerido.</span> ¿En donde tendrá impacto tu propuesta?
@@ -266,12 +275,26 @@
         </span>
       </div>
     </div>
+    <div class="message is-info">
+      <div class="message-body">
+        <i class="fas fa-info-circle fa-fw"></i>
+        &nbsp;Barrios por Zona:
+        <ul>
+          <li v-for="district in districts">
+            <strong>{{district.name}}:</strong>
+            <span v-for="(neighbourhood, index) in district.neighbourhoods">
+              {{neighbourhood.name}}{{ index < district.neighbourhoods.length - 1 ? ' / ' : '.' }}
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
     <div class="field">
       <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.name')}">
-        <i class="fas fa-caret-right"></i>&nbsp;Nombre de la propuesta
+        <i class="fas fa-caret-right"></i>&nbsp;Nombre del proyecto
       </h1>
       <h1 class="subtitle is-6">
-        <span class="has-text-link">* Requerido.</span>
+        <span class="has-text-link">* Requerido.</span> ¡Ponele un lindo nombre para que la gente lo reconozca!
       </h1>
       <div class="control">
         <input
@@ -289,62 +312,117 @@
         </span>
       </div>
     </div>
-        <div class="field">
-        <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.objective')}">
-          <i class="fas fa-caret-right"></i>&nbsp;Objetivo de la propuesta
-        </h1>
-        <h1 class="subtitle is-6">
-          <span class="has-text-link">* Requerido.</span> Defina el objetivo de la propuesta. Tenes un máximo de 2000 caracteres
-        </h1>
+    <div class="field">
+      <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.participants')}">
+          <i class="fas fa-caret-right"></i>&nbsp; Responsables del proyecto
+      </h1>
+      <h1 class="subtitle is-6">
+        <span class="has-text-link">* Requerido. Privado para el admin.</span> Completa por cada responsable del proyecto: Nombre, Apellido, DNI, Email y Telefono.
+      </h1>
       <div class="control">
         <b-input
-          v-model="project.objective"
-          data-vv-name="project.objective"
-          data-vv-as="'Objetivo'"
-          v-validate="'required|min:5|max:2000'"
-          type="textarea"
-          minlength="10"
-          maxlength="2000"
-          rows="3"
-          placeholder="Requerido *"
+        v-model="project.participants"
+        data-vv-name="project.participants"
+        data-vv-as="'Participantes'"
+        v-validate="'required|min:10|max:2000'"
+        type="textarea"
+        minlength="10"
+        maxlength="2000"
+        rows="3"
+        placeholder="Requerido *"
+        :readonly="!editable"
         ></b-input>
-        <span v-show="errors.has('project.objective')" class="help is-danger">
+        <span v-show="errors.has('project.participants')" class="help is-danger">
           <i class="fas fa-times-circle fa-fw"></i>
-          &nbsp;{{errors.first('project.objective')}}
+          &nbsp;{{errors.first('project.participants')}}
         </span>
       </div>
     </div>
     <div class="field">
-      <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.description')}">
-          <i class="fas fa-caret-right"></i>&nbsp; Definición de la situación problemática
+      <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.participants')}">
+          <i class="fas fa-caret-right"></i>&nbsp; Definición del problema
       </h1>
       <h1 class="subtitle is-6">
           <span class="has-text-link">* Requerido.</span> ¿Cual es la problematica que atiende la propuesta?. Tenes un máximo de 2000 caracteres
-      </h1>
-      <div class="control">
-        <b-input
+        </h1>
+        <div class="control">
+          <b-input
           v-model="project.description"
           data-vv-name="project.description"
-          data-vv-as="'Descripcion'"
-          v-validate="'required|min:5|max:2000'"
+          data-vv-as="'Definición del problema'"
+          v-validate="'required|min:10|max:2000'"
           type="textarea"
           minlength="10"
           maxlength="2000"
           rows="3"
           placeholder="Requerido *"
-        ></b-input>
-        <span v-show="errors.has('project.description')" class="help is-danger">
-          <i class="fas fa-times-circle fa-fw"></i>
-          &nbsp;{{errors.first('project.description')}}
-        </span>
+          :readonly="!editable"
+          ></b-input>
+          <span v-show="errors.has('project.description')" class="help is-danger">
+            <i class="fas fa-times-circle fa-fw"></i>
+            &nbsp;{{errors.first('project.description')}}
+          </span>
+        </div>
       </div>
-    </div>
-    <div class="field">
+      <div class="field">
+        <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.objective')}">
+          <i class="fas fa-caret-right"></i>&nbsp;Objetivo del proyecto
+        </h1>
+        <h1 class="subtitle is-6">
+          <span class="has-text-link">* Requerido.</span> Defina el objetivo del proyecto. <i>¿Que se busca lograr con este proyecto?</i>. Tenes un máximo de 2000 caracteres.
+        </h1>
+        <div class="control">
+          <b-input
+            v-model="project.objective"
+            data-vv-name="project.objective"
+            data-vv-as="'Objetivo'"
+            v-validate="'required|min:10|max:2000'"
+            type="textarea"
+            minlength="10"
+            maxlength="2000"
+            rows="3"
+            placeholder="Requerido *"
+            :readonly="!editable"
+          ></b-input>
+          <span v-show="errors.has('project.objective')" class="help is-danger">
+            <i class="fas fa-times-circle fa-fw"></i>
+            &nbsp;{{errors.first('project.objective')}}
+          </span>
+        </div>
+      </div>
+      <div class="field">
+        <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.about')}">
+          <i class="fas fa-caret-right"></i>&nbsp;Descripcion del proyecto
+        </h1>
+        <h1 class="subtitle is-6">
+          <span class="has-text-link">* Requerido.</span> Contanos que se quiere hacer, donde va a ser el lugar de ejecucion, etc. (Cualquier detalle de como se ejecutará). Tenes un máximo de 2000 caracteres.
+        </h1>
+        <div class="control">
+          <b-input
+            v-model="project.about"
+            data-vv-name="project.about"
+            data-vv-as="'Descripcion del proyecto'"
+            v-validate="'required|min:10|max:2000'"
+            type="textarea"
+            minlength="10"
+            maxlength="2000"
+            rows="3"
+            placeholder="Requerido *"
+            :readonly="!editable"
+          ></b-input>
+          <span v-show="errors.has('project.about')" class="help is-danger">
+            <i class="fas fa-times-circle fa-fw"></i>
+            &nbsp;{{errors.first('project.about')}}
+          </span>
+        </div>
+      </div>
+      <div class="field">
       <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.benefited_population')}">
           <i class="fas fa-caret-right"></i>&nbsp; Población beneficiada
       </h1>
       <h1 class="subtitle is-6">
-          <span class="has-text-link">* Requerido.</span> ¿Cual es la población identificada que se verá beneficiada con tu propuesta?. Tenes un máximo de 2000 caracteres      </h1>
+          <span class="has-text-link">* Requerido.</span> ¿Cual es la población identificada que se verá beneficiada con el proyecto?. Tenes un máximo de 2000 caracteres
+      </h1>
       <div class="control">
         <b-input
           v-model="project.benefited_population"
@@ -356,6 +434,7 @@
           maxlength="2000"
           rows="3"
           placeholder="Requerido *"
+          :readonly="!editable"
         ></b-input>
         <span v-show="errors.has('project.benefited_population')" class="help is-danger">
           <i class="fas fa-times-circle fa-fw"></i>
@@ -368,7 +447,7 @@
           <i class="fas fa-caret-right"></i>&nbsp; Aportes comunitarios
       </h1>
       <h1 class="subtitle is-6">
-          <span class="has-text-link">* Requerido.</span> ¿Cuales van a ser los aportes comunitarios que ofrecerá tu propuesta?. Tenes un máximo de 2000 caracteres
+          <span class="has-text-link">* Requerido.</span> ¿Requiere de aportes de otras instituciones u organizaciones? ¿Cuáles? Tenes un máximo de 2000 caracteres
       </h1>
       <div class="control">
         <b-input
@@ -381,10 +460,37 @@
           maxlength="2000"
           rows="3"
           placeholder="Requerido *"
+          :readonly="!editable"
         ></b-input>
         <span v-show="errors.has('project.community_contributions')" class="help is-danger">
           <i class="fas fa-times-circle fa-fw"></i>
           &nbsp;{{errors.first('project.community_contributions')}}
+        </span>
+      </div>
+    </div>
+    <div class="field">
+      <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.resources')}">
+          <i class="fas fa-caret-right"></i>&nbsp; Descripción recursos necesarios para la ejecución
+      </h1>
+      <h1 class="subtitle is-6">
+          <span class="has-text-link">* Requerido.</span> Detalla que tipo de recurso humano se requiere, materiales, etc. Tenes un máximo de 2000 caracteres
+      </h1>
+      <div class="control">
+        <b-input
+          v-model="project.resources"
+          data-vv-name="project.resources"
+          data-vv-as="'Recursos'"
+          v-validate="'required|min:10|max:2000'"
+          type="textarea"
+          minlength="10"
+          maxlength="2000"
+          rows="3"
+          placeholder="Requerido *"
+          :readonly="!editable"
+        ></b-input>
+        <span v-show="errors.has('project.resources')" class="help is-danger">
+          <i class="fas fa-times-circle fa-fw"></i>
+          &nbsp;{{errors.first('project.resources')}}
         </span>
       </div>
     </div>

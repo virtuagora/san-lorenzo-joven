@@ -158,6 +158,7 @@ class UserPanelAction
         $project = $this->helper->getEntityFromId(
             'App:Project', 'pro', $params
         );
+        $project->makeVisible(['participants']);
         if (!$this->authorization->checkPermission($subject, 'updateProject', $project)) {
             throw new UnauthorizedException();
         }

@@ -45,6 +45,10 @@ class UserResource extends Resource
                     'type' => 'integer',
                     'minimum' => 1,
                 ],
+                'school_id' => [
+                    'type' => 'integer',
+                    'minimum' => 1,
+                ],
                 'token' => [
                     'type' => 'string',
                     'minLength' => 10,
@@ -61,7 +65,7 @@ class UserResource extends Resource
                     ],
                 ],
             ],
-            'required' => ['names', 'surnames', 'password', 'birthday', 'neighbourhood_id', 'dni', 'token'],
+            'required' => ['names', 'surnames', 'password', 'birthday', 'neighbourhood_id', 'school_id', 'dni', 'token'],
             'additionalProperties' => false,
         ];
         return $schema;

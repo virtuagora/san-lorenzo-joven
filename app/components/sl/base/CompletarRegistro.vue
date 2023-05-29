@@ -91,55 +91,43 @@
           </span>
         </div>
       </div>
-      <br>
-      <div class="message is-primary">
-        <div class="message-body">
-          <div class="field has-text-left">
-              <label class="label">¿Vivis en SL? ¿A que escuela vas?</label>
-              <!-- <label class="label is-pulled-right">
-                <a href="#">No lo sé
-                  <i class="far fa-question-circle fa-lg fa-fw"></i>
-                </a>
-              </label>-->
-            <div class="control">
-              <div class="select is-medium is-fullwidth">
-                <select name="district" v-model="user.neighbourhood_id" v-validate="'required'">
-                  <option :value="null">Seleccione una escuela</option>
-                  <option
-                    v-for="neighbourhood in neighbourhoods"
-                    :key="neighbourhood.id"
-                    :value="neighbourhood.id"
-                  >{{neighbourhood.district.name}} - {{neighbourhood.name}}</option>
-                </select>
-              </div>
-              <span class="help is-danger" v-show="errors.has('district')">
-                <i class="fas fa-times-circle fa-fw"></i> Debe seleccionar a que escuela asistis.
-              </span>
-              <!-- <span class="help is-italic">¿No recuerda cual es su barrio? Consultelo haciendo clic en "No lo sé", se abrirá una ventana con un mapa para poder informarse</span> -->
-            </div>
-          </div>
-          <div class="field has-text-left">
-            <div class="control">
-
-        <div class="content">
-          <p><i class="fas fa-exclamation-triangle"></i>&nbsp;<b>NOTA</b>: Si elegiste alguna de las siguientes opciones:</p>
-          <ul>
-            <li><b>Vivo en SL - Voy a una escuela en otra localidad</b></li>
-            <li><b>Vivo en SL - No voy a la escuela</b></li>
-            <li><b>No vivo en SL - Voy a una escuela en SL</b></li>
-          </ul>
-          <p>Escribinos mas detalles, como por ejemplo, que localidad queda la otra escuela, como se llama la escuela, o cual es tu situacion actual si no estas yendo a la escuela (Ej: si estas trabajando, si vas a otra institución, o cualquier dato relevante)</p>
-        </div>
-            </div>
-      </div>
-      <div class="field has-text-left">
-        <div class="label">Escuela, localidad, y/o tu situación actual</div>
+      <div class="field">
+        <label class="label">Barrio donde vivis</label>
         <div class="control">
-          <textarea class="textarea" v-model="user.bio" rows="2" placeholder="(Opcional) Mas detalles"></textarea>
+          <div class="select is-medium is-fullwidth">
+            <select name="district" v-model="user.neighbourhood_id" v-validate="'required'">
+              <option :value="null">Seleccione su barrio</option>
+              <option
+                v-for="neighbourhood in neighbourhoods"
+                :key="neighbourhood.id"
+                :value="neighbourhood.id"
+              >{{neighbourhood.district.name}} - {{neighbourhood.name}}</option>
+            </select>
+          </div>
+          <span class="help is-danger" v-show="errors.has('district')">
+            <i class="fas fa-times-circle fa-fw"></i> Selecciona el barrio donde vivis.
+          </span>
         </div>
       </div>
+      <div class="field">
+        <label class="label">Escuela a la que asistis</label>
+        <div class="control">
+          <div class="select is-medium is-fullwidth">
+            <select name="school" v-model="user.school_id" v-validate="'required'">
+              <option :value="null">Seleccione la escuela</option>
+              <option
+                v-for="school in schools"
+                :key="school.id"
+                :value="school.id"
+              >{{school.name}}</option>
+            </select>
+          </div>
+          <span class="help is-danger" v-show="errors.has('school')">
+            <i class="fas fa-times-circle fa-fw"></i> Selecciona a que escuela asistis.
+          </span>
         </div>
       </div>
+
       <div class="field">
         <label class="label">Contraseña *</label>
         <div class="control">
@@ -221,7 +209,7 @@
 
 <script>
 export default {
-  props: ["formUrl", "logInUrl", "token", "neighbourhoods"],
+  props: ["formUrl", "logInUrl", "token", "neighbourhoods", "schools"],
   data() {
     return {
       user: {
@@ -230,6 +218,7 @@ export default {
         password: null,
         dni: "",
         neighbourhood_id: null,
+        school_id: null,
         token: this.token,
         birthday: null,
         bio: null

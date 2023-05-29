@@ -33,6 +33,11 @@ class Subject extends Model
         return $this->belongsTo('App\Model\Neighbourhood');
     }
 
+    public function school()
+    {
+        return $this->belongsTo('App\Model\School');
+    }
+
     public function roles()
     {
         return $this->belongsToMany('App\Model\Role', 'subject_role');

@@ -183,11 +183,13 @@ class UserAction
         // If not, complete registry!
         // $neighbourhoods = $this->db->query('App:Neighbourhood', ['district'])->get();
         $neighbourhoods = $this->db->query('App:Neighbourhood', ['district'])->get();
+        $schools = $this->db->query('App:School')->get();
         // $districts = $this->db->query('App:District')->get();
         return $this->view->render($response, 'sl/completar-registro.twig', [
             'activation_key' => $token,
             // 'districts' => $districts->toArray(),
             'neighbourhoods' => $neighbourhoods->toArray(),
+            'schools' => $schools->toArray(),
         ]);
     }
 

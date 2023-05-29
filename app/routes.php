@@ -2,6 +2,11 @@
 
 // misc
 
+// MiscAction
+$app->get('/install[/{extra}]', 'miscAction:runInstall');
+$app->get('/update', 'miscAction:runUpdate');
+$app->get('/ping', 'miscAction:getLoggedPing')->setName('getLoggedPing');
+
 // PagesAction
 
 // SessionAction
@@ -43,10 +48,6 @@ $app->get('/sellos', 'pagesAction:showSellos')->setName('showSellos');
 $app->get('/sellos/{aud}/recibo', 'auditWebAction:downloadRecibo')->setName('showReciboSello');
 $app->get('/sellos/{aud}/dataset', 'auditWebAction:downloadDataset')->setName('showDatasetSello');
 
-// MiscAction
-$app->get('/install[/{extra}]', 'miscAction:runInstall');
-$app->get('/update', 'miscAction:runUpdate');
-$app->get('/ping', 'miscAction:getLoggedPing')->setName('getLoggedPing');
 
 // ProjectWebAction
 $app->group('/proyectos', function () {

@@ -144,6 +144,7 @@ class ProjectApiAction extends ContainerClient
         if (!$this->authorization->checkPermission($subject, 'manageProject', $project)) {
             throw new UnauthorizedException();
         }
+        $data = $request->getParsedBody();
         $this->resources['project']->updateSelected($subject, $project, $data);
         return $this->representation->returnMessage($request, $response, [
             'message' => 'Selección del proyecto actualizada exitosamente',

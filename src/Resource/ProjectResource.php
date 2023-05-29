@@ -23,12 +23,17 @@ class ProjectResource extends ContainerClient
 				],
 				'type' => [
 					'type' => 'string',
-					'enum' => ['Formación y Educación','Arte y Diseño','Tecnología y Comunicación','Salud, Fitness y Deportes','Medioambiente','Otro'],
+					'maxLength' => 250,
 				],
 				'slug' => [
 					'type' => 'string',
 					'pattern' => '^[a-z0-9]+(?:-[a-z0-9]+)*$',
 					'maxLength' => 250,
+				],
+				'participants' => [
+					'type' => 'string',
+					'minLength' => 1,
+					'maxLength' => 2000,
 				],
 				'objective' => [
 					'type' => 'string',
@@ -44,12 +49,22 @@ class ProjectResource extends ContainerClient
 					'minLength' => 1,
 					'maxLength' => 2000,
 				],
+				'about' => [
+					'type' => 'string',
+					'minLength' => 1,
+					'maxLength' => 2000,
+				],
 				'benefited_population' => [
 					'type' => 'string',
 					'minLength' => 1,
 					'maxLength' => 2000,
 				],
 				'community_contributions' => [
+					'type' => 'string',
+					'minLength' => 1,
+					'maxLength' => 2000,
+				],
+				'resources' => [
 					'type' => 'string',
 					'minLength' => 1,
 					'maxLength' => 2000,
@@ -134,6 +149,8 @@ class ProjectResource extends ContainerClient
 				'author_names',
 				'author_surnames',
 				'author_phone',
+				'about',
+				'resources',
 				'benefited_population',
 				'budget',
 				'community_contributions',
@@ -344,7 +361,7 @@ class ProjectResource extends ContainerClient
 	private function getWatchedFields() {
 		return $watchedFields = [
 			'edition', 'benefited_population', 'budget', 'community_contributions',
-			'description', 'name', 'objective', 'type', 'monitoringStatus',
+			'description', 'about', 'participants', 'resources', 'name', 'objective', 'type', 'monitoringStatus',
 			'monitoringComment'
 		];
 	}

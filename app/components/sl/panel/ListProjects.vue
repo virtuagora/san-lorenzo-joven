@@ -3,18 +3,14 @@
   <b-table :data="projects">
       <b-table-column v-slot="props" field="name" label="Propuesta">
         <p class="is-size-6 is-300"><b><a :href="`/proyectos/${props.row.id}`" class="has-text-link">{{props.row.name}}</a></b></p>
-        <p class="is-size-7" v-if="props.row.type == 'comunitario'">Presentado por&nbsp;<b>{{props.row.author_names}} {{props.row.author_surnames}}</b></p>
-        <div v-else>
-        <!-- <p class="is-size-7">Institución: <b>{{props.row.organization_name}}</b></p> -->
         <p class="is-size-7">Presentado por&nbsp;<b>{{props.row.author_names}} {{props.row.author_surnames}}</b></p>
-        </div>
       </b-table-column>
       <b-table-column v-slot="props" field="type" label="Tipo" width="100" sortable centered>
        <span class="tag is-project">{{capitalizeFirstLetter(props.row.type)}}</span>
       </b-table-column>
-      <!-- <b-table-column field="type" label="Distrito" width="100" sortable centered>
+      <b-table-column v-slot="props" field="type" label="Zona" width="100" sortable centered>
        <span class="tag is-light">{{props.row.district.name}}</span>
-      </b-table-column> -->
+      </b-table-column>
       <b-table-column v-slot="props" label="Info" width="170">
         <p class="is-size-7">Presupuesto&nbsp;<i class="fas fa-dollar-sign"></i>&nbsp;<b>{{props.row.total_budget}}</b></p>             
       </b-table-column>

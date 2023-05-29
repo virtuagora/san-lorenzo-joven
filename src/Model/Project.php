@@ -17,8 +17,10 @@ class Project extends Model
         'type',
         'edition',
         'slug',
+        'about',
         'objective',
         'description',
+        'resources',
         'total_budget',
         'benefited_population',
         'community_contributions',
@@ -42,6 +44,9 @@ class Project extends Model
         'district',
         'likes'
     ];
+    protected $hidden = [
+        'participants',
+    ];
     protected $fillable = [
         'code',
         'name',
@@ -49,7 +54,10 @@ class Project extends Model
         'edition',
         'slug',
         'objective',
+        'participants',
         'description',
+        'about',
+        'resources',
         'total_budget',
         'benefited_population',
         'community_contributions',
