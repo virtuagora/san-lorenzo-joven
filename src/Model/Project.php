@@ -23,6 +23,7 @@ class Project extends Model
         'resources',
         'total_budget',
         'benefited_population',
+        'benefited_districts',
         'community_contributions',
         'budget',
         'author_names',
@@ -96,6 +97,11 @@ class Project extends Model
     public function district()
     {
         return $this->belongsTo('App\Model\District');
+    }
+
+    public function benefited_districts()
+    {
+        return $this->belongsToMany('App\Model\District', 'project_benefited_districts', 'project_id', 'district_id');
     }
 
     public function documents()

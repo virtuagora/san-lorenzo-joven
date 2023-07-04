@@ -247,10 +247,10 @@
     </section> -->
     <div class="field">
       <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.district_id')}">
-        <i class="fas fa-caret-right"></i>&nbsp;Elegí la zona donde se desarrollará tu proyecto
+        <i class="fas fa-caret-right"></i>&nbsp;Seleccioná de que zona proviene la propuesta
       </h1>
       <h1 class="subtitle is-6">
-        <span class="has-text-link">* Requerido.</span> ¿En donde tendrá impacto tu propuesta?
+        <span class="has-text-link">* Requerido.</span>
       </h1>
       <div class="control">
         <div class="select is-large is-fullwidth" :class="{'is-loading': districtsLoading}">
@@ -261,7 +261,7 @@
             v-model="project.district_id"
             placeholder="Seleccione el distrito"
           >
-            <option :value="null" disabled>- Selecciona el distrito -</option>
+            <option :value="null" disabled>- Selecciona la zona -</option>
             <option
               v-for="district in districts"
               :key="district.id"
@@ -273,6 +273,19 @@
           <i class="fas fa-times-circle fa-fw"></i>
           &nbsp;{{errors.first('project.district_id')}}
         </span>
+      </div>
+    </div>
+    <div class="field">
+      <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.benefited_districts')}">
+        <i class="fas fa-caret-right"></i>&nbsp;Seleccioná las zonas beneficiadas por la propuesta
+      </h1>
+      <h1 class="subtitle is-6">
+        <span class="has-text-link">* Requerido.</span> ¿A que zonas beneficia la propuesta?
+      </h1>
+      <div class="control">
+        <b-checkbox v-model="project.benefited_districts" v-for="district in districts" :key="'checkbox-district-' + district.id" :native-value="district.id">
+          {{district.name}}
+        </b-checkbox>
       </div>
     </div>
     <div class="message is-info">
@@ -339,7 +352,7 @@
       </div>
     </div>
     <div class="field">
-      <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.participants')}">
+      <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.description')}">
           <i class="fas fa-caret-right"></i>&nbsp; Definición del problema
       </h1>
       <h1 class="subtitle is-6">
@@ -610,7 +623,7 @@ export default {
   mounted: function() {
     this.districtsLoading = true;
     this.$http
-      .get("/api/distritos")
+      .get("/api/distritos?with=neighbourhoods")
       .then(response => {
         this.districts = response.data;
         this.districtsLoading = false;

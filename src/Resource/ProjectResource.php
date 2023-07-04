@@ -59,6 +59,13 @@ class ProjectResource extends ContainerClient
 					'minLength' => 1,
 					'maxLength' => 2000,
 				],
+				'benefited_districts' => [
+					'type' => 'array',
+					'items' => [
+						'type' => 'integer',
+						'minimum' => 1,
+					],
+				],
 				'community_contributions' => [
 					'type' => 'string',
 					'minLength' => 1,
@@ -152,6 +159,7 @@ class ProjectResource extends ContainerClient
 				'about',
 				'resources',
 				'benefited_population',
+				'benefited_districts',
 				'budget',
 				'community_contributions',
 				'description',
@@ -306,6 +314,14 @@ class ProjectResource extends ContainerClient
 		}
 		$this->fillProjectData($project, $data, $schemaOpts);
 		$project->save();
+
+		// project->benefited_districts is an array of districts ids.
+		// it should be saved in a table called project_benefited_districts
+		// with a project_id and a district_id
+		$project->benefited_districts()->sync($data['benefited_districts']);
+		// unset project->benefited_districts because it's not a field in the table
+		//unset($data['benefited_districts']);
+
 		return $project;
 	}
 
