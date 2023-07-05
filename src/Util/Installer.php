@@ -158,6 +158,7 @@ class Installer
             $table->string('author_phone')->nullable();
             $table->string('author_email')->nullable();
             $table->string('author_dni')->nullable();
+            $table->string('authors')->nullable();
             $table->string('organization_name')->nullable();
             $table->string('organization_legal_entity')->nullable();
             $table->string('organization_address')->nullable();
@@ -180,6 +181,16 @@ class Installer
             $table->softDeletes();
             $table->index('name');
         });
+
+        $this->db->schema()->create('project_benefited_districts', function ($table) {
+            $table->engine = 'InnoDB';
+            $table->increments('id');
+            $table->integer('project_id')->unsigned();
+            $table->integer('district_id')->unsigned();
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
+            $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade');
+        });
+
         $this->db->schema()->create('documents', function ($table) {
             $table->engine = 'InnoDB';
             $table->increments('id');

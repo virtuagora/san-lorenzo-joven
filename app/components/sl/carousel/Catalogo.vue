@@ -135,7 +135,6 @@
             </div>
             <h1 class="title is-4 is-500 is-marginless">{{project.name}}</h1>
             <p class="shadow-text some-other-effects">
-              Por
               <span class="is-600">{{getWho(project)}}</span>
               - {{getShortDescription(project.objective,150)}}
             </p>
@@ -261,10 +260,13 @@ export default {
   mounted: function() {},
   methods: {
     getWho(project) {
-      if (project.type == "institucion") {
-        return project.organization_name;
+      // if (project.type == "institucion") {
+      //   return project.organization_name;
+      // }
+      // return project.author_names + " " + project.author_surnames;
+      if(project.authors != null){
+        return project.authors + ' - '
       }
-      return project.author_names + " " + project.author_surnames;
     },
     cleanFilters: function() {
       this.statusSelected = null;

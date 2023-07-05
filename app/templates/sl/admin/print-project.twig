@@ -33,11 +33,11 @@
     </div>
 		<h1 class="title is-marginless is-3">{{proyecto.name}}</h1>
       {% if proyecto.type == 'institucional' %}
-        <h1 class="subtitle is-marginless has-text-dark is-6">Presenta:
+        <h1 class="subtitle is-marginless has-text-dark is-6">Presentan:
           {{proyecto.organization_name}}</h1>
       {% else %}
         <h1 class="subtitle is-marginless has-text-dark is-6  ">
-          Presenta:
+          Presentan:
           {{proyecto.author_names}}
           {{proyecto.author_surnames}}</h1>
       {% endif %}

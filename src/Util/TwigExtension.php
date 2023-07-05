@@ -154,6 +154,7 @@ class TwigExtension extends Twig_Extension
     {
         // if $this->store['subject']['roles'] includes 'verified' return true
         $roles = $this->store['subject']['roles'];
+        
         if (in_array('verified', $roles)) {
             return true;
         }

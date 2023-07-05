@@ -23,6 +23,7 @@ class Project extends Model
         'resources',
         'total_budget',
         'benefited_population',
+        'benefited_districts',
         'community_contributions',
         'budget',
         'author_names',
@@ -30,6 +31,7 @@ class Project extends Model
         'author_email',
         'author_dni',
         'author_phone',
+        'authors',
         'organization_legal_entity',
         'organization_name',
         'organization_address',
@@ -44,9 +46,6 @@ class Project extends Model
         'district',
         'likes'
     ];
-    protected $hidden = [
-        'participants',
-    ];
     protected $fillable = [
         'code',
         'name',
@@ -55,6 +54,7 @@ class Project extends Model
         'slug',
         'objective',
         'participants',
+        'authors',
         'description',
         'about',
         'resources',
@@ -77,6 +77,7 @@ class Project extends Model
     protected $with = [];
     protected $casts = [
         'deleted_at' => 'datetime',
+        'benefited_districts' => 'array',
         'budget' => 'array',
         'journal' => 'array',
         'selected' => 'boolean',
@@ -96,6 +97,11 @@ class Project extends Model
     public function district()
     {
         return $this->belongsTo('App\Model\District');
+    }
+
+    public function benefited_districts()
+    {
+        return $this->belongsToMany('App\Model\District', 'project_benefited_districts', 'project_id', 'district_id');
     }
 
     public function documents()

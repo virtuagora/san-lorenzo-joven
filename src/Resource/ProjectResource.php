@@ -35,6 +35,11 @@ class ProjectResource extends ContainerClient
 					'minLength' => 1,
 					'maxLength' => 2000,
 				],
+				'authors' => [
+					'type' => 'string',
+					'minLength' => 1,
+					'maxLength' => 2000,
+				],
 				'objective' => [
 					'type' => 'string',
 					'minLength' => 1,
@@ -58,6 +63,13 @@ class ProjectResource extends ContainerClient
 					'type' => 'string',
 					'minLength' => 1,
 					'maxLength' => 2000,
+				],
+				'benefited_districts' => [
+					'type' => 'array',
+					'items' => [
+						'type' => 'integer',
+						'minimum' => 1,
+					],
 				],
 				'community_contributions' => [
 					'type' => 'string',
@@ -152,6 +164,7 @@ class ProjectResource extends ContainerClient
 				'about',
 				'resources',
 				'benefited_population',
+				'benefited_districts',
 				'budget',
 				'community_contributions',
 				'description',
@@ -280,6 +293,10 @@ class ProjectResource extends ContainerClient
 		$this->fillProjectData($project, $data, $schemaOpts);
 		$this->updateJournal($user, $project);
 		$project->save();
+		// Now we need to populate the benefited_districts many-to-many relationship
+		$districts = $data['benefited_districts'];
+		$project->benefited_districts()->attach($districts);
+
 		return $project;
 	}
 
@@ -306,6 +323,14 @@ class ProjectResource extends ContainerClient
 		}
 		$this->fillProjectData($project, $data, $schemaOpts);
 		$project->save();
+
+		// project->benefited_districts is an array of districts ids.
+		// it should be saved in a table called project_benefited_districts
+		// with a project_id and a district_id
+		$project->benefited_districts()->sync($data['benefited_districts']);
+		// unset project->benefited_districts because it's not a field in the table
+		//unset($data['benefited_districts']);
+
 		return $project;
 	}
 
@@ -361,7 +386,7 @@ class ProjectResource extends ContainerClient
 	private function getWatchedFields() {
 		return $watchedFields = [
 			'edition', 'benefited_population', 'budget', 'community_contributions',
-			'description', 'about', 'participants', 'resources', 'name', 'objective', 'type', 'monitoringStatus',
+			'description', 'about', 'resources', 'name', 'objective', 'type', 'monitoringStatus',
 			'monitoringComment'
 		];
 	}

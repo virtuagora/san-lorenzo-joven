@@ -123,14 +123,14 @@
               {% endif %}
             </div>
             <h1 class="title shadow-text has-text-white is-1">{{project.name}}</h1>
+            {% if project.authors is not null %}
             <h1 class="subtitle shadow-text has-text-white is-3">
-              Presenta:
-              {{project.author_names}}
-              {{project.author_surnames}}</h1>
+              Presentan: {{project.authors}}</h1>
+            {% endif %}
               
             {% if (vote_available() and subject.id is null) 
               or(vote_available()and subject.id and citizen()is not null and citizen().voted == false) %}
-              {% if citizen()is not null and citizen().voted == false %}
+              {% if citizen() is not null and citizen().voted == false %}
                 <a href="{{path_for('showVoting')}}" class="button is-white is-large is-rounded">
                   <i class="fas fa-paper-plane fa-fw"></i>¡Votá este proyecto!</a>
               {% endif %}
@@ -220,20 +220,36 @@
             </div>
           {% endif %}
           <h1 class="title is-3 is-size-5-touch">La problemática que aborda</h1>
+            <h1 class="subtitle is-5 is-size-6-touch">Breve descripción del problema a solucionar</h1>
           <p class="">{{project.description|nl2br}}</p>
-          <br>
+          <hr>
           <h1 class="title is-3 is-size-5-touch">El objetivo del proyecto</h1>
           <h1 class="subtitle is-5 is-size-6-touch">Qué se busca lograr con ese proyecto</h1>
           <p class="">{{project.objective|nl2br}}</p>
-          <br>
+          <hr>
           <h1 class="title is-3 is-size-5-touch">Descripción del proyecto</h1>
           <h1 class="subtitle is-5 is-size-6-touch">Qué se quiere hacer, lugar de ejecución, duración, etc</h1>
-          <p class="">{{project.objective|nl2br}}</p>
-          <br>
+          <p class="">{{project.about|nl2br}}</p>
+          <hr>
           {% if project.benefited_population is not null %}
             <h1 class="title is-3 is-size-5-touch">Poblacion beneficiada</h1>
+            <h1 class="subtitle is-5 is-size-6-touch">A quienes beneficia el proyecto</h1>
             <p class="">{{project.benefited_population|nl2br}}</p>
-            <br>
+            <hr>
+          {% endif %}
+          {% if project.benefited_districts|length > 0 %}
+            <h1 class="title is-3 is-size-5-touch">Zonas beneficiadas</h1>
+            <h1 class="subtitle is-5 is-size-6-touch">Las zonas y barrios en donde se aplicaria el proyecto</h1>
+            
+            {% for district in project.benefited_districts %}
+              <p>
+              <span class="tag is-primary">{{district.name}}</span> 
+              {% for neighbourhood in district.neighbourhoods %}
+                <span class="tag is-info">{{neighbourhood.name}}</span>
+              {% endfor %}
+              </p>
+            {% endfor %}
+            <hr>
           {% endif %}
           {% if project.community_contributions is not null %}
             <h1 class="title is-3 is-size-5-touch">¿Requiere de aportes de otras instituciones u organizaciones? ¿Cuáles?</h1>

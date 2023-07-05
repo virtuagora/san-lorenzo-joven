@@ -16,4 +16,8 @@ class District extends Model
     {
         return $this->hasMany('App\Model\Neighbourhood');
     }
+
+    public function projects() {
+        return $this->belongsToMany('App\Model\Project', 'project_benefited_districts', 'district_id', 'project_id');
+    }
 }
