@@ -35,6 +35,11 @@ class ProjectResource extends ContainerClient
 					'minLength' => 1,
 					'maxLength' => 2000,
 				],
+				'authors' => [
+					'type' => 'string',
+					'minLength' => 1,
+					'maxLength' => 2000,
+				],
 				'objective' => [
 					'type' => 'string',
 					'minLength' => 1,
@@ -288,6 +293,10 @@ class ProjectResource extends ContainerClient
 		$this->fillProjectData($project, $data, $schemaOpts);
 		$this->updateJournal($user, $project);
 		$project->save();
+		// Now we need to populate the benefited_districts many-to-many relationship
+		$districts = $data['benefited_districts'];
+		$project->benefited_districts()->attach($districts);
+
 		return $project;
 	}
 
@@ -377,7 +386,7 @@ class ProjectResource extends ContainerClient
 	private function getWatchedFields() {
 		return $watchedFields = [
 			'edition', 'benefited_population', 'budget', 'community_contributions',
-			'description', 'about', 'participants', 'resources', 'name', 'objective', 'type', 'monitoringStatus',
+			'description', 'about', 'resources', 'name', 'objective', 'type', 'monitoringStatus',
 			'monitoringComment'
 		];
 	}

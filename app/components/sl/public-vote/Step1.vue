@@ -36,7 +36,7 @@
           </div>
           <div class="media-content">
             <h1 class="title is-4 is-marginless" :class="colorChecked(proyecto.id)">{{proyecto.name}}</h1>
-            <p class="some-good-effects">Por <span class="is-600">{{getWho(proyecto)}}</span> - {{getShortDescription(proyecto.objective,150)}}</p>
+            <p class="some-good-effects"><span class="is-600">{{getWho(proyecto)}}</span>{{getShortDescription(proyecto.objective,150)}}</p>
           </div>
           <div class="media-right">
             <div class="control">
@@ -60,7 +60,7 @@
     <div class="notification is-project" v-for="voteProyecto in voteProyectos" :key="voteProyecto.id">
       <button class="delete" @click="toggleCheckbox(voteProyecto)"></button>
       <h1 class="title is-4 is-marginless has-text-white">{{voteProyecto.name}}</h1>
-      <p class="some-good-effects has-text-white">Por <span class="is-600">{{getWho(voteProyecto)}}</span> - {{getShortDescription(voteProyecto.objective,150)}}</p>
+      <p class="some-good-effects has-text-white"><span class="is-600">{{getWho(voteProyecto)}}</span>{{getShortDescription(voteProyecto.objective,150)}}</p>
     </div>
     <b-message type="is-success" v-if="voteProyectos.length == 0">
         <div class="has-text-centered">
@@ -94,8 +94,11 @@ export default {
     this.visibleProjects = this.$store.state.proyectos;
   },
   methods: {
-     getWho(project){
-        return project.author_names + ' ' + project.author_surnames
+    getWho(project){
+      if(project.authors != null){
+        return project.authors + ' - '
+      }
+      return null
     },
     isChecked: function(id) {
       return {

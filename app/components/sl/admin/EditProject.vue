@@ -82,6 +82,8 @@ export default {
         name: null,
         type: null,
         participants: null,
+        authors: null,
+        benefited_districts: [],
         objective: null,
         description: null,
         about: null,
@@ -116,10 +118,12 @@ export default {
     this.project.name = this.existingProject.name;
     this.project.type = this.existingProject.type;
     this.project.participants = this.existingProject.participants;
+    this.project.authors = this.existingProject.authors;
     this.project.objective = this.existingProject.objective;
     this.project.description = this.existingProject.description;
     this.project.about = this.existingProject.about;
     this.project.benefited_population = this.existingProject.benefited_population;
+    this.project.benefited_districts = this.existingProject.benefited_districts.map(d => d.id)
     this.project.community_contributions = this.existingProject.community_contributions;
     this.project.resources = this.existingProject.resources;
     this.project.budget = this.existingProject.budget;
@@ -221,10 +225,12 @@ export default {
         type: this.project.type,
         district_id: this.project.district_id,
         participants: this.project.participants,
+        authors: this.project.authors,
         objective: this.project.objective,
         description: this.project.description,
         about: this.project.about,
         benefited_population: this.project.benefited_population,
+        benefited_districts: this.project.benefited_districts,
         community_contributions: this.project.community_contributions,
         resources: this.project.resources,
         budget: this.project.budget,

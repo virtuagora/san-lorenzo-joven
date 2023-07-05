@@ -20,19 +20,11 @@
             </div>
             <div class="card-content">
               <div class="content">
-                <div class="columns">
-                  <div class="column">
-                    <p class="title is-6">Nombre</p>
-                    <p class="is-size-7">{{j.name}}</p>
-                  </div>
-                  <div class="column">
-                    <p class="title is-6">Tipo</p>
-                    <p class="is-size-7">{{j.type}}</p>
-                  </div>
-                </div>
-                <p class="title is-6">Descripción</p>
+                <p class="title is-6">Nombre del proyecto</p>
+                <p class="is-size-7">{{j.name}}</p>
+                <p class="title is-6">La problemática que aborda</p>
                 <p class="is-size-7">{{j.description}}</p>
-                <p class="title is-6">Objetivo</p>
+                <p class="title is-6">El objetivo del proyecto</p>
                 <p class="is-size-7">{{j.objective}}</p>
                 <p class="title is-6">Contribucion a la comunidad</p>
                 <p class="is-size-7">{{j.community_contributions}}</p>

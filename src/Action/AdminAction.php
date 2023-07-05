@@ -11,6 +11,7 @@ use Datetime;
 class AdminAction
 {
     protected $citizenResource;
+    protected $userResource;
     protected $options;
     protected $representation;
     protected $helper;
@@ -155,9 +156,9 @@ class AdminAction
             throw new UnauthorizedException();
         }
         $proyecto = $this->helper->getEntityFromId(
-            'App:Project', 'pro', $params, ['author']
+            'App:Project', 'pro', $params, ['author', 'benefited_districts']
         );
-        $proyecto->addVisible(['notes', 'author_phone', 'author_email', 'author_dni','author']);
+        $proyecto->addVisible(['notes', 'author_phone', 'author_email', 'author_dni','author', 'participants']);
         return $this->view->render($response, 'sl/admin/edit-project.twig', [
             'proyecto' => $proyecto->toArray(),
         ]);

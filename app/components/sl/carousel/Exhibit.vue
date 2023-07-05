@@ -41,9 +41,7 @@
             </div>
             <h1 class="title is-4 is-500 is-marginless">{{project.name}}</h1>
             <p class="shadow-text some-other-effects">
-              Por
-              <span class="is-600">{{getWho(project)}}</span>
-              - {{getShortDescription(project.objective,150)}}
+              <span class="is-600">{{getWho(project)}}</span>{{getShortDescription(project.objective,150)}}
             </p>
           </a>
         </div>
@@ -136,10 +134,9 @@ export default {
   mounted: function() {},
   methods: {
     getWho(project){
-      if(project.type == 'institucional'){
-        return project.organization_name
+      if(project.authors != null){
+        return project.authors + ' - '
       }
-        return project.author_names + ' ' + project.author_surnames
     },
     getDistrict: function(district) {
       switch (district) {

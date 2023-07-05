@@ -233,10 +233,10 @@
     </section> -->
     <div class="field">
       <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.district_id')}">
-        <i class="fas fa-caret-right"></i>&nbsp;Elegí la zona donde se desarrollará tu proyecto
+        <i class="fas fa-caret-right"></i>&nbsp;Seleccioná la zona donde se creará el proyecto
       </h1>
       <h1 class="subtitle is-6">
-        <span class="has-text-link">* Requerido.</span> ¿En donde tendrá impacto tu propuesta?
+        <span class="has-text-link">* Requerido.</span> En otras palabras, en que Zona se ideó el proyecto.
       </h1>
       <div class="control">
         <div class="select is-large is-fullwidth" :class="{'is-loading': districtsLoading}">
@@ -245,9 +245,9 @@
             data-vv-as="'Distrito'"
             v-validate="'required'"
             v-model="project.district_id"
-            placeholder="Seleccione la zona"
+            placeholder="Seleccione el distrito"
           >
-            <option :value="null" disabled>- Seleccioná la zona -</option>
+            <option :value="null" disabled>- Selecciona la zona -</option>
             <option
               v-for="district in districts"
               :key="district.id"
@@ -259,6 +259,19 @@
           <i class="fas fa-times-circle fa-fw"></i>
           &nbsp;{{errors.first('project.district_id')}}
         </span>
+      </div>
+    </div>
+    <div class="field">
+      <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.benefited_districts')}">
+        <i class="fas fa-caret-right"></i>&nbsp;Seleccioná las zonas beneficiadas por la propuesta
+      </h1>
+      <h1 class="subtitle is-6">
+        <span class="has-text-link">* Requerido.</span> ¿A que zonas beneficia la propuesta?
+      </h1>
+      <div class="control">
+        <b-checkbox v-model="project.benefited_districts" v-for="district in districts" :key="'checkbox-district-' + district.id" :native-value="district.id">
+          {{district.name}}
+        </b-checkbox>
       </div>
     </div>
     <div class="message is-info">
@@ -300,7 +313,7 @@
     </div>
     <div class="field">
       <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.participants')}">
-          <i class="fas fa-caret-right"></i>&nbsp; Responsables del proyecto
+        <i class="fas fa-caret-right"></i>&nbsp; Datos personales de los responsables del proyecto (PRIVADO. DATOS SENSIBLES)
       </h1>
       <h1 class="subtitle is-6">
         <span class="has-text-link">* Requerido. Privado para el admin.</span> Completa por cada responsable del proyecto: Nombre, Apellido, DNI, Email y Telefono.
@@ -325,7 +338,33 @@
       </div>
     </div>
     <div class="field">
-      <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.participants')}">
+      <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.authors')}">
+        <i class="fas fa-caret-right"></i>&nbsp; Nombre y Apellido de los responsables del proyecto (PUBLICO)
+      </h1>
+      <h1 class="subtitle is-6">
+        <span class="has-text-link">* Requerido. Publico.</span> Completá en una linea nombre y apellido de cada autor del proyecto separado en comas. Ej: Julio Maria, Susana Estela.
+      </h1>
+      <div class="control">
+        <b-input
+        v-model="project.authors"
+        data-vv-name="project.authors"
+        data-vv-as="'Autores'"
+        v-validate="'required|min:10|max:2000'"
+        type="textarea"
+        minlength="10"
+        maxlength="2000"
+        rows="3"
+        placeholder="Requerido *"
+        :readonly="!editable"
+        ></b-input>
+        <span v-show="errors.has('project.authors')" class="help is-danger">
+          <i class="fas fa-times-circle fa-fw"></i>
+          &nbsp;{{errors.first('project.authors')}}
+        </span>
+      </div>
+    </div>
+    <div class="field">
+      <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.description')}">
           <i class="fas fa-caret-right"></i>&nbsp; Definición del problema
       </h1>
       <h1 class="subtitle is-6">

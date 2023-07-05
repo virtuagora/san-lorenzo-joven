@@ -24,6 +24,10 @@ class Updater
             $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade');
         });
 
+        $this->schema->table('projects', function($t) {
+            $t->string('authors')->nullable();
+        });
+
         // $this->schema->table('citizens', function($t) {
         //     $t->dropColumn('voted_at');
         //     $t->boolean('voted')->default(false);

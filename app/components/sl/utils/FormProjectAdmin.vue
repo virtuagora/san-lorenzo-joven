@@ -247,10 +247,10 @@
     </section> -->
     <div class="field">
       <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.district_id')}">
-        <i class="fas fa-caret-right"></i>&nbsp;Seleccioná de que zona proviene la propuesta
+        <i class="fas fa-caret-right"></i>&nbsp;Seleccioná la zona donde se creará el proyecto
       </h1>
       <h1 class="subtitle is-6">
-        <span class="has-text-link">* Requerido.</span>
+        <span class="has-text-link">* Requerido.</span> En otras palabras, en que Zona se ideó el proyecto.
       </h1>
       <div class="control">
         <div class="select is-large is-fullwidth" :class="{'is-loading': districtsLoading}">
@@ -327,7 +327,7 @@
     </div>
     <div class="field">
       <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.participants')}">
-          <i class="fas fa-caret-right"></i>&nbsp; Responsables del proyecto
+        <i class="fas fa-caret-right"></i>&nbsp; Datos personales de los responsables del proyecto (PRIVADO. DATOS SENSIBLES)
       </h1>
       <h1 class="subtitle is-6">
         <span class="has-text-link">* Requerido. Privado para el admin.</span> Completa por cada responsable del proyecto: Nombre, Apellido, DNI, Email y Telefono.
@@ -348,6 +348,32 @@
         <span v-show="errors.has('project.participants')" class="help is-danger">
           <i class="fas fa-times-circle fa-fw"></i>
           &nbsp;{{errors.first('project.participants')}}
+        </span>
+      </div>
+    </div>
+    <div class="field">
+      <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.authors')}">
+        <i class="fas fa-caret-right"></i>&nbsp; Nombre y Apellido de los responsables del proyecto (PUBLICO)
+      </h1>
+      <h1 class="subtitle is-6">
+        <span class="has-text-link">* Requerido. Publico.</span> Completá en una linea nombre y apellido de cada autor del proyecto separado en comas. Ej: Julio Maria, Susana Estela.
+      </h1>
+      <div class="control">
+        <b-input
+        v-model="project.authors"
+        data-vv-name="project.authors"
+        data-vv-as="'Autores'"
+        v-validate="'required|min:10|max:2000'"
+        type="textarea"
+        minlength="10"
+        maxlength="2000"
+        rows="3"
+        placeholder="Requerido *"
+        :readonly="!editable"
+        ></b-input>
+        <span v-show="errors.has('project.authors')" class="help is-danger">
+          <i class="fas fa-times-circle fa-fw"></i>
+          &nbsp;{{errors.first('project.authors')}}
         </span>
       </div>
     </div>

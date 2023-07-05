@@ -158,6 +158,7 @@ class Installer
             $table->string('author_phone')->nullable();
             $table->string('author_email')->nullable();
             $table->string('author_dni')->nullable();
+            $table->string('authors')->nullable();
             $table->string('organization_name')->nullable();
             $table->string('organization_legal_entity')->nullable();
             $table->string('organization_address')->nullable();
