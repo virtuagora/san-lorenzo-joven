@@ -46,6 +46,9 @@
               <li>
                 <a href="{{path_for('showAdminProjectsNotFeasible')}}">No Factibles</a>
               </li>
+              <li>
+                <a href="{{path_for('showProjectBenefitedDistrictsTable')}}">Factibles Vs. Zonas beneficiadas</a>
+              </li>
             </ul>
             {# <p class="menu-label">
               Padrón
@@ -105,7 +108,7 @@
                 <a href="{{path_for('showAdminStats')}}">Estadísticas</a>
               </li>
               {% endif %}
-              {% if is_state('vote') %}
+              {# {% if is_state('vote') %}
               <li>
                 <a href="{{path_for('showRegistrosPendientes')}}">Registros pendientes</a>
               </li>
@@ -114,7 +117,7 @@
               <li>
                 <a href="{{path_for('showVotersPendientes')}}">Votantes pendientes</a>
               </li>
-              {% endif %}
+              {% endif %} #}
             </ul>
           </div>
           <div class="column is-offset-1">

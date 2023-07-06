@@ -15,18 +15,18 @@ class Updater
 
     public function up()
     {
-        $this->db->schema()->create('project_benefited_districts', function ($table) {
-            $table->engine = 'InnoDB';
-            $table->increments('id');
-            $table->integer('project_id')->unsigned();
-            $table->integer('district_id')->unsigned();
-            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
-            $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade');
-        });
+        // $this->db->schema()->create('project_benefited_districts', function ($table) {
+        //     $table->engine = 'InnoDB';
+        //     $table->increments('id');
+        //     $table->integer('project_id')->unsigned();
+        //     $table->integer('district_id')->unsigned();
+        //     $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
+        //     $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade');
+        // });
 
-        $this->schema->table('projects', function($t) {
-            $t->string('authors')->nullable();
-        });
+        // $this->schema->table('projects', function($t) {
+        //     $t->string('authors')->nullable();
+        // });
 
         // $this->schema->table('citizens', function($t) {
         //     $t->dropColumn('voted_at');
@@ -36,13 +36,13 @@ class Updater
         // $this->schema->dropIfExists('online_ballots');
         // $this->schema->dropIfExists('online_votes');
         
-        // $this->schema->create('online_ballots', function ($t) {
-        //     $t->engine = 'InnoDB';
-        //     $t->increments('id');
-        //     $t->string('code', 10)->nullable();
-        //     $t->timestamp('created_at');
-        //     $t->boolean('sent')->nullable(); // false -> invalid
-        // });
+        $this->schema->create('online_ballots', function ($t) {
+            $t->engine = 'InnoDB';
+            $t->increments('id');
+            $t->string('code', 10)->nullable();
+            $t->timestamp('created_at');
+            $t->boolean('sent')->nullable(); // false -> invalid
+        });
         // $this->schema->create('online_votes', function ($t) {
         //     $t->engine = 'InnoDB';
         //     $t->increments('id');

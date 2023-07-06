@@ -26,7 +26,7 @@
       <div class="navbar-start">
       </div>
       <div class="navbar-end">
-      {% if vote_available() %}
+      {# {% if vote_available() %}
       {% if subject.id is null %}
         <div class="navbar-item">
           <a href="{{path_for('showLogin')}}" class="button is-primary">
@@ -41,7 +41,7 @@
           </a>
         </div>
       {% endif %}
-      {% endif %}
+      {% endif %} #}
         {% if is_state('results') %}
         <div class="navbar-item">
           <a class="button is-warning" href="{{path_for('showSeleccionados')}}">

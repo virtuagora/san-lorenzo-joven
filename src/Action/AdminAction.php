@@ -282,6 +282,21 @@ class AdminAction
         
     }
 
+     public function showProjectBenefitedDistrictsTable($request, $response, $params)
+    {
+        $subject = $request->getAttribute('subject');
+        if (!$this->authorization->checkPermission($subject, 'admin')) {
+            throw new UnauthorizedException();
+        }
+        $proyectos = $this->db->query('App:Project', ['district'])->where('feasible',true)->get();
+        $districts = $this->db->query('App:District', ['neighbourhoods'])->get();
+        return $this->view->render($response, 'sl/admin/projects-feasible-table.twig', [
+            'proyectos' => $proyectos,
+            'districts' => $districts
+        ]);
+        
+    }
+
     // TODO actualizar
     public function showEscrutinio($request, $response, $params)
     {
