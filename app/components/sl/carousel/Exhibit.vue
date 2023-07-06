@@ -15,7 +15,7 @@
           <div class="bancar-count-container">
             <span class="is-size-7 shadow-text">{{capitalizeString(project.type)}}&nbsp;</span>
             <img
-              :src="'/assets/img/icons/w-project.svg'"
+              :src="'/assets/img/icons/w-idea-linea.svg'"
               style="height:40px; vertical-align:top"
               alt
             >

@@ -130,6 +130,7 @@ $app->group('/admin', function () {
         $this->get('/boletas', 'adminAction:showBoletas')->setName('showBoletas');
         $this->get('/seleccionados', 'adminAction:showSeleccionados')->setName('showSeleccionadosAdmin');
         $this->get('/factibles', 'adminAction:showProjectsFeasible')->setName('showAdminProjectsFeasible');
+        $this->get('/zonas-beneficiadas', 'adminAction:showProjectBenefitedDistrictsTable')->setName('showProjectBenefitedDistrictsTable');
         $this->get('/no-factibles', 'adminAction:showProjectsNotFeasible')->setName('showAdminProjectsNotFeasible');
         $this->get('/pendientes', 'adminAction:showRegistrosPendientes')->setName('showRegistrosPendientes');
         $this->get('/votantes-pendientes', 'adminAction:showVotersPendientes')->setName('showVotersPendientes');

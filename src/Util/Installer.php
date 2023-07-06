@@ -225,6 +225,14 @@ class Installer
             $table->foreign('project_id')->references('id')->on('projects');
             $table->foreign('ballot_id')->references('id')->on('offline_ballots')->onDelete('cascade');
         });
+
+        $this->schema->create('online_ballots', function ($t) {
+            $t->engine = 'InnoDB';
+            $t->increments('id');
+            $t->string('code', 10)->nullable();
+            $t->timestamp('created_at');
+            $t->boolean('sent')->nullable(); // false -> invalid
+        });
         
         $this->db->schema()->create('online_votes', function ($table) {
             $table->engine = 'InnoDB';
