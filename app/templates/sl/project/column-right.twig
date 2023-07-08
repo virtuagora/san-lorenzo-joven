@@ -1,4 +1,6 @@
 <div class="column is-12-mobile is-3-desktop is-4-tablet is-offset-1-desktop">
+<a href="{{path_for('showPrintProject', {'pro': project.id})}}" class="button is-link is-fullwidth is-outlined mb-4">
+<i class="fas fa-print"></i>&nbsp;Imprimir</a>
 {% if project.author_id is not null and project.author.id == subject.extra.user_id and is_state('upload-proposals') and proposals_available() %}
 <div class="buttons">
 <a href="{{path_for('showUserPanelUpdateProject', {'pro': project.id})}}" class="button is-link is-fullwidth is-medium is-outlined">

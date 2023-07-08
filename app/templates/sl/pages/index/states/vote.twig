@@ -5,12 +5,48 @@
   <section class="section">
     <div class="container">
       <div class="columns is-centered">
-        <div class="column is-8 has-text-centered">
-          <h1 class="title is-3 has-text-primary">¡Las urnas están abiertas!</h1>
-          <h1 class="subtitle has-text-primary is-4">¡Muy pronto pasaremos por tu escuela para que votes!</h1>
-          <h1 class="subtitle is-5">Conocé los proyectos que podes votar.<br>¡Participá por un San Lorenzo mejor!</h1>
-          <a href="{{path_for('showCatalogo')}}" class="button is-primary is-medium  is-outlined">
-                  <i class="fas fa-book-reader fa-fw fa-lg"></i>&nbsp;Conocé el catálogo</a>
+        <div class="column is-8">
+          <h1 class="title is-3 has-text-primary has-text-centered">¡Las urnas están abiertas!</h1>
+          <h1 class="subtitle has-text-primary is-4 has-text-centered">¡Muy pronto pasaremos por tu escuela para que votes!</h1>
+          <br/>
+          <div class="columns">
+            <div class="column is-4">
+              <h1 class="title is-3 has-text-primary has-text-centered-touch">
+                Próxima fecha
+              </h1>
+              <h1 class="subtitle is-5">¡Estas son las fechas mas próximas donde podrás encontrarnos!</h1>
+            </div>
+            <div class="column">
+              <calendar-index :calendar="{{options().calendar}}" :show-more="false">
+                {% include 'loading.twig' %}
+              </calendar-index>
+            </div>
+          </div>
+          <hr>
+          <div class="columns">
+            <div class="column is-4">
+              <h1 class="title is-3 has-text-primary has-text-centered-touch">
+                Todas las fechas
+              </h1>
+              <h1 class="subtitle is-5">¡Informate para saber donde podés encontrarnos!</h1>
+            </div>
+            <div class="column">
+              {% for date in calendar.value %}
+                <article class="media">
+                  <figure class="media-left">
+                    <i class="far fa-calendar-alt fa-2x"></i>
+                  </figure>
+                  <div class="media-content" style="overflow: visible;">
+                    <span class="tag is-primary is-medium is-pulled-right">
+                      <i class="far fa-clock fa-fw"></i>&nbsp;{{date.from|date("H:i")}} - {{date.to|date("H:i")}}</span>
+                    <h1 class="title is-4 has-text-primary">{{date.district|capitalize}}</h1>
+                    <h1 class="subtitle mb-0 is-5">{{date.from|date("d/m/Y")}}</h1>
+                    <p>Dirección: {{date.address}}</p>
+                  </div>
+                </article>
+              {% endfor %}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -30,6 +66,11 @@
     <exhibit url="{{path_for('retrieveProject')}}" :force-feasible="true" :random="true">
       {% include 'loading.twig' %}
     </exhibit>
+    <div class="has-text-centered mt-5">
+    <h1 class="subtitle is-5">Conocé los proyectos que podes votar.<br>¡Participá por un San Lorenzo mejor!</h1>
+    <a href="{{path_for('showCatalogo')}}" class="button is-primary is-medium is-outlined">
+            <i class="fas fa-book-reader fa-fw fa-lg"></i>&nbsp;Conocé el catálogo</a>
+    </div>
   </div>
 </section>
 <a href="{{path_for('showSellos')}}">

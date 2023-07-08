@@ -1,7 +1,10 @@
 {% extends 'sl/admin/master.twig' %}
 
-{% set percRetencion = ((cantUsuarios / (cantUsuarios + cantPendientes)) * 100) %}
-{% set percConversion = ((votantesRegistradosVotaron / cantCiudadanosUsuarios) * 100) %}
+{# {% set percRetencion = ((cantUsuarios / (cantUsuarios + cantPendientes)) * 100) %} #}
+{# {% set percConversion = ((votantesRegistradosVotaron / cantCiudadanosUsuarios) * 100) %} #}
+
+{% set acumVotantes = 0 %}
+{% set acumVotos = 0 %}
 
 {% block scriptshead %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
@@ -16,7 +19,7 @@
     Numeros y valores de la plataforma
   </h2>
   <hr>
-  <div class="message is-dark">
+  {# <div class="message is-dark">
     <div class="message-body">
       <nav class="level">
         <div class="level-item">
@@ -66,7 +69,7 @@
         </div>
       </nav>
     </div>
-  </div>
+  </div> #}
   <div class="message is-dark">
     <div class="message-body">
       <nav class="level">
@@ -77,46 +80,22 @@
           <div>
             <p class="heading">
               <i class="fas fa-laptop"></i>
-              Web</p>
-            <p class="title">{{cantVotosWeb}}</p>
+              Votos</p>
+            <p class="title">{{cantVotosTotal}}</p>
           </div>
         </div>
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">
               <i class="fas fa-tablet-alt"></i>
-              Tablet</p>
-            <p class="title">{{cantVotosTablet}}</p>
-          </div>
-        </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">
-              <i class="fab fa-whatsapp"></i>
-              Link</p>
-            <p class="title">{{cantVotosLink}}</p>
-          </div>
-        </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">
-              <i class="far fa-envelope"></i>
-              Papel</p>
-            <p class="title">{{cantVotosPaper}}</p>
-          </div>
-        </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">
-              <i class="fas fa-users"></i>
-              Total</p>
-            <p class="title">{{cantVotosTotal}}</p>
+              votantes</p>
+            <p class="title">{{cantVotantes}}</p>
           </div>
         </div>
       </nav>
     </div>
   </div>
-  <div class="message is-dark">
+  {# <div class="message is-dark">
     <div class="message-body">
       <nav class="level">
         <div class="level-item">
@@ -172,8 +151,8 @@
         </div>
       </nav>
     </div>
-  </div>
-  <div class="message is-dark">
+  </div> #}
+  {# <div class="message is-dark">
     <div class="message-body">
       <nav class="level">
         <div class="level-item">
@@ -204,18 +183,56 @@
         </div>
       </nav>
     </div>
-  </div>
+  </div> #}
   <hr>
-      <h1 class="title is-4 has-text-centered">Participación por fecha</h1>
+  <h1 class="title is-4 has-text-centered">Participación por fecha</h1>
     <votes-chart 
     :labels="{{arrayDates|json_encode}}" 
-    :web="{{votosWebPerDay|json_encode}}"
-    :tablet="{{votosTabletPerDay|json_encode}}"
-    :link="{{votosLinkPerDay|json_encode}}"
-    :paper="{{votosPaperPerDay|json_encode}}"
-    :total={{votosTotalPerDay|json_encode}} :height="300"></votes-chart>
-    <br>
-  <div class="columns is-centered">
+    :votes="{{votosOnlinePerDay|json_encode}}"
+    :height="300">
+      {% include 'loading.twig' %}
+    </votes-chart>
+
+<div class="columns is-centered mt-5">
+<div class="column">
+  <h1 class="title is-4 has-text-centered">Participación TOTAL</h1>
+  <table class="table is-fullwidth is-narrow">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th class="has-text-centered">Votantes.</th>
+        <th class="has-text-centered">Votos</th>
+        <th class="has-text-centered">Acum. Votantes</th>
+        <th class="has-text-centered">Acum. Votos</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for day in arrayDates %}
+          {% set acumVotantes = acumVotantes + votosOnlinePerDay[day].votes %}
+          {% set acumVotos = acumVotos + votosOnlinePerDay[day].count %}
+          <tr>
+            <td>
+              {{day}}
+            </td>
+            <td class="has-text-centered">
+              {{votosOnlinePerDay[day].votes ?: '0'}}
+            </td>
+            <td class="has-text-centered">
+              {{votosOnlinePerDay[day].count ?: '0'}}
+            </td>
+            <td class="has-text-centered">
+              {{acumVotantes}}
+            </td>
+            <td class="has-text-centered">
+              {{acumVotos}}
+            </td>
+          </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+</div>
+  {# <div class="columns is-centered">
     <div class="column is-3 ">
       <h1 class="title is-5 has-text-centered">Participación TOTAL</h1>
       <table class="table is-fullwidth is-narrow">
@@ -227,7 +244,6 @@
         </thead>
         <tbody>
           {% for day in arrayDates %}
-            {# {% if votosTotalPerDay[day] is not null %} #}
               <tr>
                 <td>
                   {{day}}
@@ -236,7 +252,6 @@
                   {{votosTotalPerDay[day].votes ?: '0'}}
                 </td>
               </tr>
-            {# {% endif %} #}
           {% endfor %}
         </tbody>
       </table>
@@ -500,6 +515,6 @@
         </tbody>
       </table>
     </div>
-  </div>
+  </div> #}
 
 {% endblock %}

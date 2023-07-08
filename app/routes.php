@@ -52,6 +52,7 @@ $app->get('/sellos/{aud}/dataset', 'auditWebAction:downloadDataset')->setName('s
 // ProjectWebAction
 $app->group('/proyectos', function () {
     $this->get('/{pro}', 'projectWebAction:showOne')->setName('showProject');
+    $this->get('/{pro}/print', 'projectWebAction:showPrintProject')->setName('showPrintProject');
     $this->get('/{pro}/presupuesto', 'projectWebAction:showOneBudget')->setName('showProjectBudget');
     $this->get('/{pro}/bitacora', 'projectWebAction:showOneJournal')->setName('showProjectJournal');
     $this->get('/{pro}/imagen', 'projectWebAction:showPicture')->setName('showProjectPicture');

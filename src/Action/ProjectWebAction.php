@@ -130,4 +130,16 @@ class ProjectWebAction extends ContainerClient
         return $response->withRedirect($request->getHeaderLine('HTTP_REFERER'));
 
     }
+    
+    public function showPrintProject($request, $response, $params)
+    {
+        $subject = $request->getAttribute('subject');
+        $proyecto = $this->helper->getEntityFromId(
+            'App:Project', 'pro', $params, ['author','district', 'benefited_districts']
+        );
+        $proyecto->addVisible(['created_at','updated_at', 'benefited_districts']);
+        return $this->view->render($response, 'sl/project/print-project.twig', [
+            'proyecto' => $proyecto->toArray(),
+        ]);
+    }
 }
