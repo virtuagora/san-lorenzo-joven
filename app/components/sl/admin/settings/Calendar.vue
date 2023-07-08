@@ -29,14 +29,21 @@
         <div class="column">
           <div class="field">
             <label class="label is-size-5">
-              <i class="fas fa-angle-double-right"></i>&nbsp;Distrito</label>
+              <i class="fas fa-angle-double-right"></i>&nbsp;Zona</label>
             <div class="control">
               <div class="select is-medium is-fullwidth">
                 <select name="district" v-model="district">
-                  <option :value="null" disabled>Seleccione un distrito</option>
-                  <option value="Norte">Norte</option>
-                  <option value="Centro">Centro</option>
-                  <option value="Sur">Sur</option>
+                  <option :value="null" disabled>Seleccione una zona</option>
+                  <option value="Zona 1">Zona 1</option>
+                  <option value="Zona 2">Zona 2</option>
+                  <option value="Zona 3">Zona 3</option>
+                  <option value="Zona 4">Zona 4</option>
+                  <option value="Zona 5">Zona 5</option>
+                  <option value="Zona 6">Zona 6</option>
+                  <option value="Zona 7">Zona 7</option>
+                  <option value="Zona 8">Zona 8</option>
+                  <option value="Zona 9">Zona 9</option>
+                  <option value="Zona 10">Zona 10</option>
                 </select>
               </div>
             </div>

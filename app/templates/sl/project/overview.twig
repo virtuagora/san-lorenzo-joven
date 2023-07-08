@@ -128,7 +128,7 @@
               Presentan: {{project.authors}}</h1>
             {% endif %}
               
-            {% if (vote_available() and subject.id is null) 
+            {# {% if (vote_available() and subject.id is null) 
               or(vote_available()and subject.id and citizen()is not null and citizen().voted == false) %}
               {% if citizen() is not null and citizen().voted == false %}
                 <a href="{{path_for('showVoting')}}" class="button is-white is-large is-rounded">
@@ -138,7 +138,7 @@
                 <a href="{{path_for('showLogin')}}" class="button is-white is-large is-rounded">
                   <i class="fas fa-sign-in-alt fa-fw"></i>¡Entrá y votá!</a>
               {% endif %}
-            {% endif %}
+            {% endif %} #}
           </div>
           <div class="column is-3 is-offset-1 is-hidden-touch">
             <div class="notification is-white has-text-centered">

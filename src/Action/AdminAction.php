@@ -348,116 +348,102 @@ class AdminAction
         if (!$this->authorization->checkPermission($subject, 'admin')) {
             throw new UnauthorizedException();
         }
-        $cantUsuarios = $this->db->query('App:User')
-            ->count();
-        $cantPendientes = $this->db->query('App:PendingUser')
-            ->count();
-        $cantVotosTotal = $this->db->query('App:StatisticalBallot')
-            ->count();
-        $cantVotosTablet = $this->db->query('App:StatisticalBallot')
-            ->where('type', 'tablet')
-            ->count();
-        $cantVotosWeb = $this->db->query('App:StatisticalBallot')
-            ->where('type', 'user')
-            ->count();
-        $cantVotosLink = $this->db->query('App:StatisticalBallot')
-            ->where('type', 'link')
-            ->count();
-        $cantVotosPaper = $this->db->query('App:StatisticalBallot')
-            ->where('type', 'paper')
-            ->count();
-        $votantesRegistradosVotaron = $this->db->table('users')
-            ->join('subjects', 'users.subject_id', '=', 'subjects.id')
-            ->join('citizens', 'subjects.citizen_id', '=', 'citizens.id')
-            ->whereNotNull('subjects.citizen_id')
-            ->where('citizens.voted', true)
-            ->count();
-        $cantCiudadanos = $this->db->query('App:Citizen')
-            ->where('voted', true)
-            ->count();
-        $cantCiudadanosUsuarios = $this->db->query('App:Subject')
-            ->whereNotNull('citizen_id')
-            ->count();
-        $votosTabletPerDay = $this->db->table('statistical_ballots')
-            ->where('type', 'tablet')
+        
+        $cantVotosTotal = $this->db->query('App:OnlineVote')->count();
+        $cantVotantes = $this->db->query('App:OnlineBallot')->count();
+        $votosOnlinePerDay = $this->db->table('online_ballots')
             ->groupBy($this->db->getDatabaseManager()->raw('DATE(created_at)'))
-            ->selectRaw('DATE(created_at) as date, COUNT(*) as votes')
+            ->selectRaw('DATE(created_at) as date, COUNT(*) as votes, SUM(count) as count')
             ->get()
             ->keyBy('date');
-        $votosWebPerDay = $this->db->table('statistical_ballots')
-            ->where('type', 'user')
-            ->groupBy($this->db->getDatabaseManager()->raw('DATE(created_at)'))
-            ->selectRaw('DATE(created_at) as date, COUNT(*) as votes')
-            ->get()
-            ->keyBy('date');
-        $votosLinkPerDay = $this->db->table('statistical_ballots')
-            ->where('type', 'link')
-            ->groupBy($this->db->getDatabaseManager()->raw('DATE(created_at)'))
-            ->selectRaw('DATE(created_at) as date, COUNT(*) as votes')
-            ->get()
-            ->keyBy('date');
-        $votosPaperPerDay = $this->db->table('statistical_ballots')
-            ->where('type', 'paper')
-            ->groupBy($this->db->getDatabaseManager()->raw('DATE(created_at)'))
-            ->selectRaw('DATE(created_at) as date, COUNT(*) as votes')
-            ->get()
-            ->keyBy('date');
-        $votosTotalPerDay = $this->db->table('statistical_ballots')
-            ->groupBy($this->db->getDatabaseManager()->raw('DATE(created_at)'))
-            ->selectRaw('DATE(created_at) as date, COUNT(*) as votes')
-            ->get()
-            ->keyBy('date');
-        $votantesWebGenre = $this->db->table('statistical_ballots')
-            ->where('type', 'user')
-            ->groupBy('gender')
-            ->selectRaw('gender as genero, COUNT(*) as votantes')
-            ->get()
-            ->keyBy('genero');
-        $votantesTabletGenre = $this->db->table('statistical_ballots')
-            ->where('type', 'tablet')
-            ->groupBy('gender')
-            ->selectRaw('gender as genero, COUNT(*) as votantes')
-            ->get()
-            ->keyBy('genero');
-        $votantesLinkGenre = $this->db->table('statistical_ballots')
-            ->where('type', 'link')
-            ->groupBy('gender')
-            ->selectRaw('gender as genero, COUNT(*) as votantes')
-            ->get()
-            ->keyBy('genero');
-        $votantesPaperGenre = $this->db->table('statistical_ballots')
-            ->where('type', 'paper')
-            ->groupBy('gender')
-            ->selectRaw('gender as genero, COUNT(*) as votantes')
-            ->get()
-            ->keyBy('genero');
-        $votantesTotalGenre = $this->db->table('statistical_ballots')
-            ->groupBy('gender')
-            ->selectRaw('gender as genero, COUNT(*) as votantes')
-            ->get()
-            ->keyBy('genero');
-        $votantesNeighbourhood = $this->db->table('users')
-            ->join('subjects', 'users.subject_id', '=', 'subjects.id')
-            ->join('citizens', 'subjects.citizen_id', '=', 'citizens.id')
-            ->join('neighbourhoods', 'subjects.neighbourhood_id', '=', 'neighbourhoods.id')
-            ->join('districts', 'neighbourhoods.district_id', '=', 'districts.id')
-            ->whereNotNull('subjects.citizen_id')
-            ->where('citizens.voted', true)
-            ->groupBy('districts.id', 'neighbourhoods.id')
-            ->selectRaw('districts.name as dname, neighbourhoods.name as nname, COUNT(*) as votantes')
-            ->orderByDesc("votantes")
-            ->get();
-        $votantesDistricts = $this->db->table('users')
-            ->join('subjects', 'users.subject_id', '=', 'subjects.id')
-            ->join('citizens', 'subjects.citizen_id', '=', 'citizens.id')
-            ->join('neighbourhoods', 'subjects.neighbourhood_id', '=', 'neighbourhoods.id')
-            ->join('districts', 'neighbourhoods.district_id', '=', 'districts.id')
-            ->whereNotNull('subjects.citizen_id')
-            ->where('citizens.voted', true)
-            ->groupBy('districts.id')
-            ->selectRaw('districts.name as name, COUNT(*) as votantes')
-            ->orderByDesc("votantes")
-            ->get();
+
+
+        // $cantVotantes = $this->db->table('users')
+        //     ->join('subjects', 'users.subject_id', '=', 'subjects.id')
+        //     ->join('citizens', 'subjects.citizen_id', '=', 'citizens.id')
+        //     ->whereNotNull('subjects.citizen_id')
+        //     ->where('citizens.voted', true)
+        //     ->count();
+        // $cantCiudadanos = $this->db->query('App:Citizen')
+        //     ->where('voted', true)
+        //     ->count();
+        // $cantCiudadanosUsuarios = $this->db->query('App:Subject')
+        //     ->whereNotNull('citizen_id')
+        //     ->count();
+        // $votosTabletPerDay = $this->db->table('statistical_ballots')
+        //     ->where('type', 'tablet')
+        //     ->groupBy($this->db->getDatabaseManager()->raw('DATE(created_at)'))
+        //     ->selectRaw('DATE(created_at) as date, COUNT(*) as votes')
+        //     ->get()
+        //     ->keyBy('date');
+        // $votosLinkPerDay = $this->db->table('statistical_ballots')
+        //     ->where('type', 'link')
+        //     ->groupBy($this->db->getDatabaseManager()->raw('DATE(created_at)'))
+        //     ->selectRaw('DATE(created_at) as date, COUNT(*) as votes')
+        //     ->get()
+        //     ->keyBy('date');
+        // $votosPaperPerDay = $this->db->table('statistical_ballots')
+        //     ->where('type', 'paper')
+        //     ->groupBy($this->db->getDatabaseManager()->raw('DATE(created_at)'))
+        //     ->selectRaw('DATE(created_at) as date, COUNT(*) as votes')
+        //     ->get()
+        //     ->keyBy('date');
+        // $votosTotalPerDay = $this->db->table('statistical_ballots')
+        //     ->groupBy($this->db->getDatabaseManager()->raw('DATE(created_at)'))
+        //     ->selectRaw('DATE(created_at) as date, COUNT(*) as votes')
+        //     ->get()
+        //     ->keyBy('date');
+        // $votantesWebGenre = $this->db->table('statistical_ballots')
+        //     ->where('type', 'user')
+        //     ->groupBy('gender')
+        //     ->selectRaw('gender as genero, COUNT(*) as votantes')
+        //     ->get()
+        //     ->keyBy('genero');
+        // $votantesTabletGenre = $this->db->table('statistical_ballots')
+        //     ->where('type', 'tablet')
+        //     ->groupBy('gender')
+        //     ->selectRaw('gender as genero, COUNT(*) as votantes')
+        //     ->get()
+        //     ->keyBy('genero');
+        // $votantesLinkGenre = $this->db->table('statistical_ballots')
+        //     ->where('type', 'link')
+        //     ->groupBy('gender')
+        //     ->selectRaw('gender as genero, COUNT(*) as votantes')
+        //     ->get()
+        //     ->keyBy('genero');
+        // $votantesPaperGenre = $this->db->table('statistical_ballots')
+        //     ->where('type', 'paper')
+        //     ->groupBy('gender')
+        //     ->selectRaw('gender as genero, COUNT(*) as votantes')
+        //     ->get()
+        //     ->keyBy('genero');
+        // $votantesTotalGenre = $this->db->table('statistical_ballots')
+        //     ->groupBy('gender')
+        //     ->selectRaw('gender as genero, COUNT(*) as votantes')
+        //     ->get()
+        //     ->keyBy('genero');
+        // $votantesNeighbourhood = $this->db->table('users')
+        //     ->join('subjects', 'users.subject_id', '=', 'subjects.id')
+        //     ->join('citizens', 'subjects.citizen_id', '=', 'citizens.id')
+        //     ->join('neighbourhoods', 'subjects.neighbourhood_id', '=', 'neighbourhoods.id')
+        //     ->join('districts', 'neighbourhoods.district_id', '=', 'districts.id')
+        //     ->whereNotNull('subjects.citizen_id')
+        //     ->where('citizens.voted', true)
+        //     ->groupBy('districts.id', 'neighbourhoods.id')
+        //     ->selectRaw('districts.name as dname, neighbourhoods.name as nname, COUNT(*) as votantes')
+        //     ->orderByDesc("votantes")
+        //     ->get();
+        // $votantesDistricts = $this->db->table('users')
+        //     ->join('subjects', 'users.subject_id', '=', 'subjects.id')
+        //     ->join('citizens', 'subjects.citizen_id', '=', 'citizens.id')
+        //     ->join('neighbourhoods', 'subjects.neighbourhood_id', '=', 'neighbourhoods.id')
+        //     ->join('districts', 'neighbourhoods.district_id', '=', 'districts.id')
+        //     ->whereNotNull('subjects.citizen_id')
+        //     ->where('citizens.voted', true)
+        //     ->groupBy('districts.id')
+        //     ->selectRaw('districts.name as name, COUNT(*) as votantes')
+        //     ->orderByDesc("votantes")
+        //     ->get();
         $start_date = $this->options->getOption('vote-launch')->value;
         $end_date = $this->options->getOption('vote-deadline')->value;
         $today = new DateTime();
@@ -479,30 +465,10 @@ class AdminAction
             $arrayDates[] = $value->format('Y-m-d');
         }
         return $this->view->render($response, 'sl/admin/stats.twig', [
-            'cantUsuarios' => $cantUsuarios,
-            'cantPendientes' => $cantPendientes,
             'cantVotosTotal' => $cantVotosTotal,
-            'cantVotosTablet' => $cantVotosTablet,
-            'cantVotosWeb' => $cantVotosWeb,
-            'cantVotosLink' => $cantVotosLink,
-            'cantVotosPaper' => $cantVotosPaper,
-            'cantCiudadanos' => $cantCiudadanos,
-            'cantCiudadanosUsuarios' => $cantCiudadanosUsuarios,
-            'votosTabletPerDay' => $votosTabletPerDay->toArray(),
-            'votosWebPerDay' => $votosWebPerDay->toArray(),
-            'votosLinkPerDay' => $votosLinkPerDay->toArray(),
-            'votosPaperPerDay' => $votosPaperPerDay->toArray(),
-            'votosTotalPerDay' => $votosTotalPerDay->toArray(),
-            'votantesWebGenre' => $votantesWebGenre,
-            'votantesTabletGenre' => $votantesTabletGenre,
-            'votantesLinkGenre' => $votantesLinkGenre,
-            'votantesPaperGenre' => $votantesPaperGenre,
-            'votantesTotalGenre' => $votantesTotalGenre,
-            'votantesNeighbourhood' => $votantesNeighbourhood,
-            'votantesDistricts' => $votantesDistricts,
-            'votantesRegistradosVotaron' => $votantesRegistradosVotaron,
+            'cantVotantes' => $cantVotantes,
+            'votosOnlinePerDay' => $votosOnlinePerDay->toArray(),
             'arrayDates' => $arrayDates,
-            'arrayGenre' => array('M', 'F','?'),
         ]);
     }
     public function showRegistrosPendientes($request, $response, $params)

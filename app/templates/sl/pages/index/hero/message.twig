@@ -12,9 +12,9 @@
   <countdown-to date="{{options()['vote-launch']}}" what="El formulario" style="margin-bottom: 30px;"></countdown-closing>
 {% elseif is_state('vote') %}
   <h5 class="title is-4">¡Votá en el #PPJSanLorenzo!</h5>
-  <h5 class="subtitle is-5">¡Votá HOY por tus proyectos favoritos para un San Lorenzo mejor!</h5>
+  <h5 class="subtitle is-5">¡Votá por tus proyectos favoritos para un San Lorenzo mejor!</h5>
 {% elseif is_state('pre-results') %}
-  <h5 class="title is-4">¡Gracias a todos!</h5>
+  <h5 class="title is-4">¡Gracias a todxs!</h5>
   <h5 class="subtitle is-5">¡Por haber participado en el #PPJSanLorenzo {{options()['current-edition']}}!<br>¡Muy pronto se publicarán los resultados!</h5>
 {% elseif is_state('results') %}
   <h5 class="title is-4">¡Felicidades a todos y a los proyectos ganadores!</h5>

@@ -226,12 +226,13 @@ class Installer
             $table->foreign('ballot_id')->references('id')->on('offline_ballots')->onDelete('cascade');
         });
 
-        $this->schema->create('online_ballots', function ($t) {
-            $t->engine = 'InnoDB';
-            $t->increments('id');
-            $t->string('code', 10)->nullable();
-            $t->timestamp('created_at');
-            $t->boolean('sent')->nullable(); // false -> invalid
+        $this->db->create('online_ballots', function ($table) {
+            $table->engine = 'InnoDB';
+            $table->increments('id');
+            $table->string('code', 10)->nullable();
+            $table->timestamp('created_at');
+            $table->boolean('sent')->nullable(); // false -> invalid
+            $table->integer('count')->unsigned();
         });
         
         $this->db->schema()->create('online_votes', function ($table) {

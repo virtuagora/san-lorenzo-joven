@@ -24,11 +24,11 @@
         <a href="{{path_for('showVoting')}}" class="button is-link is-medium is-rounded animated pulse infinite"><i class="fas fa-vote-yea fa-fw fa-lg"></i>&nbsp;Votá tus proyectos favoritos</a>
     {% endif %}
   {% else %}
-    {% if vote_available() %}
+    {# {% if vote_available() %}
     <a href="{{path_for('showLogin')}}" class="button is-link is-medium is-rounded animated pulse infinite"><i class="fas fa-sign-in-alt"></i>&nbsp;¡Entrá y votá HOY!</a>
     {% else %}
     <a href="{{path_for('showLogin')}}" class="button is-black is-medium is-rounded"><i class="fas fa-sign-in-alt"></i>&nbsp;Entrá a tu cuenta</a>
-    {% endif %}
+    {% endif %} #}
   {% endif %}
 {% elseif is_state('pre-results') %}
   {% if subject.id %}

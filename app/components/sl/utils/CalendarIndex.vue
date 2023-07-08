@@ -7,7 +7,7 @@
       </figure>
       <div class="media-content" style="overflow: visible;">
         <span class="tag is-primary is-medium is-pulled-right"><i class="far fa-clock fa-fw"></i>&nbsp;{{getTime(date)}}</span>
-        <h1 class="title is-4 is-marginless has-text-primary" :class="{'is-5': small}">Distrito {{date.district.toUpperCase()}}</h1>
+        <h1 class="title is-4 is-marginless has-text-primary" :class="{'is-5': small}">{{date.district.toUpperCase()}}</h1>
         <h1 class="title is-5 has-text-dark" :class="{'is-6': small}">{{capitalizeString((new Date(date.from)).toLocaleDateString('es-AR',dateOptions))}}</h1>
         <h2 class="subtitle is-6 is-400 has-text-black" :class="{'is-size-7': small}">Dirección: {{date.address}}</h2>
       </div>

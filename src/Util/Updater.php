@@ -27,7 +27,7 @@ class Updater
         // $this->schema->table('projects', function($t) {
         //     $t->string('authors')->nullable();
         // });
-
+        
         // $this->schema->table('citizens', function($t) {
         //     $t->dropColumn('voted_at');
         //     $t->boolean('voted')->default(false);
@@ -36,13 +36,18 @@ class Updater
         // $this->schema->dropIfExists('online_ballots');
         // $this->schema->dropIfExists('online_votes');
         
-        $this->schema->create('online_ballots', function ($t) {
-            $t->engine = 'InnoDB';
-            $t->increments('id');
-            $t->string('code', 10)->nullable();
-            $t->timestamp('created_at');
-            $t->boolean('sent')->nullable(); // false -> invalid
+        // $this->schema->create('online_ballots', function ($t) {
+        //     $t->engine = 'InnoDB';
+        //     $t->increments('id');
+        //     $t->string('code', 10)->nullable();
+        //     $t->timestamp('created_at');
+        //     $t->boolean('sent')->nullable(); // false -> invalid
+        // });
+
+        $this->schema->table('online_ballots', function($t) {
+            $t->integer('count')->unsigned();
         });
+
         // $this->schema->create('online_votes', function ($t) {
         //     $t->engine = 'InnoDB';
         //     $t->increments('id');

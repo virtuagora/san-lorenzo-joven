@@ -1,0 +1,152 @@
+{# {% set editable = ( is_state('upload-proposals') and proposals_available() ) ? 'true' : 'false'  %} #}
+{% set editable = ( is_state('upload-proposals') ) ? 'true' : 'false'  %}
+{% extends 'master-print.twig' %}
+
+{% block title %}
+	{{proyecto.name}}
+{% endblock %}
+
+{% block body %}
+
+	<div class="section">
+  <div class="is-clearfix">
+  <img src="{{asset('img/logo-sl.svg')}}" style="height:32px;" class="image is-pulled-left">
+  <img src="{{asset('img/ppj-color.svg')}}" style="height:32px;" class="image is-pulled-right">
+  </div>
+  <hr>
+  <div class="is-clearfix">
+    <div class="is-pulled-right ">
+      <div class="columns is-mobile is-vcentered">
+      <div class="column is-narrow">
+        <div class="box has-text-centered is-marginless">
+          <h1 class="title is-5">Edición</h1>
+          <h1 class="subtitle is-5">{{proyecto.edition}}</h1>
+        </div>
+      </div>
+      </div>
+    </div>
+		<h1 class="title is-3">{{proyecto.name}}</h1>
+    <h2 class="subtitle is-5 mb-3"><u>Presentan</u>: {{proyecto.authors}}</h1></h2>
+    <p class="is-size-7">Fecha creación: {{proyecto.created_at|date('Y-m-d H:i')}} - Fecha última actualización: {{proyecto.updated_at|date('Y-m-d H:i')}}</p>
+    </div>
+				<hr>
+    <div class="columns is-multiline">
+    <div class="column is-6">
+			<h1 class="title mb-2 is-5">Código</h1>
+      <p><span class="tag is-dark has-text-weight-bold is-medium">{{proyecto.code ?? 'No asignado'}}</span></p>
+    </div>
+    <div class="column is-6">
+			<h1 class="title mb-2 is-5">Zona</h1>
+      <p><span class="tag is-dark has-text-weight-bold is-medium">{{proyecto.district.name|capitalize}}</span></p>
+    </div>
+    <div class="column is-6">
+			<h1 class="title mb-2 is-5">Categoría</h1>
+			<p>
+				{# <img src="/assets/img/icons/w-{{proyecto.type}}.svg" alt="" class="image is-inline" style="width: 20px;margin-bottom: -4px;"> #}
+				{{proyecto.type|capitalize}}
+			</p>
+    </div>
+    <div class="column is-6">
+			<h1 class="title mb-2 is-5">Presupuesto</h1>
+			<p>
+				$
+				{{proyecto.total_budget|replace({".00" : ""})|number_format(0, ',', '.')}}
+			</p>
+    </div>
+    </div>
+		<hr>
+     {% if (is_state('pre-vote') or is_state('vote') or is_state('pre-results')) and proyecto.feasible %}
+    <div class="notification is-dark is-clearfix">
+        <p>
+          <img src="/assets/img/icons/check-mark-white.svg" alt="" class="image is-pulled-left" style="width: 15px;margin-right: 10px;">
+          El proyecto <u>ES FACTIBLE</u> para participar de la votación del Presupuesto del año {{proyecto.edition}}</p>
+      </div>
+    {% endif %}
+    {% if is_state('results') and proyecto.feasible and proyecto.selected == false %}
+    <div class="notification is-dark is-clearfix">
+        <p>
+          <img src="/assets/img/icons/check-mark-white.svg" alt="" class="image is-pulled-left" style="width: 15px;margin-right: 10px;">
+          El proyecto <u>FUE FACTIBLE</u> y <u>PARTICIPÓ</u> de la votación del presupuesto del año {{proyecto.edition}}</p>
+      </div>
+    {% endif %}
+    {% if (is_state('pre-vote') or is_state('vote')) and not proyecto.feasible %}
+    <div class="notification is-dark is-clearfix">
+        <p>
+          <img src="/assets/img/icons/cancel-white.svg" alt="" class="image is-pulled-left" style="width: 15px;margin-right: 10px;">
+          El proyecto <u>NO ES FACTIBLE</u> para participar de la votación del Presupuesto del año {{proyecto.edition}}</p>
+      </div>
+    {% endif %}
+    {% if is_state('results') and not proyecto.feasible %}
+    <div class="notification is-dark is-clearfix">
+        <p>
+          <img src="/assets/img/icons/cancel-white.svg" alt="" class="image is-pulled-left" style="width: 15px;margin-right: 10px;">
+          El proyecto <u>NO FUE FACTIBLE</u> para participar de la votación del Presupuesto del año {{proyecto.edition}}</p>
+      </div>
+    {% endif %}
+    {% if proyecto.selected %}
+      <div class="notification is-dark is-clearfix">
+        <p>
+          <img src="/assets/img/icons/medal-white.svg" alt="" class="image is-pulled-left" style="width: 15px;margin-right: 10px;">
+          El proyecto ha sido seleccionado por el voto de los ciudadanos para el Presupuesto del año {{proyecto.edition}}</p>
+      </div>
+    {% endif %}
+    <hr>
+    <div class="content">
+    <h1 class="title is-5">La problemática que aborda</h1>
+    <h1 class="subtitle is-7 is-300">Breve descripción del problema a solucionar</h1>
+    <p class="">{{proyecto.description|nl2br}}</p>
+    <h1 class="title is-5">El objetivo del proyecto</h1>
+    <h1 class="subtitle is-7 is-300">Qué se busca lograr con ese proyecto</h1>
+    <p class="">{{proyecto.objective|nl2br}}</p>
+    <h1 class="title is-5">Descripción del proyecto</h1>
+    <h1 class="subtitle is-7 is-300">Qué se quiere hacer, lugar de ejecución, duración, etc</h1>
+    <p class="">{{proyecto.about|nl2br}}</p>
+    {% if proyecto.benefited_population is not null %}
+      <h1 class="title is-5">Poblacion beneficiada</h1>
+      <h1 class="subtitle is-7 is-300">A quienes beneficia el proyecto</h1>
+      <p class="">{{proyecto.benefited_population|nl2br}}</p>
+    {% endif %}
+    {% if proyecto.benefited_districts|length > 0 %}
+      <h1 class="title is-5">Zonas beneficiadas</h1>
+      <h1 class="subtitle is-7 is-300">Las zonas y barrios en donde se aplicaria el proyecto</h1>
+      {% for district in proyecto.benefited_districts %}
+        <p>
+        <span class="tag is-primary">{{district.name}}</span> 
+        {% for neighbourhood in district.neighbourhoods %}
+          <span class="tag is-info">{{neighbourhood.name}}</span>
+        {% endfor %}
+        </p>
+      {% endfor %}
+    {% endif %}
+    <h1 class="title is-5">¿Requiere de aportes de otras instituciones u organizaciones? ¿Cuáles?</h1>
+    <p class="">{{proyecto.community_contributions|nl2br}}</p>
+    {% if (is_state('pre-vote') or is_state('vote') or is_state('pre-results') or is_state('results')) and proyecto.feasible is defined %}
+    <h1 class="title is-5">Sentencia factibilidad</h1>
+    <h1 class="subtitle is-7 is-300">Dictado por la Municipalidad de San Lorenzo</h1>
+    <p class="is-italic">{{proyecto.feasibility|nl2br}}</p>
+    {% endif %}
+    </div>
+    <hr>
+    <h1 class="title is-5">Presupuesto</h1>
+    <table class="table is-fullwidth is-bordered">
+      <thead>
+        <th>Descripción</th>
+        <th width="150" class="has-text-centered">Monto</th>
+      </thead>
+      <tbody>
+      {% for item in proyecto.budget %}
+        <tr>
+          <td>{{item.description}}</td>
+          <td class="has-text-centered">$ {{item.amount|number_format(0, ',', '.')}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {# <budget :proyecto="{{proyecto|json_encode}}" >
+      {% include 'loading.twig' %}
+    </budget> #}
+    <hr>
+    <p class="is-size-6 has-text-right">Fecha impresión del documento: {{'now'|date('Y-m-d H:i:s')}}</p>
+  </div>
+	</div>
+{% endblock %}

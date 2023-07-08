@@ -24,7 +24,11 @@ class PagesAction
 
     public function showHome($request, $response, $params)
     {
-        return $this->view->render($response, 'index.twig', []);
+        $calendar = $this->options->getOption('calendar')->toArray();
+
+        return $this->view->render($response, 'index.twig', [
+            'calendar' => $calendar,
+        ]);
     }
     public function showTerminos($request, $response, $params)
     {
