@@ -50,6 +50,7 @@ class BallotResource extends Resource
             //$this->logger->debug($pro->code . ' ' . $vote->id);
         }
         $ballot->sent = true;
+        $ballot->count = count($projects);
         $ballot->save();
         return true;
     }
