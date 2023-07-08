@@ -135,7 +135,7 @@ class ProjectWebAction extends ContainerClient
     {
         $subject = $request->getAttribute('subject');
         $proyecto = $this->helper->getEntityFromId(
-            'App:Project', 'pro', $params, ['author','district', 'benefited_districts']
+            'App:Project', 'pro', $params, ['author','district', 'benefited_districts', 'benefited_districts.neighbourhoods']
         );
         $proyecto->addVisible(['created_at','updated_at', 'benefited_districts']);
         return $this->view->render($response, 'sl/project/print-project.twig', [

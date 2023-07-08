@@ -13,8 +13,7 @@
     <p>A continuación vamos a enviar tu voto. Te recordamos lo siguiente</p>
           <ul>
             <li>Tu voto será almacenado de forma <u>ANÓNIMA</u>, quitándole cualquier dato que pueda vincularlo con vos.</li>
-            <li>A fines estadísticos almacenamos en paralelo datos disociados, como género, año de nacimiento y fecha de votación.</li>
-            <li>Recordá que una vez que enviás tu voto online no vas a poder votar de forma presencial, ya que se actualiza un padrón único digital.</li>
+            <li>Recordá que una vez que enviás tu voto online no vas a poder votar</li>
             <li>Por cualquier consulta que tengas, podés ponerte en contacto con el equipo de Presupuesto Participativo.</li>
           </ul>
         </div>
