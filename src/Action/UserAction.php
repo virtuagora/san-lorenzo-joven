@@ -160,6 +160,10 @@ class UserAction
         if (!$captchaResp->isSuccess()) {
             throw new AppException('Verificación de CAPTCHA inválido');
         }
+        // $captchaResp = $this->recaptcha->verify($gRecaptchaResponse);
+        // if (!$captchaResp->isSuccess()) {
+        //     throw new AppException('Verificación de CAPTCHA inválido');
+        // }
         $this->userResource->createPendingUser(null, $data);
         return $this->representation->returnMessage($request, $response, [
             'message' => 'Registro pendiente realizado con áxito!',

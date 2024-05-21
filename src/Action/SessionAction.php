@@ -8,6 +8,7 @@ class SessionAction
     protected $identity;
     protected $view;
     protected $db;
+    protected $recaptchaKey;
     
     public function __construct($session, $identity, $view, $db, $recaptchaKey)
     {

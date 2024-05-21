@@ -26,8 +26,8 @@
                 <p class="is-size-7">{{j.description}}</p>
                 <p class="title is-6">El objetivo del proyecto</p>
                 <p class="is-size-7">{{j.objective}}</p>
-                <p class="title is-6">Contribucion a la comunidad</p>
-                <p class="is-size-7">{{j.community_contributions}}</p>
+                <!-- <p class="title is-6">Contribucion a la comunidad</p>
+                <p class="is-size-7">{{j.community_contributions}}</p> -->
                 <p class="title is-6">Poblacion beneficiada</p>
                 <p class="is-size-7">{{j.benefited_population}}</p>
               </div>

@@ -467,7 +467,7 @@
         </span>
       </div>
     </div>
-    <div class="field">
+    <!-- <div class="field">
       <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.community_contributions')}">
           <i class="fas fa-caret-right"></i>&nbsp; Aportes comunitarios
       </h1>
@@ -492,7 +492,7 @@
           &nbsp;{{errors.first('project.community_contributions')}}
         </span>
       </div>
-    </div>
+    </div> -->
     <div class="field">
       <h1 class="title is-4" :class="{'has-text-danger': errors.has('project.resources')}">
           <i class="fas fa-caret-right"></i>&nbsp; Descripción recursos necesarios para la ejecución

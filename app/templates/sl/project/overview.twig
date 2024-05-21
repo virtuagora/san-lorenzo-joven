@@ -268,7 +268,7 @@
       </div>
     </div>
   </section>
-  {% if (vote_available() and subject.id is null) 
+  {# {% if (vote_available() and subject.id is null) 
     or (vote_available() and subject.id and citizen()is not null and citizen().voted == false) %}
     <div class="hero is-primary">
       <div class="hero-body">
@@ -288,6 +288,6 @@
         </div>
       </div>
     </div>
-  {% endif %}
+  {% endif %} #}
   
 {% endblock %}

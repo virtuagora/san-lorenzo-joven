@@ -226,7 +226,7 @@ class Installer
             $table->foreign('ballot_id')->references('id')->on('offline_ballots')->onDelete('cascade');
         });
 
-        $this->db->create('online_ballots', function ($table) {
+        $this->db->schema()->create('online_ballots', function ($table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('code', 10)->nullable();
@@ -292,14 +292,14 @@ class Installer
         $this->db->table('options')->insert([
             [
                 'key' => 'refresh-cache',
-                'value' => '20230512',
+                'value' => '20240512',
                 'type' => 'string',
                 'group' => 'varios',
                 'autoload' => true,
             ],
             [
                 'key' => 'current-edition',
-                'value' => '2023',
+                'value' => '2024',
                 'type' => 'integer',
                 'group' => 'varios',
                 'autoload' => true,
@@ -320,14 +320,14 @@ class Installer
             ],
             [
                 'key' => 'proposals-launch',
-                'value' => '2023-05-31 07:00:00',
+                'value' => '2024-05-17 07:00:00',
                 'type' => 'date',
                 'group' => 'varios',
                 'autoload' => true,
             ],
             [
                 'key' => 'proposals-deadline',
-                'value' => '2023-06-10 23:59:59',
+                'value' => '2023-07-10 23:59:59',
                 'type' => 'date',
                 'group' => 'varios',
                 'autoload' => true,
@@ -341,14 +341,14 @@ class Installer
             ],  
             [
                 'key' => 'vote-launch',
-                'value' => '2023-07-03 07:00:00',
+                'value' => '2024-07-03 07:00:00',
                 'type' => 'date',
                 'group' => 'varios',
                 'autoload' => true,
             ],
             [
                 'key' => 'vote-deadline',
-                'value' => '2023-08-18 23:59:59',
+                'value' => '2024-08-18 23:59:59',
                 'type' => 'date',
                 'group' => 'varios',
                 'autoload' => true,

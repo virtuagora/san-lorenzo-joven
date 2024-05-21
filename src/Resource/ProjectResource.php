@@ -166,7 +166,6 @@ class ProjectResource extends ContainerClient
 				'benefited_population',
 				'benefited_districts',
 				'budget',
-				'community_contributions',
 				'description',
 				'district_id',
 				'name',

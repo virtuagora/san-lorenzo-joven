@@ -118,8 +118,8 @@
         </p>
       {% endfor %}
     {% endif %}
-    <h1 class="title is-5">¿Requiere de aportes de otras instituciones u organizaciones? ¿Cuáles?</h1>
-    <p class="">{{proyecto.community_contributions|nl2br}}</p>
+    {# <h1 class="title is-5">¿Requiere de aportes de otras instituciones u organizaciones? ¿Cuáles?</h1>
+    <p class="">{{proyecto.community_contributions|nl2br}}</p> #}
     {% if (is_state('pre-vote') or is_state('vote') or is_state('pre-results') or is_state('results')) and proyecto.feasible is defined %}
     <h1 class="title is-5">Sentencia factibilidad</h1>
     <h1 class="subtitle is-7 is-300">Dictado por la Municipalidad de San Lorenzo</h1>

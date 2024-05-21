@@ -1,0 +1,21 @@
+<div class="hero is-primary is-medium has-image-background" style="background-image: url({{asset('img/ig-bg.png')}})">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title is-3">
+        <i class="fab fa-instagram fa-2x"></i><br>
+        {% if is_state('upload-proposals') %}
+          Si necesitas ayuda para subir tu proyecto,
+        {% elseif is_state('vote') %}
+          Si querés votar y necesitás ayuda,
+        {% else %}
+          ¡Estamos para ayudarte!
+        {% endif %}
+        <br>¡Contactanos por Instagram!
+      </h1>
+      <p class="is-size-5 is-500">¡Te acompañamos y asesoramos en todo lo que necesites, mandanos un mensaje a nuestro Instagram de Presupuesto Participativo!</p>  
+      <br>
+      <a href="https://www.instagram.com/ppjoven.sl" class="button is-white is-medium is-size-3-desktop is-size-4-tablet is-size-5-mobile is-700">
+        <i class="fab fa-instagram has-text-danger"></i>&nbsp;@PPJOVEN.SL</a>
+    </div>
+  </div>
+</div>
