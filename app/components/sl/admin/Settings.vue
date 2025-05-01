@@ -17,6 +17,22 @@
     <change-state :currentState="theSettings['current-state'].value" :states="theSettings['states'].value"></change-state>
     <hr>
     <h1 class="title is-4">
+      <i class="fas fa-arrow-right fa-fw"></i> Habilitar/Deshabilitar el registro de nuevos usuarios</h1>
+    <h2 class="subtitle is-6">
+      Active esta opcion para habilitar o deshabilitar el registro de nuevos usuarios. 
+      <i class="fas fa-exclamation-triangle fa-fw"></i> Nota: Al modificar este dato, tu sesión se cerrará, tendras que volver a loguearte.
+    </h2>
+    <allow-signup :value="theSettings['allow-signup'].value"></allow-signup>
+    <hr>
+    <h1 class="title is-4">
+      <i class="fas fa-arrow-right fa-fw"></i> Mensaje en caso de no permitir el registro de nuevos usuarios</h1>
+      <h2 class="subtitle is-6">
+        Deje un mensaje por default, como "En este momento no se permite el registro de nuevos usuarios"
+      <i class="fas fa-exclamation-triangle fa-fw"></i> Nota: Al modificar este dato, tu sesión se cerrará, tendras que volver a loguearte.
+    </h2>
+    <no-signup-message :value="theSettings['no-signup-message'].value"></no-signup-message>
+    <hr>
+    <h1 class="title is-4">
       <i class="fas fa-arrow-right fa-fw"></i> Comienzo de la subida de propuestas</h1>
     <h2 class="subtitle is-6">
       Aquí pueden modificar la fecha en que abre el formulario para subir propuestas.
@@ -119,6 +135,8 @@ import ShowResults from "./settings/ShowResults";
 import BudgetLimit from "./settings/BudgetLimit";
 import Calendar from "./settings/Calendar";
 import RefreshCache from "./settings/RefreshCache";
+import AllowSignup from "./settings/AllowSignup";
+import NoSignupMessage from "./settings/NoSignupMessage";
 import Rain from "./settings/Rain";
 
 export default {
@@ -135,6 +153,8 @@ export default {
     ShowResults,
     BudgetLimit,
     Calendar,
+    AllowSignup,
+    NoSignupMessage,
     RefreshCache,
     Rain
   },

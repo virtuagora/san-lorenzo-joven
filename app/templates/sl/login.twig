@@ -32,7 +32,9 @@
               google-key="{{googleKey}}" error="{{error}}"
               sign-up-url="{{ path_for('runNewPendingUser') }}"
               reset-password="{{path_for('runResetPassword')}}"
-              home-url="{{path_for('showHome')}}">
+              home-url="{{path_for('showHome')}}"
+              allow-sign-up="{{is_signup_open()}}"
+              no-signup-message="{{options()['no-signup-message']}}">
                 {% include 'loading.twig' %}
               </login>
               <br>

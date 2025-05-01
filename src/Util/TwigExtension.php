@@ -44,6 +44,7 @@ class TwigExtension extends Twig_Extension
             new Twig_SimpleFunction('citizen', array($this, 'getCitizen')),
             new Twig_SimpleFunction('is_state', array($this, 'isState')),
             new Twig_SimpleFunction('get_state', array($this, 'getState')),
+            new Twig_SimpleFunction('is_signup_open', array($this, 'isSignUpOpen')),
         ];
     }
 
@@ -196,4 +197,11 @@ class TwigExtension extends Twig_Extension
     public function showResults(){
         return $this->options->getOption('current-state')->value == 'results';
     }
+
+    public function isSignUpOpen(){
+        // dump the value for debug 
+        return $this->options->getOption('allow-signup')->value;
+    }
+    
+
 }

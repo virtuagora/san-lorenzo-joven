@@ -15,6 +15,8 @@ class Updater
 
     public function up()
     {
+
+
         // $this->db->schema()->create('project_benefited_districts', function ($table) {
         //     $table->engine = 'InnoDB';
         //     $table->increments('id');
@@ -44,9 +46,9 @@ class Updater
         //     $t->boolean('sent')->nullable(); // false -> invalid
         // });
 
-        $this->schema->table('online_ballots', function($t) {
-            $t->integer('count')->unsigned();
-        });
+        // $this->schema->table('online_ballots', function($t) {
+        //     $t->integer('count')->unsigned();
+        // });
 
         // $this->schema->create('online_votes', function ($t) {
         //     $t->engine = 'InnoDB';
@@ -73,5 +75,29 @@ class Updater
         //     $t->text('extra')->nullable();
         //     $t->timestamps();
         // });
+
+        // 2025-05-01 Added to optios table "allow-signup" and "no-signup-message"
+        $alreadyExists = $this->db->table('options')->where('key', 'allow-signup')->first();
+        if(!$alreadyExists){
+            $this->db->table('options')->insert([
+                'key' => 'allow-signup',
+                'value' => 'true',
+                'type' => 'boolean',
+                'group' => 'varios',
+                'autoload' => true,
+            ]);
+        }
+        
+        $alreadyExists = $this->db->table('options')->where('key', 'no-signup-message')->first();
+        if(!$alreadyExists){
+            $this->db->table('options')->insert([
+                'key' => 'no-signup-message',
+                'value' => 'Este año, no es necesario registrarse para subir el proyecto. Participá en las convocatorias presenciales para presentar tu proyecto o contactate con el equipo de Presupuesto Participativo Joven del Municipio de San Lorenzo.',
+                'type' => 'string',
+                'group' => 'varios',
+                'autoload' => true,
+            ]);
+        }
+
     }
 }

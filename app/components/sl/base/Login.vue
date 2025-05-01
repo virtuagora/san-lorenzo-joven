@@ -34,17 +34,24 @@
       </div>
       </form>
       <br>
-      <div class="strike">
-        <span class="is-size-5">¿Aún no te hiciste una cuenta?</span>
+      <div v-if="allowSignUp == '1'">
+        <div class="strike">
+          <span class="is-size-5">¿Aún no te hiciste una cuenta?</span>
+        </div>
+        <br>
+        <div class="field">
+          <div class="control">
+            <button @click="register = true" class="button is-link is-medium is-fullwidth">
+              <i class="fas fa-user-plus fa-fw fa-lg"></i>
+              &nbsp;&nbsp;¡Registrate!
+            </button>
+            <br>
+          </div>
+        </div>
       </div>
-      <br>
-      <div class="field">
-        <div class="control">
-          <button @click="register = true" class="button is-link is-medium is-fullwidth">
-            <i class="fas fa-user-plus fa-fw fa-lg"></i>
-            &nbsp;&nbsp;¡Registrate!
-          </button>
-          <br>
+      <div v-else>
+        <div class="notification is-warning is-size-7">
+          <i class="fas fa-exclamation-triangle fa-fw"></i> {{ noSignupMessage }}
         </div>
       </div>
     </div>
@@ -58,7 +65,7 @@
 import RegistroEmail from "./RegistroEmail";
 import ResetPassword from "./ResetPassword";
 export default {
-  props: ["message", "loginUrl", 'googleKey', "signUpUrl", "homeUrl", "resetPassword", "error"],
+  props: ["message", "loginUrl", 'googleKey', "signUpUrl", "homeUrl", "resetPassword", "error", "allowSignUp", "noSignupMessage"],
   components: {
     RegistroEmail,
     ResetPassword
