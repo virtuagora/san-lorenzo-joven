@@ -25,19 +25,20 @@
         </div>
       </div>
     </div> -->
-    <div class="card">
-      <div class="card-content">
-        <article class="media" v-for="proyecto in visibleProjects" :key="proyecto.id">
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); grid-gap: 1rem;">
+      <div class="card" v-for="proyecto in visibleProjects" :key="proyecto.id" style="">
+        <div class="card-content media">  
           <div class="media-left">
             <h1 class="title is-2 is-marginless is-checkbox" :class="colorChecked(proyecto.id)">
               <i :class="isChecked(proyecto.id)" @click="toggleCheckbox(proyecto)"></i>
             </h1>
           </div>
           <div class="media-content">
+            <span class="tag tag-code">{{proyecto.code}}</span>
             <h1 class="title is-4 is-marginless" :class="colorChecked(proyecto.id)">{{proyecto.name}}</h1>
             <p class="some-good-effects"><span class="is-600">{{getWho(proyecto)}}</span>{{getShortDescription(proyecto.objective,150)}}</p>
           </div>
-          <div class="media-right">
+          <!-- <div class="media-right">
             <div class="control">
               <div class="tags has-addons">
                 <span class="tag is-dark">
@@ -49,8 +50,8 @@
             <div class="control">
               <span class="tag is-light" style="width: 100%;">{{proyecto.code}}</span>
             </div>
-          </div>
-        </article>
+          </div> -->
+        </div>
       </div>
     </div>
     <hr>
@@ -179,6 +180,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.card{
+  border: 1px solid #3d3d3d;  
+}
+.tag-code{
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  background-color: #3d3d3d;
+  font-weight: 600;
+  border-radius: 0;
+  border-bottom-left-radius: 0.25rem;
+  color: #FFF;
+}
+.tab-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 1rem;
+}
 .media-right .control {
   margin: 1px 0;
 }
