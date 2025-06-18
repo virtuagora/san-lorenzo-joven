@@ -352,8 +352,8 @@ class AdminAction
         $cantVotosTotal = $this->db->query('App:OnlineVote')->count();
         $cantVotantes = $this->db->query('App:OnlineBallot')->count();
         $votosOnlinePerDay = $this->db->table('online_ballots')
-            ->groupBy($this->db->getDatabaseManager()->raw('DATE(created_at)'))
-            ->selectRaw('DATE(created_at) as date, COUNT(*) as votes, SUM(count) as count')
+            ->groupBy($this->db->getDatabaseManager()->raw("DATE(CONVERT_TZ(created_at, '+00:00', '-03:00'))"))
+            ->selectRaw("DATE(CONVERT_TZ(created_at, '+00:00', '-03:00')) as date, COUNT(*) as votes, SUM(count) as count")
             ->get()
             ->keyBy('date');
 
